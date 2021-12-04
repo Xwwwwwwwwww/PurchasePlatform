@@ -1,0 +1,36 @@
+server:
+  port: 6666
+spring:
+  application:
+    name: springboot-mybatis-plus
+  # ?????
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ?????????
+    druid:
+        username: root
+        password: msf123
+        url: jdbc:mysql://localhost/purchaseplatform?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&serverTimezone=GMT&allowPublicKeyRetrieval=true&allowMultiQueries=true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password:
+mybatis:
+  configuration:
+    settings: use
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #??sql??
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  global-config:
+    db-config:
+      logic-delete-field: flag  # ????????????(since 3.3.0,????????????2)
+      logic-delete-value: 1 # ??????(??? 1)
+      logic-not-delete-value: 0 # ??????(??? 0)
+
+
+
+
