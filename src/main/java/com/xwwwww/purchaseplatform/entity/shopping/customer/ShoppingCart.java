@@ -3,9 +3,18 @@ import lombok.Data;
 
 @Data
 public class ShoppingCart {
-private int id;
-private int commodityid;
-private int quantity;
-private int sizeSystem;
-private int size;
+    // id
+    private int id;
+
+    //商品id
+    private int commodityid;
+
+    //数量
+    private int quantity;
+
+    //类型从属
+    private int sizeSystem;
+
+    //类型
+    private int size;
 }

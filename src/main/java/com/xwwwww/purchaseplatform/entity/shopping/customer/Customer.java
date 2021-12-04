@@ -26,7 +26,7 @@ public class Customer {
     //密码
     private  String password;
 
-    //所属企业id
+    //从属企业id
     private  int belongingEnterprise;
 
     //帐号状态

@@ -3,7 +3,12 @@ import lombok.Data;
 
 @Data
 public class Size {
-private int id;
-private int belongingSystem;
-private String describe;
+    // id
+    private int id;
+
+    // 系统从属
+    private int belongingSystem;
+
+    // 描述
+    private String describe;
 }
