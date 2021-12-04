@@ -1,5 +1,5 @@
 server:
-  port: 6666
+  port: 8088
 spring:
   application:
     name: springboot-mybatis-plus
@@ -10,7 +10,7 @@ spring:
     # ?????????
     druid:
         username: root
-        password: msf123
+        password: 85961030
         url: jdbc:mysql://localhost/purchaseplatform?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&serverTimezone=GMT&allowPublicKeyRetrieval=true&allowMultiQueries=true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
