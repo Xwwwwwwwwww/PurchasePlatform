@@ -3,11 +3,13 @@ import lombok.Data;
 
 @Data
 public class DeliveryAddress {
- //
- private int id;
- //
- private int customerid;
- //
- private String deliveryaddress;
+     // id
+     private int id;
+
+     //买家id
+     private int customerid;
+
+     //收货地址
+     private String deliveryaddress;
 
 }

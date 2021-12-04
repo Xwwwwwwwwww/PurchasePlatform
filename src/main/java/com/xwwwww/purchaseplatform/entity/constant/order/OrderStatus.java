@@ -3,6 +3,9 @@ import lombok.Data;
 
 @Data
 public class OrderStatus {
-private int id;
-private String describe;
+    // id
+    private int id;
+
+    // 描述
+    private String describe;
 }
