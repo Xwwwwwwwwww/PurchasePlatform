@@ -12,7 +12,8 @@ public class Customer {
     private String nickName;
 
     //头像url
-    private String avatarURL;
+    //这里不要用URL，否则会变得不幸 ---lgr
+    private String avatarUrl;
 
     //餐卡余额
     private  double cardBalance;

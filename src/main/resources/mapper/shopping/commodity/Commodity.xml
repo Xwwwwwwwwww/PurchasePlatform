@@ -5,6 +5,5 @@
 <mapper namespace="com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper">
     <select id="getById" parameterType="Integer" resultType="com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity">
         select * from commodity where id=#{id}
-
     </select>
 </mapper>

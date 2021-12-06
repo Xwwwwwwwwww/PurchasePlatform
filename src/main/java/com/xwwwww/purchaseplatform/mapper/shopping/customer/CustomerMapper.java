@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CustomerMapper extends BaseMapper<Customer> {
+    public Customer getByNickName(String nickName);
 }

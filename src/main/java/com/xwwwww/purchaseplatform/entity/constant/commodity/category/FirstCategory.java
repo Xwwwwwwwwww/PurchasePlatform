@@ -6,6 +6,6 @@ public class FirstCategory {
     // id
     private int id;
 
-    //分类名
+    // 分类名
     private String categoryName;
 }
