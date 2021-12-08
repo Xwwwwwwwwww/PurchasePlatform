@@ -8,6 +8,8 @@ import com.xwwwww.purchaseplatform.mapper.shopping.customer.SearchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/shopping")
 public class CommodityController {
@@ -36,6 +38,18 @@ public class CommodityController {
     @PutMapping("/commodity")
     public int updateCommodity(Commodity commodity) throws  Exception{
         return commodityMapper.updateById(commodity);
+    }
+
+    /**
+     *
+     * @return list
+     * @throws Exception
+     * 查询所有商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/all")
+    public List<Commodity> getAllCommodity() throws Exception{
+        return commodityMapper.selectList(null);
     }
 }
 

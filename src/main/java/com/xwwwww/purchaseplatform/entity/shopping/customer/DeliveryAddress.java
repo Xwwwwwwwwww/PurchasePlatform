@@ -7,9 +7,9 @@ public class DeliveryAddress {
      private int id;
 
      //买家id
-     private int customerid;
+     private int customerId;
 
      //收货地址
-     private String deliveryaddress;
+     private String deliveryAddress;
 
 }

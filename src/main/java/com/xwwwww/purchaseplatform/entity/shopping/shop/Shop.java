@@ -11,7 +11,7 @@ public class Shop {
     private String name;
 
     //店主id
-    private int shopkeeperid;
+    private int shopkeeperId;
 
     //企业从属
     private int belongingEnterprise;

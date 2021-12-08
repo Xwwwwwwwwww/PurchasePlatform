@@ -3,10 +3,10 @@ import lombok.Data;
 @Data
 public class Order {
     //账号id
-    private int customerid;
+    private int customerId;
 
     //商品id
-    private int commodityid;
+    private int commodityId;
 
     //数量
     private int quantity;

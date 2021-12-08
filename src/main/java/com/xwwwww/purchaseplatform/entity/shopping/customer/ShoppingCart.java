@@ -6,8 +6,11 @@ public class ShoppingCart {
     // id
     private int id;
 
+    //顾客id
+    private int customerId;
+
     //商品id
-    private int commodityid;
+    private int commodityId;
 
     //数量
     private int quantity;
