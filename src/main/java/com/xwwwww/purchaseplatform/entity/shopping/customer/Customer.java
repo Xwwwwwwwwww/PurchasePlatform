@@ -12,7 +12,7 @@ public class Customer {
     private String nickName;
 
     //头像url
-    //这里不要用URL，否则会变得不幸 ---lgr
+    //这里不要写成URL，否则会变得不幸 ---lgr
     private String avatarUrl;
 
     //餐卡余额

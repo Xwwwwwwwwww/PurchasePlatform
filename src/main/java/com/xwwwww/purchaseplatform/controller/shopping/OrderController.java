@@ -23,6 +23,21 @@ public class OrderController {
         return orderMapper.selectList(queryWrapper);
     }
 
+    /**
+     *
+     * @param order_status
+     * @return list
+     * @throws Exception
+     * 根据订单状态获取订单
+     */
+    @ResponseBody
+    @GetMapping("/order/status")
+    public List<Order> getOrderByStatus(int order_status) throws Exception{
+        QueryWrapper<Order> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("order_status",order_status);
+        return orderMapper.selectList(queryWrapper);
+    }
+
     @ResponseBody
     @PostMapping("/order")
     public int insertShoppingCart(Order order) throws Exception{
