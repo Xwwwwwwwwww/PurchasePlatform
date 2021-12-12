@@ -1,6 +1,7 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Order;
 import com.xwwwww.purchaseplatform.entity.shopping.shop.Shop;
 import com.xwwwww.purchaseplatform.mapper.shopping.shop.ShopMapper;
@@ -17,8 +18,17 @@ public class ShopController {
 
     @ResponseBody
     @GetMapping("/shop")
-    public Shop getOrderByCustomerId(int id) throws Exception {
+    public Shop getShopById(int id) throws Exception {
        return shopMapper.selectById(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/shop/name")
+    public List<Shop> getShopByName(String name) throws Exception{
+        QueryWrapper<Shop> queryWrapper=new QueryWrapper<>();
+        //模糊查询：%value%
+        queryWrapper.like("name",name);
+        return shopMapper.selectList(queryWrapper);
     }
 
     @ResponseBody

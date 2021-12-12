@@ -1,5 +1,6 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Search;
@@ -17,9 +18,40 @@ public class CommodityController {
     CommodityMapper commodityMapper;
 
     @ResponseBody
-    @GetMapping("/commodity")
+    @GetMapping("/commodity/id")
     public Commodity getCommodityByid(int id) throws Exception{
         return commodityMapper.getById(id);
+    }
+
+    /**
+     *
+     * @param name
+     * @return list
+     * @throws Exception
+     * 在网站的搜索栏中输入商品的关键字
+     */
+    @ResponseBody
+    @GetMapping("/commodity/name")
+    public List<Commodity> getCommodityByName(String name) throws Exception{
+        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
+        //模糊查询：%value%
+        queryWrapper.like("name",name);
+        return commodityMapper.selectList(queryWrapper);
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     * @throws Exception
+     * 根据店铺名查询商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/shop")
+    public List<Commodity> getCommodityByShop(String name) throws Exception{
+        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("name",name);
+        return commodityMapper.selectList(queryWrapper);
     }
 
     @ResponseBody
