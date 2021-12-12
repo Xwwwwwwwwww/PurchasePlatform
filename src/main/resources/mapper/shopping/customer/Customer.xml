@@ -6,4 +6,12 @@
     <select id="getByNickName" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
         select * from customer where nick_Name=#{nickName}
     </select>
+
+    <select id="login" parameterType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
+        select * from customer where phoneNumber=#{phoneNumber} and password=#{password}
+    </select>
+
+    <select id="getByPhoneNumber" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
+        select * from customer where phoneNumber=#{phoneNumber}
+    </select>
 </mapper>

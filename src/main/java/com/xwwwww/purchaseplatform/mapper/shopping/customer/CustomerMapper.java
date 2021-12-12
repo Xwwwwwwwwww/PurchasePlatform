@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CustomerMapper extends BaseMapper<Customer> {
     public Customer getByNickName(String nickName);
+
+    public Customer login(Customer customer);
+
+    public Customer getByPhoneNumber(String phoneNumber);
 }
