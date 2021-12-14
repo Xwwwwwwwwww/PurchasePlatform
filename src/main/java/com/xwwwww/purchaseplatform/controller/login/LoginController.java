@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -20,8 +21,7 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping("/login")
-    public Result login(Customer customer, HttpServletResponse response, HttpServletRequest request) throws Exception{
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public Result login(Customer customer) throws Exception{
         return  loginService.login(customer);
     }
 }

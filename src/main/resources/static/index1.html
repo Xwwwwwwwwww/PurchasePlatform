@@ -18,50 +18,45 @@
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1) c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="login.html";
+        }
         window.onload = function(){
-            var login_button = document.getElementById("login_button");
-            var user = document.getElementById("user_input");
-            var password = document.getElementById("password_input");
-            var httpUrl = "http://localhost:8088/login/login";
-            var chose = 0;
+            var httpUrl = "http://localhost:8088/html/index";
+            if(document.cookie)
+                console.log(document.cookie);
+            console.log(getCookie("token"));
+
             //按钮点击函数
             login_button.onclick = function(){
 
-                //搞到用户名密码并且组装
-                var user_name = user.value;
-                var user_password = password.value;
-
-                console.log(user_name);
-                console.log(user_password);
-
                 //发送请求
                 $.ajax({
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    type: "POST",
+                    // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                    type: "GET",
                     url: httpUrl,
-                    data: { "phoneNumber": user_name,"password": user_password},
-                    dataType: "json",
-                    // xhrFields: {
-                    //     withCredentials: true
-                    // },
                     success: function (data) {
                         console.log(data);
                         alert(data.message);
-
-
-                        //判断登陆成功则跳转
-                        if(data.code == 0){
-                            document.cookie = "token="+data.data+";path=/";
-                            console.log(document.cookie);
-
-                            window.location.href="index1.html";
-                        }
                     },
                     error : function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(XMLHttpRequest.responseText);
                         console.log(XMLHttpRequest.status);
                         console.log(XMLHttpRequest.readyState);
-                        console.log(textStatus); // parser error;
+                        console.log(textStatus);
                     }
 
                 })
