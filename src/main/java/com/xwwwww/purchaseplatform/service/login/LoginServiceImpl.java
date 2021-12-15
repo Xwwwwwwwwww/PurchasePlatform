@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-
     @Autowired
     CustomerMapper customerMapper;
 
     @Override
     public Result login(Customer customer) throws Exception{
-        if(customerMapper.login(customer)!=null)return Result.SUCCESS(AesUtils.encrypt(customer.getPhoneNumber()));
-        else return new Result(ResultCode.USER_LOGIN_ERROR,"error");
+        if(customerMapper.login(customer)!=null)
+            return Result.SUCCESS(AesUtils.encrypt(customer.getPhoneNumber()));
+        else
+            return new Result(ResultCode.USER_LOGIN_ERROR,"error");
     }
 }

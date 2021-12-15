@@ -8,10 +8,14 @@
     </select>
 
     <select id="login" parameterType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
-        select * from customer where phoneNumber=#{phoneNumber} and password=#{password}
+        select * from customer where phone_Number=#{phoneNumber} and password=#{password}
     </select>
 
     <select id="getByPhoneNumber" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
-        select * from customer where phoneNumber=#{phoneNumber}
+        select * from customer where phone_Number=#{phoneNumber}
+    </select>
+
+    <select id="getByNickNameAndStatus"   resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
+        select * from customer where nick_Name=#{nickName} and customer_status=#{status}
     </select>
 </mapper>

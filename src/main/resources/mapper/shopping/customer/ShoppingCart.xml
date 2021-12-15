@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCartMapper">
-
+    <select id="deleteOneItem">
+        delete from shopping_cart where customer_Id=#{customerId} and commodity_Id=#{commodityId}
+    </select>
 </mapper>
 

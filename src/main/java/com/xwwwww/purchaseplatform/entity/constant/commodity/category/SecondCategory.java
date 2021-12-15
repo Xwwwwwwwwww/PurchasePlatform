@@ -1,6 +1,8 @@
 package com.xwwwww.purchaseplatform.entity.constant.commodity.category;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SecondCategory {
     // id

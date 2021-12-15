@@ -41,9 +41,6 @@
                     url: httpUrl,
                     data: { "phoneNumber": user_name,"password": user_password},
                     dataType: "json",
-                    // xhrFields: {
-                    //     withCredentials: true
-                    // },
                     success: function (data) {
                         console.log(data);
                         alert(data.message);

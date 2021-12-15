@@ -76,6 +76,4 @@ public class ShoppingCartController {
     public List<ShoppingCart> getAllShoppingCarts() throws Exception{
         return shoppingCartMapper.selectList(null);
     }
-
-
 }

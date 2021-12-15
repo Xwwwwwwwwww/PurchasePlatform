@@ -11,4 +11,7 @@ public class ThirdCategory {
 
     //分类从属
     private int belongingCategory;
+
+    //图片url
+    private String image_url;
 }

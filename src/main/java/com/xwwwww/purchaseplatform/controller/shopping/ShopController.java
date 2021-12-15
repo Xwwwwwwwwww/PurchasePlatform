@@ -1,8 +1,6 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
-import com.xwwwww.purchaseplatform.entity.shopping.order.Order;
 import com.xwwwww.purchaseplatform.entity.shopping.shop.Shop;
 import com.xwwwww.purchaseplatform.mapper.shopping.shop.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;

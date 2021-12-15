@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
+import com.xwwwww.purchaseplatform.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,30 +14,30 @@ import java.util.List;
 @RequestMapping("/shopping")
 public class CustomerController {
     @Autowired
-    CustomerMapper customerMapper;
+    CustomerService customerService;
 
     @ResponseBody
     @GetMapping("/customer")
     public Customer getCustomerByNickName(String nickName) throws Exception{
-        return customerMapper.getByNickName(nickName);
+        return customerService.getCustomerByNickName(nickName);
     }
 
     @ResponseBody
     @PostMapping("/customer")
     public int insertCustomer(Customer customer) throws  Exception{
-        return customerMapper.insert(customer);
+        return customerService.insertCustomer(customer);
     }
 
     @ResponseBody
     @PutMapping("/customer")
     public int updateCustomer(Customer customer) throws  Exception{
-        return customerMapper.updateById(customer);
+        return customerService.updateCustomer(customer);
     }
 
     @ResponseBody
     @DeleteMapping("/customer")
     public int deleteCustomerByid(int id) throws Exception{
-        return customerMapper.deleteById(id);
+        return customerService.deleteCustomerByid(id);
     }
 
     /**
@@ -48,7 +49,7 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
-        return customerMapper.selectList(null);
+        return customerService.getAllCustomers();
     }
 
     /**
@@ -60,10 +61,7 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
-        QueryWrapper<Customer> customerQueryWrapper=new QueryWrapper<>();
-        //身份编号是0代表普通员工
-        customerQueryWrapper.eq("identity",0);
-        return customerMapper.selectList(customerQueryWrapper);
+        return customerService.getAllUsers();
     }
 
     /**
@@ -75,9 +73,6 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/customer/all/companystaff")
     public List<Customer> getAllCompanyStaff() throws Exception{
-        QueryWrapper<Customer> customerQueryWrapper=new QueryWrapper<>();
-        //身份编号是1代表企业员工
-        customerQueryWrapper.eq("identity",1);
-        return customerMapper.selectList(customerQueryWrapper);
+        return customerService.getAllCompanyStaff();
     }
 }

@@ -1,8 +1,7 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCart;
-import com.xwwwww.purchaseplatform.entity.shopping.order.Order;
+import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
 import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +16,8 @@ public class OrderController {
 
     @ResponseBody
     @GetMapping("/order")
-    public List<Order> getOrderByCustomerId(int customer_id) throws Exception {
-        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+    public List<Orders> getOrderByCustomerId(int customer_id) throws Exception {
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("customer_id", customer_id);
         return orderMapper.selectList(queryWrapper);
     }
@@ -32,15 +31,15 @@ public class OrderController {
      */
     @ResponseBody
     @GetMapping("/order/status")
-    public List<Order> getOrderByStatus(int order_status) throws Exception{
-        QueryWrapper<Order> queryWrapper=new QueryWrapper<>();
+    public List<Orders> getOrderByStatus(int order_status) throws Exception{
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("order_status",order_status);
         return orderMapper.selectList(queryWrapper);
     }
 
     @ResponseBody
     @PostMapping("/order")
-    public int insertShoppingCart(Order order) throws Exception{
+    public int insertShoppingCart(Orders order) throws Exception{
         return orderMapper.insert(order);
     }
 
@@ -52,7 +51,7 @@ public class OrderController {
 
     @ResponseBody
     @PutMapping("/order")
-    public int updateShoppingCart(Order order) throws  Exception{
+    public int updateShoppingCart(Orders order) throws  Exception{
         return orderMapper.updateById(order);
     }
 
@@ -64,8 +63,7 @@ public class OrderController {
      */
     @ResponseBody
     @GetMapping("/order/all")
-    public List<Order> getAllOrder() throws Exception{
+    public List<Orders> getAllOrder() throws Exception{
         return orderMapper.selectList(null);
     }
-
 }

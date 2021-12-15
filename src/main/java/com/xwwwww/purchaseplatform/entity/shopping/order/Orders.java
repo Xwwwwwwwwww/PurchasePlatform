@@ -1,7 +1,10 @@
 package com.xwwwww.purchaseplatform.entity.shopping.order;
 import lombok.Data;
 @Data
-public class Order {
+public class Orders {
+    //id
+    private int id;
+
     //账号id
     private int customerId;
 

@@ -28,16 +28,16 @@ public class Commodity {
     private int stock;
 
     //缩略图链接
-    private String thumbnailURL;
+    private String thumbnailUrl;
 
     //轮换链接
-    private String rotationURL;
+    private String rotationUrl;
 
     //轮换号
     private int rotationNumber;
 
     //详情链接
-    private String detailsURL;
+    private String detailsUrl;
 
     //详情编号
     private int detailsNumber;
