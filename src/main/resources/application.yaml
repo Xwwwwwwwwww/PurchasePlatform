@@ -10,7 +10,7 @@ spring:
     # ?????????
     druid:
         username: root
-        password: 85961030
+        password: 123456
         url: jdbc:mysql://localhost/purchaseplatform?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&serverTimezone=GMT&allowPublicKeyRetrieval=true&allowMultiQueries=true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
