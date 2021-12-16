@@ -9,6 +9,9 @@ public class Second {
     //第二级的编号
     private int secondId;
 
+    // 分类名
+    private String categoryName;
+
     // 下属的第三级的列表
     private List<ThirdCategory> ThirdCategoryList;
 }

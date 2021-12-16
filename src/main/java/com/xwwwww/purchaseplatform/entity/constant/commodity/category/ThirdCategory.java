@@ -13,5 +13,5 @@ public class ThirdCategory {
     private int belongingCategory;
 
     //图片url
-    private String image_url;
+    private String imageUrl;
 }

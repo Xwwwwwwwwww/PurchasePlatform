@@ -44,7 +44,8 @@ public class DisplayCategoryServiceImpl implements DisplayCategoryService{
             QueryWrapper<ThirdCategory> thirdCategoryQueryWrapper = new QueryWrapper<>();
             thirdCategoryQueryWrapper.eq("belonging_Category", secondId);
             List<ThirdCategory> thirdCategoryList = thirdCategoryMapper.selectList(thirdCategoryQueryWrapper);
-            second.setSecondId(secondId);
+            second.setSecondId(secondCategory.getId());
+            second.setCategoryName(secondCategory.getCategoryName());
             second.setThirdCategoryList(thirdCategoryList);
             secondList.add(second);
         }
