@@ -1,11 +1,16 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
+import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
+import com.xwwwww.purchaseplatform.service.data.OrdersService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -13,6 +18,12 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderMapper orderMapper;
+
+    @Autowired
+    CommodityMapper commodityMapper;
+
+    @Autowired
+    OrdersService ordersService;
 
     @ResponseBody
     @GetMapping("/order")
@@ -65,5 +76,18 @@ public class OrderController {
     @GetMapping("/order/all")
     public List<Orders> getAllOrder() throws Exception{
         return orderMapper.selectList(null);
+    }
+
+    /**
+     *
+     * @param shopId
+     * @return
+     * @throws Exception
+     * 查询某家店铺的所有订单
+     */
+    @ResponseBody
+    @GetMapping("/order/shop")
+    public Result getOrderByShop(int shopId) throws Exception {
+        return ordersService.getOrdersByShop(shopId);
     }
 }

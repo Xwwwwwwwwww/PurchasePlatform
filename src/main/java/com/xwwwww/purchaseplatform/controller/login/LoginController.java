@@ -1,6 +1,7 @@
 package com.xwwwww.purchaseplatform.controller.login;
 
 
+import com.xwwwww.purchaseplatform.entity.administration.administrator.PlatformAdministrator;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.service.login.LoginService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
@@ -19,8 +20,13 @@ public class LoginController {
     private LoginService loginService;
 
     @ResponseBody
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public Result login(Customer customer) throws Exception{
         return  loginService.login(customer);
+    }
+    @ResponseBody
+    @PostMapping("/platformAdministrator/login")
+    public Result login(PlatformAdministrator platformAdministrator) throws Exception{
+        return  loginService.login(platformAdministrator);
     }
 }
