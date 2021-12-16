@@ -10,5 +10,5 @@ public class Size {
     private int belongingSystem;
 
     // 描述
-    private String describe;
+    private String describes;
 }

@@ -40,7 +40,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
             shoppingCartDisplay.setShopName(commodity.getBelongingShopName());
             shoppingCartDisplay.setCommodityName(commodity.getName());
             shoppingCartDisplay.setQuantity(shoppingCart.getQuantity());
-            shoppingCartDisplay.setSize(sizeMapper.selectById(shoppingCart.getSize()).getDescribe());
+            shoppingCartDisplay.setSize(sizeMapper.selectById(shoppingCart.getSize()).getDescribes());
             shoppingCartDisplay.setCommodityUrl(commodity.getThumbnailUrl());
             shoppingCartDisplay.setSizeSystem(shoppingCart.getSizeSystem());
             shoppingCartDisplayList.add(shoppingCartDisplay);
