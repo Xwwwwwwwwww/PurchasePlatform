@@ -5,8 +5,11 @@ import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface CustomerMapper extends BaseMapper<Customer> {
+
     public Customer getByNickName(String nickName);
 
     public Customer login(Customer customer);
