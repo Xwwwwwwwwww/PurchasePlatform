@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/shopping")
 public class ShoppingCartController {
     @Autowired
-    ShoppingCartMapper shoppingCartMapper;
+    private ShoppingCartMapper shoppingCartMapper;
 
     @Autowired
-    ShoppingCartService shoppingCartService;
+    private ShoppingCartService shoppingCartService;
 
     /**
      *
@@ -48,8 +48,7 @@ public class ShoppingCartController {
         shoppingCartQueryWrapper.eq("commodity_id",commodity_id);
         return shoppingCartMapper.selectList(shoppingCartQueryWrapper);
     }
-
-
+    
     @ResponseBody
     @PostMapping("/shoppingCart")
     public int insertShoppingCart(ShoppingCart shoppingCart) throws Exception{

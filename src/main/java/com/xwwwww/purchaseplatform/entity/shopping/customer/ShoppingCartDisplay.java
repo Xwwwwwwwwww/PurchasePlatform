@@ -19,7 +19,8 @@ public class ShoppingCartDisplay {
 
     private int sizeSystem;
 
-    private int size;
+    //new 具体值
+    private String size;
 
     private int quantity;
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCart;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCartDisplay;
+import com.xwwwww.purchaseplatform.mapper.constant.commodity.size.SizeMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCartMapper;
 import com.xwwwww.purchaseplatform.utils.result.Result;
@@ -21,6 +22,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     @Autowired
     CommodityMapper commodityMapper;
 
+    @Autowired
+    SizeMapper sizeMapper;
+
     @Override
     public Result getShoppingCartByCustomerId(int customer_id) throws Exception {
         List<ShoppingCartDisplay> shoppingCartDisplayList=new ArrayList<>();    //返回的data
@@ -36,7 +40,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
             shoppingCartDisplay.setShopName(commodity.getBelongingShopName());
             shoppingCartDisplay.setCommodityName(commodity.getName());
             shoppingCartDisplay.setQuantity(shoppingCart.getQuantity());
-            shoppingCartDisplay.setSize(shoppingCart.getSize());
+            shoppingCartDisplay.setSize(sizeMapper.selectById(shoppingCart.getSize()).getDescribe());
             shoppingCartDisplay.setCommodityUrl(commodity.getThumbnailUrl());
             shoppingCartDisplay.setSizeSystem(shoppingCart.getSizeSystem());
             shoppingCartDisplayList.add(shoppingCartDisplay);
