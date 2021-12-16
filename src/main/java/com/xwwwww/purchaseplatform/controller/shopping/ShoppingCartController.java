@@ -5,6 +5,8 @@ import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCart;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCartMapper;
+import com.xwwwww.purchaseplatform.service.data.ShoppingCartService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,9 @@ public class ShoppingCartController {
     @Autowired
     ShoppingCartMapper shoppingCartMapper;
 
+    @Autowired
+    ShoppingCartService shoppingCartService;
+
     /**
      *
      * @param customer_id
@@ -25,10 +30,8 @@ public class ShoppingCartController {
      */
     @ResponseBody
     @GetMapping("/shoppingCart/customer")
-    public List<ShoppingCart> getShoppingCartByCustomerId(int customer_id) throws Exception{
-        QueryWrapper<ShoppingCart> shoppingCartQueryWrapper=new QueryWrapper<>();
-        shoppingCartQueryWrapper.eq("customer_id",customer_id);
-        return shoppingCartMapper.selectList(shoppingCartQueryWrapper);
+    public Result getShoppingCartByCustomerId(int customer_id) throws Exception{
+        return shoppingCartService.getShoppingCartByCustomerId(customer_id);
     }
 
     /**
