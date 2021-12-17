@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,10 +28,10 @@
 </head>
 <script>
     window.onload = function(){
-        var customers = document.getElementById("customers");
-        var httpUrl = "http://localhost:8088/shopping/customer/all";
+        var enterprise = document.getElementById("enterpriseinfo");
+        var httpUrl = "http://localhost:8088/html/enterprise/all";
         var chose = 0;
-
+        var delete_btn=[];
         function getCookie(c_name){
             if (document.cookie.length>0){
                 c_start=document.cookie.indexOf(c_name + "=")
@@ -61,21 +62,14 @@
             // },
             success: function (data) {
                 console.log(data);
-                var delete_btn=[];
                 for(var i=0;i<data.length;i++){
-                    customers.innerHTML+=`<tr>
+                    enterprise.innerHTML+=`<tr>
                     <td>
                     <input class="form-check-input" type="checkbox">
                         </td>
-                        <td class="avatar"><img${data[i].avatarUrl}></td>
-                        <td class="customer_id" id="customer_id">${data[i].id}</td>
-                        <td>${data[i].nickName}</td>
-                        <td>${data[i].identity}</td>
-                        <td>${data[i].phoneNumber}</td>
-                        <td>${data[i].password}</td>
-                        <td>${data[i].cardBalance}</td>
-                        <td>${data[i].belongingEnterprise}</td>
-                        <td>${data[i].customerStatus}</td>
+                        <td>${data[i].id}</td>
+
+                        <td class="enterprise_id">${data[i].name}</td>
                         <td class="text-end">
                         <div class="d-flex">
                         <div class="dropdown ms-auto">
@@ -83,17 +77,17 @@
                         <i class="bi bi-three-dots"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                        <button type="button" class="dropdown-item"  id="delete_btn${i}">删除用户</button>
+                        <button href="#" id="delete_btn${i}" class="dropdown-item">删除企业</button>
                         </div>
                         </div>
                         </div>
                         </td>
-                        </tr>`;
+                        </tr>`
                     delete_btn[i]=document.getElementById("delete_btn"+i);
                     console.log("abc"+delete_btn);
-                    var customer_id=document.getElementsByClassName("customer_id");
-                   var delete_id=customer_id[i].innerText;
-                    var httpUrl1 = "http://localhost:8088/shopping/customer";
+                    var enterprise_id=document.getElementsByClassName("enterprise_id");
+                    var delete_id=enterprise_id[i].innerText;
+                    var httpUrl1 = "http://localhost:8088/html/enterprise/delete";
                     delete_btn[i].onclick=function(){
                         //发送请求
                         $.ajax({
@@ -104,7 +98,7 @@
                             success: function (data) {
                                 console.log(data);
                                 alert(data.message);
-                                window.location.href="用户信息管理.html"
+                                window.location.href="企业信息管理.html"
                             },
                             error : function(XMLHttpRequest, textStatus, errorThrown) {
                                 alert("error!");
@@ -117,6 +111,7 @@
                         })
 
                     }
+
                 }
                 // alert(data.message);
                 //判断登陆成功则跳转
@@ -182,7 +177,7 @@
                     </ul>
             </li>
             <li>
-                <a class="active" href="#">
+                <a class="active"href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
@@ -323,7 +318,7 @@
 
     <!-- ./ header -->
     
-    <!--content body-->
+    <!--content body-->>
     <div class="content ">
         
         <div class="row">
@@ -331,7 +326,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-md-flex gap-4 align-items-center">
-                            <div class="d-none d-md-flex">用户列表</div>
+                            <div class="d-none d-md-flex">加盟企业</div>
                             <div class="d-md-flex gap-4 align-items-center">
                                 <form class="mb-3 mb-md-0">
                                     <div class="row g-3">
@@ -364,20 +359,13 @@
                             <th>
                                 <input class="form-check-input select-all" type="checkbox" data-select-all-target="#products" id="defaultCheck1">
                             </th>
-                            <th>用户头像</th>
-                            <th>用户ID</th>
-                            <th>用户昵称</th>
-                            <th>用户身份</th>
-                            <th>用户手机号</th>
-                            <th>用户密码</th>
-                            <th>餐卡余额</th>
-                            <th>所属企业id</th>
-                            <th>账号状态</th>
-                            <th class="text-end">用户操作</th>
+                            <th>企业ID</th>
+                           
+                            <th>企业名称</th>
+                            <th class="text-end">企业信息操作</th>
                         </tr>
                         </thead>
-                        <tbody id="customers">
-
+                        <tbody id="enterpriseinfo">
                         </tbody>
                     </table>
                 </div>

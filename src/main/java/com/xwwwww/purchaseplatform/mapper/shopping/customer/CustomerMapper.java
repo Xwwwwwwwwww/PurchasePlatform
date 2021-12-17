@@ -15,6 +15,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
     public Customer login(Customer customer);
 
     public Customer getByPhoneNumber(String phoneNumber);
-
+    public List<Customer> getAllCustomers();
+    public int deleteCustomerByid();
     public Customer getByNickNameAndStatus(@Param("nickName") String nickName, @Param("status") int status);
 }
