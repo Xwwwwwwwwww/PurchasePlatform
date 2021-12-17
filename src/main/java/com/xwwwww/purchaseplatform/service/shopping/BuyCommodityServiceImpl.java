@@ -34,8 +34,8 @@ public class BuyCommodityServiceImpl implements BuyCommodityService{
         {
             shoppingCartMapper.deleteOneItem(order.getCustomerId(),order.getCommodityId());//删除购物车里对应的记录
             orderMapper.insert(order);//添加订单
-            System.out.println(order);
-            return Result.SUCCESS(order);
+            System.out.println("打印创建的订单"+order);
+            return Result.SUCCESS(order.getId());//会自动返回id
         }
     }
 
@@ -51,19 +51,20 @@ public class BuyCommodityServiceImpl implements BuyCommodityService{
         else
         {
             orderMapper.insert(order);//添加订单
-            return Result.SUCCESS(order);
+            return Result.SUCCESS(order.getId());
         }
     }
 
     /**
      *
-     * @param order
+     * @param orderId
      * @return boolean
      * @throws Exception
      * 处理已付款的订单，发货
      */
     @Override
-    public Result ProcessOrder(Orders order) throws Exception {
+    public Result ProcessOrder(int orderId) throws Exception {
+        Orders order=orderMapper.selectById(orderId);
         if (order.getOrderStatus()!=1)
             return Result.FAIL("不是已付款的订单");
         order.setOrderStatus(2);
@@ -75,13 +76,14 @@ public class BuyCommodityServiceImpl implements BuyCommodityService{
 
     /**
      *
-     * @param order
+     * @param orderId
      * @return boolean
      * @throws Exception
      * 支付待付款的订单
      */
     @Override
-    public Result Pay(Orders order) throws Exception {
+    public Result Pay(int orderId) throws Exception {
+        Orders order=orderMapper.selectById(orderId);
         Commodity commodity=commodityMapper.selectById(order.getCommodityId());
         int stock=commodity.getStock();
         if (order.getOrderStatus()!=0)

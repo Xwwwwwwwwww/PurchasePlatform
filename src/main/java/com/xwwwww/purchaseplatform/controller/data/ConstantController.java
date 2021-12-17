@@ -15,14 +15,12 @@ import com.xwwwww.purchaseplatform.mapper.constant.commodity.size.SizeMapper;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.size.SizeSystemMapper;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.specification.SpecificationSystemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 查询常量
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/data")
 public class ConstantController {

@@ -26,13 +26,13 @@ public class BuyCommodityController {
     }
     @ResponseBody
     @PostMapping("/buy/processOrder")
-    public Result ProcessOrder(Orders orders) throws Exception{
-        return buyCommodityService.ProcessOrder(orders);
+    public Result ProcessOrder(int orderId) throws Exception{
+        return buyCommodityService.ProcessOrder(orderId);
     }
 
     @ResponseBody
     @PostMapping("/buy/pay")
-    public Result pay(Orders orders) throws Exception{
-        return buyCommodityService.Pay(orders);
+    public Result pay(int orderId) throws Exception{
+        return buyCommodityService.Pay(orderId);
     }
 }

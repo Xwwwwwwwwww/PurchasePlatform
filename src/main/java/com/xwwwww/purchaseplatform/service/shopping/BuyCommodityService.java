@@ -10,7 +10,7 @@ public interface BuyCommodityService {
 
     Result BuyDirectly(Orders order) throws Exception;
 
-    Result Pay(Orders order) throws Exception;
+    Result Pay(int id) throws Exception;
 
-    Result ProcessOrder(Orders order) throws Exception;
+    Result ProcessOrder(int id) throws Exception;
 }

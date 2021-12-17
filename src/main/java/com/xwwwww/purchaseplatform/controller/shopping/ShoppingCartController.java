@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/shopping")
 public class ShoppingCartController {
@@ -48,7 +49,7 @@ public class ShoppingCartController {
         shoppingCartQueryWrapper.eq("commodity_id",commodity_id);
         return shoppingCartMapper.selectList(shoppingCartQueryWrapper);
     }
-    
+
     @ResponseBody
     @PostMapping("/shoppingCart")
     public int insertShoppingCart(ShoppingCart shoppingCart) throws Exception{
