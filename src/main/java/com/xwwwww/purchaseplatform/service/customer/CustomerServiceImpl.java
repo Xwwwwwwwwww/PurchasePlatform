@@ -16,6 +16,11 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     CustomerMapper customerMapper;
 
+    @Override
+    public Customer getCustomerById(int id) throws Exception {
+        return customerMapper.selectById(id);
+    }
+
     /**
      *
      * @param nickName

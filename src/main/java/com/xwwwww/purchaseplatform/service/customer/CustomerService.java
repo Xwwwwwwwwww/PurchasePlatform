@@ -7,6 +7,9 @@ import java.util.List;
 
 @Service
 public interface CustomerService {
+
+    public Customer getCustomerById(int id) throws Exception;
+
     public Customer getCustomerByNickName(String nickName) throws Exception;
 
     public int insertCustomer(Customer customer) throws Exception;

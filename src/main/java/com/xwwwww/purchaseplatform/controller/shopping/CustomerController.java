@@ -52,6 +52,12 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
+    @ResponseBody
+    @GetMapping("/customerById")
+    public Customer getCustomersById(int id) throws Exception{
+        return customerService.getCustomerById(id);
+    }
+
     /**
      *
      * @return list
@@ -75,4 +81,6 @@ public class CustomerController {
     public List<Customer> getAllCompanyStaff() throws Exception{
         return customerService.getAllCompanyStaff();
     }
+
+
 }

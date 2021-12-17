@@ -24,5 +24,7 @@ public class ShoppingCartDisplay {
     //new 具体值
     private String size;
 
+    private int sizeId;
+
     private int quantity;
 }
