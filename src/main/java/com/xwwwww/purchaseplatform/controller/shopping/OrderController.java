@@ -91,4 +91,10 @@ public class OrderController {
     public Result getOrderByShop(int shopId) throws Exception {
         return ordersService.getOrdersByShop(shopId);
     }
+
+    @ResponseBody
+    @GetMapping("/order/orderStatusNumbe")
+    public Result getOrderStatusNumber(int customerId) throws Exception{
+        return ordersService.getOrderStatusNumber(customerId);
+    }
 }
