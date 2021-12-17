@@ -3,9 +3,12 @@ package com.xwwwww.purchaseplatform.controller.shopping;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCollection;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCollectionMapper;
+import com.xwwwww.purchaseplatform.service.data.ShoppingCollectionService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.invoke.CallSite;
 import java.util.List;
 
 @CrossOrigin
@@ -14,6 +17,9 @@ import java.util.List;
 public class ShoppingCollectionController {
     @Autowired
     ShoppingCollectionMapper shoppingCollectionMapper;
+
+    @Autowired
+    ShoppingCollectionService shoppingCollectionService;
 
     @ResponseBody
     @PostMapping("/shoppingCollection")
@@ -58,5 +64,11 @@ public class ShoppingCollectionController {
         QueryWrapper<ShoppingCollection> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("customer_id",customer_id);
         return shoppingCollectionMapper.selectList(queryWrapper);
+    }
+
+    @ResponseBody
+    @GetMapping("/shoppingCollection/itemsNumber")
+    public Result getShoppingCollectionItemsNumber(int customerId) throws Exception{
+        return shoppingCollectionService.getShoppingCollectionItemsNumber(customerId);
     }
 }

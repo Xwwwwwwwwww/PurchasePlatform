@@ -14,10 +14,13 @@
     <select id="getByPhoneNumber" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
         select * from customer where phone_Number=#{phoneNumber}
     </select>
-    <select id="getAllCustomers" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
-        select * from customer
-    </select>
+<!--    <select id="getAllCustomers" parameterType="String" resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">-->
+<!--        select * from customer-->
+<!--    </select>-->
     <select id="getByNickNameAndStatus"   resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
         select * from customer where nick_Name=#{nickName} and customer_status=#{status}
     </select>
+<!--    <select id="deleteCustomerByid"   resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">-->
+<!--         delete from customer where id=#{id}-->
+<!--    </select>-->
 </mapper>

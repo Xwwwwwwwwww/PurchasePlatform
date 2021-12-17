@@ -5,6 +5,7 @@ import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
 import com.xwwwww.purchaseplatform.service.customer.CustomerService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-
+@Autowired
+CustomerMapper customerMapper;
     @ResponseBody
     @GetMapping("/customer")
     public Customer getCustomerByNickName(String nickName) throws Exception{
@@ -36,9 +38,10 @@ public class CustomerController {
     }
 
     @ResponseBody
+    @CrossOrigin
     @DeleteMapping("/customer")
     public int deleteCustomerByid(int id) throws Exception{
-        return customerService.deleteCustomerByid(id);
+        return customerMapper.deleteById(id);
     }
 
     /**
@@ -48,9 +51,10 @@ public class CustomerController {
      * 查询所有顾客
      */
     @ResponseBody
+    @CrossOrigin
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
-        return customerService.getAllCustomers();
+        return customerMapper.selectList(null);
     }
 
     @ResponseBody
@@ -66,9 +70,11 @@ public class CustomerController {
      * 查询所有普通用户
      */
     @ResponseBody
+    @CrossOrigin
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
-        return customerService.getAllUsers();
+        //System.out.println("调用了！");
+        return customerMapper.selectList(null);
     }
 
     /**

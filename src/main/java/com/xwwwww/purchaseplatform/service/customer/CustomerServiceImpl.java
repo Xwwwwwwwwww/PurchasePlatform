@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService{
      * 查询所有顾客
      */
     public List<Customer> getAllCustomers() throws Exception{
-        return customerMapper.selectList(null);
+        return customerMapper.getAllCustomers();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.xwwwww.purchaseplatform.service.data;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwwwww.purchaseplatform.entity.constant.order.OrderStatusNumber;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
 import com.xwwwww.purchaseplatform.mapper.constant.order.OrderStatusMapper;
@@ -34,5 +35,43 @@ public class OrdersServiceImpl implements OrdersService {
             total.addAll(ordersList);
         }
         return Result.SUCCESS(total);
+    }
+
+    /**
+     *
+     * @param customerId
+     * @return
+     * @throws Exception
+     * 查询某顾客的4种订单状态
+     */
+    @Override
+    public Result getOrderStatusNumber(int customerId) throws Exception {
+        QueryWrapper<Orders> ordersQueryWrapper=new QueryWrapper<>();
+        ordersQueryWrapper.eq("customer_Id",customerId);
+        List<Orders> ordersList=orderMapper.selectList(ordersQueryWrapper);
+
+        OrderStatusNumber orderStatusNumber=new OrderStatusNumber();
+        int toBePaid = 0;
+        int toBeSent = 0;
+        int toBeReceived = 0;
+        int toBeEvaluated = 0;
+        for (Orders order : ordersList) {
+            if (order.getOrderStatus()==0)
+                toBePaid++;
+            else if (order.getOrderStatus()==1)
+                toBeSent++;
+            else if (order.getOrderStatus()==2)
+                toBeReceived++;
+            else if (order.getOrderStatus()==6)
+                toBeEvaluated++;
+            else
+                continue;
+        }
+        orderStatusNumber.setToBePaid(toBePaid);
+        orderStatusNumber.setToBeSent(toBeSent);
+        orderStatusNumber.setToBeReceived(toBeReceived);
+        orderStatusNumber.setToBeEvaluated(toBeEvaluated);
+        System.out.println(orderStatusNumber);
+        return Result.SUCCESS(orderStatusNumber);
     }
 }
