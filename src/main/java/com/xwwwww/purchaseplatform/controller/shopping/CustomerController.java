@@ -17,7 +17,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-
+@Autowired
+CustomerMapper customerMapper;
     @ResponseBody
     @GetMapping("/customer")
     public Customer getCustomerByNickName(String nickName) throws Exception{
@@ -38,9 +39,9 @@ public class CustomerController {
 
     @ResponseBody
     @CrossOrigin
-    @DeleteMapping("/deletecustomer")
+    @DeleteMapping("/customer")
     public int deleteCustomerByid(int id) throws Exception{
-        return customerService.deleteCustomerByid(id);
+        return customerMapper.deleteById(id);
     }
 
     /**
@@ -53,7 +54,7 @@ public class CustomerController {
     @CrossOrigin
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
-        return customerService.getAllCustomers();
+        return customerMapper.selectList(null);
     }
 
     /**
@@ -67,7 +68,7 @@ public class CustomerController {
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
         //System.out.println("调用了！");
-        return customerService.getAllUsers();
+        return customerMapper.selectList(null);
     }
 
     /**
