@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.sql.rowset.serial.SerialArray;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/shopping")
 public class SearchController {

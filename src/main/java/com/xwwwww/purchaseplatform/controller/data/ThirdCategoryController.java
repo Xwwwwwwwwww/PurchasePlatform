@@ -5,6 +5,7 @@ import com.xwwwww.purchaseplatform.mapper.constant.commodity.category.ThirdCateg
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/data")
 public class ThirdCategoryController {
