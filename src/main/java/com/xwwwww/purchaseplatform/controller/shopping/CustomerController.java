@@ -5,6 +5,7 @@ import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
 import com.xwwwww.purchaseplatform.service.customer.CustomerService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,8 @@ public class CustomerController {
     }
 
     @ResponseBody
-    @DeleteMapping("/customer")
+    @CrossOrigin
+    @DeleteMapping("/deletecustomer")
     public int deleteCustomerByid(int id) throws Exception{
         return customerService.deleteCustomerByid(id);
     }
@@ -48,6 +50,7 @@ public class CustomerController {
      * 查询所有顾客
      */
     @ResponseBody
+    @CrossOrigin
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
         return customerService.getAllCustomers();
@@ -60,8 +63,10 @@ public class CustomerController {
      * 查询所有普通用户
      */
     @ResponseBody
+    @CrossOrigin
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
+        //System.out.println("调用了！");
         return customerService.getAllUsers();
     }
 

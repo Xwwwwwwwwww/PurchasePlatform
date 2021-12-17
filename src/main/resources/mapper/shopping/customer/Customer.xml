@@ -20,4 +20,7 @@
     <select id="getByNickNameAndStatus"   resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
         select * from customer where nick_Name=#{nickName} and customer_status=#{status}
     </select>
+    <select id="deleteCustomerByid"   resultType="com.xwwwww.purchaseplatform.entity.shopping.customer.Customer">
+         delete from customer where id=#{id}
+    </select>
 </mapper>

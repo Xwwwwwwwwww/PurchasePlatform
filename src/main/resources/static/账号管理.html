@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>集团内购平台店铺管理员后台</title>
-    <script src="static/js/jquery-3.4.1.js"></script>
-    <script src="static/js/bootstrap.js"></script>
+    <title>集团内购平台管理员后台</title>
+
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link href="static/css/css2.css" rel="stylesheet">
@@ -21,6 +20,9 @@
 
     <!-- Main style file -->
     <link rel="stylesheet" href="static/css/app.min.css" type="text/css">
+    
+    <script src="static/js/jquery-3.4.1.js"></script>
+    <script src="static/js/bootstrap.js"></script>
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,18 +30,10 @@
     <![endif]-->
 </head>
 <body>
-
-<!-- preloader -->
-<div class="preloader">
-    <img src="static/picture/logo.svg" alt="logo">
-    <div class="preloader-icon"></div>
-</div>
-<!-- ./ preloader -->
-
 <!-- menu -->
 <div class="menu">
     <div class="menu-header">
-        <a href="" class="menu-header-logo">
+        <a href="index.html" class="menu-header-logo">
             <img src="static/picture/logo.svg" alt="logo">
         </a>
         <a href="" class="btn btn-sm menu-close-btn">
@@ -50,12 +44,11 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
                 <div class="avatar me-3">
-                    <!-- <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image"> -->
-                店铺头像
+                    <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image">
                 </div>
                 <div>
-                    <div class="fw-bold">店铺名称</div>
-                    <small class="text-muted">管理员名称</small>
+                    <div class="fw-bold">管理员名称</div>
+                    <small class="text-muted">管理员ID</small>
                 </div>
             </a>
         </div>
@@ -66,27 +59,33 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-bar-chart"></i>
                     </span>
-                    <span>运费管理</span>
+                    <span>系统维护</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="运费模板.html">运费模板</a>
+                        <a href="运行监测.html">运行监测</a>
+                    </li>
+                    <li>
+                        <a href="数据检查.html">数据检查</a>
+                    </li>
+                    <li>
+                        <a href="检索日志.html">检索日志</a>
                     </li>
                     </ul>
             </li>
             <li>
-                <a class="active" href="#">
+                <a href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
-                    <span>商品管理</span>
+                    <span>信息管理</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="添加商品.html">添加商品</a>
+                        <a href="企业信息管理.html">企业信息管理</a>
                     </li>
                     <li>
-                        <a href="修改商品.html">修改商品</a>
+                        <a href="用户信息管理.html">用户信息管理</a>
                     </li>
             
                 </ul>
@@ -96,28 +95,27 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-truck"></i>
                     </span>
-                    <span>订单管理</span>
+                    <span>注册授权</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="查看订单.html">查看订单
-                       </a>
+                        <a href="用户授权.html">用户授权</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a class="active" href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-wallet2"></i>
                     </span>
-                    <span>店铺管理</span>
+                    <span>系统后台管理</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="店铺基本信息.html">基本信息</a>
+                        <a href="角色管理.html">角色管理</a>
                     </li>
                     <li>
-                        <a href="推荐列表.html">推荐列表</a>
+                        <a href="账号管理.html">账号管理</a>
                     </li>
                 </ul>
             </li>
@@ -126,14 +124,11 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-person-badge"></i>
                     </span>
-                    <span>运营管理</span>
+                    <span>收货地址修改</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
-                    </li>
-                    <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="订单地址修改.html">订单地址修改</a>
                     </li>
                     </ul>
             </li>
@@ -142,18 +137,36 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
-                    <span>售后处理</span>
+                    <span>平台运营</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="发票管理.html">发票管理</a>
+                        <a href="平台推荐商品.html">平台推荐商品</a>
                     </li>
                     <li>
-                        <a href="维权管理.html">维权管理</a>
+                        <a href="平台活动.html">平台活动</a>
+                    </li>
+                    <li>
+                        <a href="平台公告.html">平台公告</a>
                     </li>
                 </ul>
             </li>
-
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>数据统计</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="销售统计.html">销售统计</a>
+                    </li>
+                    <li>
+                        <a href="资金统计.html">资金统计</a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <a href="#" class="disabled">
                     <span class="nav-link-icon">
@@ -201,6 +214,8 @@
     <!-- ./ Header mobile buttons -->
 
     <!-- ./ header -->
+    
+    <!--content body-->
     <div class="content ">
         
         <div class="row">
@@ -208,7 +223,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-md-flex gap-4 align-items-center">
-                            <div class="d-none d-md-flex">店铺商品</div>
+                            <div class="d-none d-md-flex">用户列表</div>
                             <div class="d-md-flex gap-4 align-items-center">
                                 <form class="mb-3 mb-md-0">
                                     <div class="row g-3">
@@ -241,16 +256,10 @@
                             <th>
                                 <input class="form-check-input select-all" type="checkbox" data-select-all-target="#products" id="defaultCheck1">
                             </th>
-                            <th>商品ID</th>
-                            <th>店铺ID</th>
-                            <th>商品名称</th>
-                            <th>商品价格</th>
-                            <th>商品折扣</th>
-                            <th>尺码系统</th>
-                            <th>商品库存</th>
-                            <th>商品图片</th>
-                            <th>商品简介</th>
-                            <th class="text-end">商品操作</th>
+                            <th>管理员头像</th>
+                            <th>管理员ID</th>
+                            <th>管理员密码</th>
+                            <th class="text-end">管理员操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -258,24 +267,8 @@
                             <td>
                                 <input class="form-check-input" type="checkbox">
                             </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
+                            <td class="avatar"><img src="static/picture/man_avatar3.jpg"  ></td>
                             <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
                             <td>123</td>
                             <td class="text-end">
                                 <div class="d-flex">
@@ -284,9 +277,7 @@
                                             <i class="bi bi-three-dots"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">设为推荐</a>
-                                            <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</a>
-                                            <a href="#" class="dropdown-item">删除商品</a>
+                                            <a href="#" type="button" data-toggle="modal" data-target="#myModal" class="dropdown-item">修改管理员</a>
                                         </div>
                                     </div>
                                 </div>
@@ -296,24 +287,8 @@
                             <td>
                                 <input class="form-check-input" type="checkbox">
                             </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
+                            <td class="avatar"><img src="static/picture/man_avatar3.jpg"  ></td>
                             <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
                             <td>123</td>
                             <td class="text-end">
                                 <div class="d-flex">
@@ -322,9 +297,7 @@
                                             <i class="bi bi-three-dots"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">设为推荐</a>
-                                            <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</a>
-                                            <a href="#" class="dropdown-item">删除商品</a>
+                                            <a href="#" type="button" data-toggle="modal" data-target="#myModal" class="dropdown-item">修改管理员</a>
                                         </div>
                                     </div>
                                 </div>
@@ -355,96 +328,36 @@
         </div>
     
         </div>
-        <!-- ./ content -->
+
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">修改商品</h4>
+                        <h4 class="modal-title">修改管理员信息</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">商品名称：</label>
-                                    <input type="text" class="form-control" id="commodityname" value="">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">商品价格：</label>
-                                    <input type="text" class="form-control" id="price" value="">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">商品库存:</label>
-                                        <input type="text" class="form-control" id="stock" value="">    
-                            </div>
-                                <div class="mb-3" id="size_System">
-                                    <label class="form-label" >商品尺码:</label>
-                                    <div class="d-flex gap-3">
-                                        <select class="form-select">
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
-                                            <option>XXL</option>
-                                            <option>XXXL</option>
-                                            <option>NULL</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3" id="discount">
-                                    <label class="form-label">折扣：</label>
-                                    <div class="d-flex gap-3">
-                                        <select class="form-select">
-                                            <option>10%</option>
-                                            <option>20%</option>
-                                            <option>30%</option>
-                                            <option>40%</option>
-                                            <option>50%</option>
-                                            <option>60%</option>
-                                            <option>70%</option>
-                                            <option selected>80%</option>
-                                            <option>90%</option>
-                                            <option>100%</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">一级分类目录：</label>
-                                    <select class="form-select">
-                                        <option value="">1</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">二级分类目录</label>
-                                    <select class="form-select">
-                                        <option value="">2</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">三级分类目录</label>
-                                    <select class="form-select">
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">商品简介：</label>
-                                    <textarea class="form-control" id="commodityname" value=""></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">图片：</label>
-                                    <h6>点击添加图片</h6>
-                                </div>
-                                </div>
-                               </div> 
-                   </div>    
+                        <div class="mb-3" id="">
+                            <label class="form-label">管理员ID：</label>
+                            <input type="text" class="form-control" id="" value="123456">
+                        </div>
+                        <div class="mb-3" id="">
+                            <label class="form-label">修改头像:</label>
+                            <input type="text" class="form-control" id="" value="">
+                        </div>
+                        <div class="mb-3" id="">
+                            <label class="form-label">修改密码为：</label>
+                            <input type="text" class="form-control" id="" value="">
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                         <button type="button" class="btn btn-primary">保存</button>
                     </div>
+                </div>
             </div>
-        </div>
-      </div>
-
+        </div>   
+    <!--content body-->>
+    
     <!-- content-footer -->
     <footer class="content-footer">
         <div>© 2021 Vetra - <a href="javascript:;" target="_blank">Laborasyon</a></div>

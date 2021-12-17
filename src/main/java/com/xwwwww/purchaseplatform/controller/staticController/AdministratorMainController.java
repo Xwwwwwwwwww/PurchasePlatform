@@ -4,15 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.administration.administrator.EnterpriseAdministrator;
 import com.xwwwww.purchaseplatform.entity.administration.administrator.PlatformAdministrator;
 import com.xwwwww.purchaseplatform.entity.administration.administrator.Shopkeeper;
+import com.xwwwww.purchaseplatform.entity.administration.enterprise.Enterprise;
+import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.administration.administrator.EnterpriseAdministratorMapper;
 import com.xwwwww.purchaseplatform.mapper.administration.administrator.PlatformAdministratorMapper;
 import com.xwwwww.purchaseplatform.mapper.administration.administrator.ShopkeeperMapper;
+import com.xwwwww.purchaseplatform.mapper.administration.enterprise.EnterpriseMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
+import com.xwwwww.purchaseplatform.service.enterprise.EnterpriseService;
 import com.xwwwww.purchaseplatform.service.login.LoginService;
 import com.xwwwww.purchaseplatform.utils.token.AesUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -30,6 +35,12 @@ public class AdministratorMainController {
 
     @Autowired
     ShopkeeperMapper shopkeeperMapper;
+
+    @Autowired
+    EnterpriseMapper enterpriseMapper;
+
+//    @Autowired
+//    private EnterpriseService enterpriseService;
 
     QueryWrapper<EnterpriseAdministrator> enterpriseAdministratorQueryWrapper=new QueryWrapper<>();
     QueryWrapper<PlatformAdministrator> platformAdministratorQueryWrapper=new QueryWrapper<>();
@@ -178,5 +189,12 @@ public class AdministratorMainController {
             return "account";
         else
             return "error";
+    }
+
+    @ResponseBody
+    @CrossOrigin
+    @GetMapping("/enterprise/all")
+    public List<Enterprise> getAllEnterprises() throws Exception{
+        return enterpriseMapper.getAllEnterprise();
     }
 }

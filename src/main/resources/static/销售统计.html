@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> 集团内购平台店铺管理员后台 </title>
+    <title>集团内购平台管理员后台</title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -27,18 +27,10 @@
     <![endif]-->
 </head>
 <body>
-
-<!-- preloader -->
-<div class="preloader">
-    <img src="static/picture/logo.svg" alt="logo">
-    <div class="preloader-icon"></div>
-</div>
-<!-- ./ preloader -->
-
 <!-- menu -->
 <div class="menu">
     <div class="menu-header">
-        <a href="" class="menu-header-logo">
+        <a href="index.html" class="menu-header-logo">
             <img src="static/picture/logo.svg" alt="logo">
         </a>
         <a href="" class="btn btn-sm menu-close-btn">
@@ -49,12 +41,11 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
                 <div class="avatar me-3">
-                    <!-- <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image"> -->
-                店铺头像
+                    <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image">
                 </div>
                 <div>
-                    <div class="fw-bold">店铺名称</div>
-                    <small class="text-muted">管理员名称</small>
+                    <div class="fw-bold">管理员名称</div>
+                    <small class="text-muted">管理员ID</small>
                 </div>
             </a>
         </div>
@@ -65,11 +56,17 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-bar-chart"></i>
                     </span>
-                    <span>运费管理</span>
+                    <span>系统维护</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="运费模板.html">运费模板</a>
+                        <a href="运行监测.html">运行监测</a>
+                    </li>
+                    <li>
+                        <a href="数据检查.html">数据检查</a>
+                    </li>
+                    <li>
+                        <a href="检索日志.html">检索日志</a>
                     </li>
                     </ul>
             </li>
@@ -78,14 +75,14 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
-                    <span>商品管理</span>
+                    <span>信息管理</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="添加商品.html">添加商品</a>
+                        <a href="企业信息管理.html">企业信息管理</a>
                     </li>
                     <li>
-                        <a href="修改商品.html">修改商品</a>
+                        <a href="用户信息管理.html">用户信息管理</a>
                     </li>
             
                 </ul>
@@ -95,12 +92,11 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-truck"></i>
                     </span>
-                    <span>订单管理</span>
+                    <span>注册授权</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="查看订单.html">查看订单
-                       </a>
+                        <a href="用户授权.html">用户授权</a>
                     </li>
                 </ul>
             </li>
@@ -109,14 +105,14 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-wallet2"></i>
                     </span>
-                    <span>店铺管理</span>
+                    <span>系统后台管理</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="店铺基本信息.html">基本信息</a>
+                        <a href="角色管理.html">角色管理</a>
                     </li>
                     <li>
-                        <a href="推荐列表.html">推荐列表</a>
+                        <a href="账号管理.html">账号管理</a>
                     </li>
                 </ul>
             </li>
@@ -125,34 +121,49 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-person-badge"></i>
                     </span>
-                    <span>运营管理</span>
+                    <span>收货地址修改</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
-                    </li>
-                    <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="订单地址修改.html">订单地址修改</a>
                     </li>
                     </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>平台运营</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="平台推荐商品.html">平台推荐商品</a>
+                    </li>
+                    <li>
+                        <a href="平台活动.html">平台活动</a>
+                    </li>
+                    <li>
+                        <a href="平台公告.html">平台公告</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a class="active" href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
-                    <span>售后处理</span>
+                    <span>数据统计</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="发票管理.html">发票管理</a>
+                        <a href="销售统计.html">销售统计</a>
                     </li>
                     <li>
-                        <a href="维权管理.html">维权管理</a>
+                        <a href="资金统计.html">资金统计</a>
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="#" class="disabled">
                     <span class="nav-link-icon">
@@ -201,7 +212,6 @@
 
     <!-- ./ header -->
     <div class="content ">
-    
     </div>
 
     <!-- content-footer -->
