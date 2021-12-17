@@ -49,7 +49,7 @@ public class Result<T> {
     }
 
     public static Result FAIL(String message) {
-        return new Result(message);
+        return new Result(ResultCode.FAIL, message);
     }
 
 }

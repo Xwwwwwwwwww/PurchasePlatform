@@ -19,6 +19,8 @@ public class ShoppingCartDisplay {
     //new
     private String shopName;
 
+    private int shopId;
+
     private int sizeSystem;
 
     //new 具体值
@@ -27,4 +29,6 @@ public class ShoppingCartDisplay {
     private int sizeId;
 
     private int quantity;
+
+    private int stock;
 }

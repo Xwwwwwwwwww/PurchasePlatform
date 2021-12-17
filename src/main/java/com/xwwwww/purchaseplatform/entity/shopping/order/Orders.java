@@ -46,4 +46,16 @@ public class Orders {
 
     //快递公司
     private int expressCompany;
+
+    private String thumbnailUrl;
+
+    // 商店名
+    private String belongingShopName;
+
+    //商店从属
+    private int belongingShop;
+
+    private String sizeName;
+
+    private String commodityName;
 }
