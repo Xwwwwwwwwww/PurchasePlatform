@@ -35,4 +35,10 @@ public class BuyCommodityController {
     public Result pay(int orderId) throws Exception{
         return buyCommodityService.Pay(orderId);
     }
+
+    @ResponseBody
+    @PostMapping("/buy/receive")
+    public Result receive(int orderId) throws Exception{
+        return buyCommodityService.ReceiveOrder(orderId);
+    }
 }

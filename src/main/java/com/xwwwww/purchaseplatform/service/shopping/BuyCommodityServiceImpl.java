@@ -97,4 +97,20 @@ public class BuyCommodityServiceImpl implements BuyCommodityService{
         orderMapper.updateById(order);//已付款
         return Result.SUCCESS(order);
     }
+
+    /**
+     *
+     * @param orderId
+     * @return
+     * @throws Exception
+     * 顾客确认收货，订单状态变为待评价
+     */
+    @Override
+    public Result ReceiveOrder(int orderId) throws Exception {
+        Orders order=orderMapper.selectById(orderId);
+        if (order.getOrderStatus()!=2)
+            return Result.FAIL("不是待收货状态");
+        order.setOrderStatus(6);
+        return Result.SUCCESS(order);
+    }
 }
