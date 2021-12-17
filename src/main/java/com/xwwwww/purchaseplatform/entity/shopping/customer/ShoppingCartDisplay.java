@@ -8,6 +8,8 @@ public class ShoppingCartDisplay {
 
     private int commodityId;
 
+    private double commodityPrice;
+
     //new
     private String commodityName;
 
