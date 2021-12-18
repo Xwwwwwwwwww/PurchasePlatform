@@ -13,4 +13,6 @@ public interface EnterpriseAdministratorService {
     Result deleteEnterAdmin(int id) throws Exception;
 
     Result updateEnterAdmin(EnterpriseAdministrator enterpriseAdministrator) throws Exception;
+
+    Result getAllEnterpriseAdmin() throws Exception;
 }

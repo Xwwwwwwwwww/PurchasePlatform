@@ -33,4 +33,9 @@ public class EnterpriseAdministratorServiceImpl implements EnterpriseAdministrat
         enterpriseAdministratorMapper.updateById(enterpriseAdministrator);
         return Result.SUCCESS();
     }
+
+    @Override
+    public Result getAllEnterpriseAdmin() throws Exception {
+        return Result.SUCCESS(enterpriseAdministratorMapper.selectList(null));
+    }
 }

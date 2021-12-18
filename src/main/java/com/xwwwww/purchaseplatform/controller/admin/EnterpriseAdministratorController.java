@@ -37,4 +37,10 @@ public class EnterpriseAdministratorController {
     public Result updateEnterAdmin(EnterpriseAdministrator enterpriseAdministrator) throws Exception{
         return enterpriseAdministratorService.updateEnterAdmin(enterpriseAdministrator);
     }
+
+    @ResponseBody
+    @GetMapping("/enterpriseAdmin/all")
+    public Result getAllEnterpriseAdmin() throws Exception{
+        return enterpriseAdministratorService.getAllEnterpriseAdmin();
+    }
 }
