@@ -97,4 +97,10 @@ public class OrderController {
     public Result getOrderStatusNumber(int customerId) throws Exception{
         return ordersService.getOrderStatusNumber(customerId);
     }
+
+    @ResponseBody
+    @GetMapping("/order/commodity")
+    public Result getOrderByCommodity(int commodityId) throws Exception{
+        return ordersService.getOrderByCommodityId(commodityId);
+    }
 }

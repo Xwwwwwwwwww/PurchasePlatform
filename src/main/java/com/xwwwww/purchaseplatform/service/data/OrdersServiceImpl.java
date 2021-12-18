@@ -74,4 +74,11 @@ public class OrdersServiceImpl implements OrdersService {
         System.out.println(orderStatusNumber);
         return Result.SUCCESS(orderStatusNumber);
     }
+
+    @Override
+    public Result getOrderByCommodityId(int commodityId) throws Exception {
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("commodity_Id",commodityId);
+        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
+    }
 }

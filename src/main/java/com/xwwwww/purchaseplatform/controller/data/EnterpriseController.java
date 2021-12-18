@@ -1,7 +1,7 @@
 package com.xwwwww.purchaseplatform.controller.data;
 
 import com.xwwwww.purchaseplatform.entity.administration.enterprise.Enterprise;
-import com.xwwwww.purchaseplatform.service.admin.EnterpriseService;
+import com.xwwwww.purchaseplatform.service.data.EnterpriseService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +35,11 @@ public class EnterpriseController {
     @PutMapping("/enterprise")
     public Result updateEnterprise(Enterprise enterprise) throws Exception{
         return enterpriseService.updateEnterprise(enterprise);
+    }
+
+    @ResponseBody
+    @GetMapping("/enterprise/all")
+    public Result getEnterprises() throws Exception{
+        return enterpriseService.getEnterprises();
     }
 }

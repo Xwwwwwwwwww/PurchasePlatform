@@ -8,4 +8,6 @@ public interface OrdersService {
     public Result getOrdersByShop(int shopId) throws Exception;
 
     public Result getOrderStatusNumber(int customerId) throws Exception;
+
+    public Result getOrderByCommodityId(int commodityId) throws Exception;
 }

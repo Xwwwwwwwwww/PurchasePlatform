@@ -1,4 +1,4 @@
-package com.xwwwww.purchaseplatform.service.admin;
+package com.xwwwww.purchaseplatform.service.data;
 
 import com.xwwwww.purchaseplatform.entity.administration.enterprise.Enterprise;
 import com.xwwwww.purchaseplatform.utils.result.Result;
@@ -14,4 +14,6 @@ public interface EnterpriseService {
     public Result deleteEnterprise(int id) throws Exception;
 
     public Result updateEnterprise(Enterprise enterprise) throws Exception;
+
+    public Result getEnterprises() throws Exception;
 }

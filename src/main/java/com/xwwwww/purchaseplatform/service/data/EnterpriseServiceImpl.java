@@ -1,4 +1,4 @@
-package com.xwwwww.purchaseplatform.service.admin;
+package com.xwwwww.purchaseplatform.service.data;
 
 import com.xwwwww.purchaseplatform.entity.administration.enterprise.Enterprise;
 import com.xwwwww.purchaseplatform.mapper.administration.enterprise.EnterpriseMapper;
@@ -34,5 +34,10 @@ public class EnterpriseServiceImpl implements EnterpriseService{
     public Result updateEnterprise(Enterprise enterprise) throws Exception {
         enterpriseMapper.updateById(enterprise);
         return Result.SUCCESS();
+    }
+
+    @Override
+    public Result getEnterprises() throws Exception {
+        return Result.SUCCESS(enterpriseMapper.selectList(null));
     }
 }
