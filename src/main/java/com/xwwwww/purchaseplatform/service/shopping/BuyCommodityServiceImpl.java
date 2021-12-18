@@ -111,6 +111,7 @@ public class BuyCommodityServiceImpl implements BuyCommodityService{
         if (order.getOrderStatus()!=2)
             return Result.FAIL("不是待收货状态");
         order.setOrderStatus(6);
+        orderMapper.updateById(order);
         return Result.SUCCESS(order);
     }
 }
