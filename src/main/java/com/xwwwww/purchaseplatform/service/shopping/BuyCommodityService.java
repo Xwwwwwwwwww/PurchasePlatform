@@ -13,4 +13,6 @@ public interface BuyCommodityService {
     Result Pay(int id) throws Exception;
 
     Result ProcessOrder(int id) throws Exception;
+
+    Result ReceiveOrder(int id) throws Exception;
 }
