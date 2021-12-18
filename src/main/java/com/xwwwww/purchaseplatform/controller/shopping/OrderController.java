@@ -58,7 +58,7 @@ public class OrderController {
     @ResponseBody
     @DeleteMapping("/order")
     public int deleteShoppingCart(int id) throws Exception{
-        return orderMapper.deleteById((id));
+        return orderMapper.deleteById(id);
     }
 
     @ResponseBody
@@ -93,7 +93,7 @@ public class OrderController {
     }
 
     @ResponseBody
-    @GetMapping("/order/orderStatusNumbe")
+    @GetMapping("/order/orderStatusNumber")
     public Result getOrderStatusNumber(int customerId) throws Exception{
         return ordersService.getOrderStatusNumber(customerId);
     }
