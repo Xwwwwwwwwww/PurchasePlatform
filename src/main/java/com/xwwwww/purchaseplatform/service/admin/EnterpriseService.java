@@ -12,4 +12,6 @@ public interface EnterpriseService {
     public Result insertEnterprise(Enterprise enterprise) throws Exception;
 
     public Result deleteEnterprise(int id) throws Exception;
+
+    public Result updateEnterprise(Enterprise enterprise) throws Exception;
 }

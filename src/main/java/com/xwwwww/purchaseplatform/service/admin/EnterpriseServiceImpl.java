@@ -29,4 +29,10 @@ public class EnterpriseServiceImpl implements EnterpriseService{
         enterpriseMapper.deleteById(id);
         return Result.SUCCESS();
     }
+
+    @Override
+    public Result updateEnterprise(Enterprise enterprise) throws Exception {
+        enterpriseMapper.updateById(enterprise);
+        return Result.SUCCESS();
+    }
 }

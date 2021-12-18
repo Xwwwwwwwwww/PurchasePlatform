@@ -30,4 +30,10 @@ public class EnterpriseController {
     public Result deleteEnterprise(int id) throws Exception{
         return enterpriseService.deleteEnterprise(id);
     }
+
+    @ResponseBody
+    @PutMapping("/enterprise")
+    public Result updateEnterprise(Enterprise enterprise) throws Exception{
+        return enterpriseService.updateEnterprise(enterprise);
+    }
 }

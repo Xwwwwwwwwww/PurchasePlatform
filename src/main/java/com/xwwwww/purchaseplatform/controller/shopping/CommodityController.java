@@ -6,6 +6,8 @@ import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Search;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.SearchMapper;
+import com.xwwwww.purchaseplatform.service.data.CommodityService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +18,12 @@ import java.util.List;
 @RequestMapping("/shopping")
 public class CommodityController {
     @Autowired
-    CommodityMapper commodityMapper;
+    CommodityService commodityService;
 
     @ResponseBody
     @GetMapping("/commodity/id")
-    public Commodity getCommodityByid(int id) throws Exception{
-        return commodityMapper.getById(id);
+    public Result getCommodityById(int id) throws Exception{
+        return commodityService.getCommodityById(id);
     }
 
     /**
@@ -33,11 +35,11 @@ public class CommodityController {
      */
     @ResponseBody
     @GetMapping("/commodity/name")
-    public List<Commodity> getCommodityByName(String name) throws Exception{
+    public Result getCommodityByName(String name) throws Exception{
         QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
         //模糊查询：%value%
         queryWrapper.like("name",name);
-        return commodityMapper.selectList(queryWrapper);
+        return commodityService.getCommodityByName(name);
     }
 
     /**
@@ -49,28 +51,26 @@ public class CommodityController {
      */
     @ResponseBody
     @GetMapping("/commodity/shop")
-    public List<Commodity> getCommodityByShop(String name) throws Exception{
-        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("name",name);
-        return commodityMapper.selectList(queryWrapper);
+    public Result getCommodityByShop(String name) throws Exception{
+        return commodityService.getCommodityByShop(name);
     }
 
     @ResponseBody
     @PostMapping("/commodity")
-    public int insertCommodity(Commodity commodity) throws Exception{
-        return commodityMapper.insert(commodity);
+    public Result insertCommodity(Commodity commodity) throws Exception{
+        return commodityService.insertCommodity(commodity);
     }
 
     @ResponseBody
     @DeleteMapping("/commodity")
-    public int deleteCommodityByid(int id) throws Exception{
-        return commodityMapper.deleteById((id));
+    public Result deleteCommodityById(int id) throws Exception{
+        return commodityService.deleteCommodityById(id);
     }
 
     @ResponseBody
     @PutMapping("/commodity")
-    public int updateCommodity(Commodity commodity) throws  Exception{
-        return commodityMapper.updateById(commodity);
+    public Result updateCommodity(Commodity commodity) throws  Exception{
+        return commodityService.updateCommodity(commodity);
     }
 
     /**
@@ -81,8 +81,52 @@ public class CommodityController {
      */
     @ResponseBody
     @GetMapping("/commodity/all")
-    public List<Commodity> getAllCommodity() throws Exception{
-        return commodityMapper.selectList(null);
+    public Result getAllCommodity() throws Exception{
+        return commodityService.getAllCommodity();
+    }
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     * 平台管理员：查询所有推荐商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/recommend")
+    public Result getRecommendedCommodity() throws Exception{
+        return commodityService.getRecommendedCommodity();
+    }
+
+    /**
+     *
+     * @param shopId
+     * @return
+     * @throws Exception
+     * 店铺管理员：查询自己店的推荐商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/recommend/shop")
+    public Result getRecommendedCommodity(int shopId) throws Exception{
+        return commodityService.getRecommendedCommodity(shopId);
+    }
+
+    @ResponseBody
+    @GetMapping("/commodity/notRecommend/shop")
+    public Result getNotRecommendedCommodityByShop(int shopId) throws Exception{
+        return commodityService.getNotRecommendedCommodityByShop(shopId);
+    }
+
+    /**
+     *
+     * @param shopId
+     * @return
+     * @throws Exception
+     * 根据商铺查询商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/shopId")
+    public Result getCommodityByShop(int shopId) throws Exception{
+        return commodityService.getCommodityByShop(shopId);
     }
 }
 
