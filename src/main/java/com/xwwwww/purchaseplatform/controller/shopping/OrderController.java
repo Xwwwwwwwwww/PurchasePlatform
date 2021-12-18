@@ -1,7 +1,6 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
@@ -9,8 +8,6 @@ import com.xwwwww.purchaseplatform.service.data.OrdersService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin

@@ -58,4 +58,6 @@ public class Orders {
     private String sizeName;
 
     private String commodityName;
+
+    private String deliveryAddress;
 }
