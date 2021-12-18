@@ -18,4 +18,7 @@ public class Shop {
 
     //收藏
     private int star;
+
+    //发货地址
+    private String shopAddress;
 }

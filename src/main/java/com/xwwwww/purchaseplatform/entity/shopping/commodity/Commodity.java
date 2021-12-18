@@ -68,4 +68,8 @@ public class Commodity {
 
     //推荐与否
     private int ifRecommend;
+
+    private String first_Specification_Selection_name;
+
+    private String second_Specification_Selection_name;
 }
