@@ -16,7 +16,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         window.onload = function(){
             var login_button = document.getElementById("login_button");
@@ -37,8 +36,7 @@
                 console.log(admin_identity);
                 //发送请求
                 $.ajax({
-                    headers: {
-                        "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     type: "POST",
                     url: httpUrl,
                     data: { "userName": user_name,"password": user_password,"flag":admin_identity},
@@ -54,12 +52,12 @@
                             console.log(user_name);
                             console.log(document.cookie);
                             if(admin_identity==1)
-                            {window.location.href="index.html";}
+                            {window.location.href="index2.html";}
                             else if(admin_identity==2){
-                                window.location.href="index.html";
+                                window.location.href="index2.html";
                             }
                             else if(admin_identity==3){
-                                window.location.href="index.html";
+                                window.location.href="index2.html";
                             }
                         }
                     },
