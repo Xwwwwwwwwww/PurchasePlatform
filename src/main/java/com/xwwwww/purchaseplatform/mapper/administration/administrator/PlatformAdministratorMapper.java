@@ -7,6 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface PlatformAdministratorMapper extends BaseMapper<PlatformAdministrator> {
-
-    public PlatformAdministrator login(PlatformAdministrator platformAdministrator);
+    PlatformAdministrator login(PlatformAdministrator platformAdministrator);
 }

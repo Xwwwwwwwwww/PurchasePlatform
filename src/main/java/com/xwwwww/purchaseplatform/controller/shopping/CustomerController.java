@@ -38,7 +38,6 @@ CustomerMapper customerMapper;
     }
 
     @ResponseBody
-    @CrossOrigin
     @DeleteMapping("/customer")
     public int deleteCustomerByid(int id) throws Exception{
         return customerMapper.deleteById(id);
@@ -51,7 +50,6 @@ CustomerMapper customerMapper;
      * 查询所有顾客
      */
     @ResponseBody
-    @CrossOrigin
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
         return customerMapper.selectList(null);
@@ -70,7 +68,6 @@ CustomerMapper customerMapper;
      * 查询所有普通用户
      */
     @ResponseBody
-    @CrossOrigin
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
         //System.out.println("调用了！");
