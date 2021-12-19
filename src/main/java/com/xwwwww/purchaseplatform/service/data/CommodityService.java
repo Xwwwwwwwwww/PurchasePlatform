@@ -28,4 +28,6 @@ public interface CommodityService {
     public Result getNotRecommendedCommodityByShop(int shopId) throws Exception;
 
     public Result getCommodityByShop(int shopId) throws Exception;
+
+    public Result getCommodityByThird(int third) throws Exception;
 }

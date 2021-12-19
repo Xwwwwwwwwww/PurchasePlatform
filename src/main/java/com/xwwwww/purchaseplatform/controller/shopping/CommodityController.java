@@ -128,5 +128,18 @@ public class CommodityController {
     public Result getCommodityByShop(int shopId) throws Exception{
         return commodityService.getCommodityByShop(shopId);
     }
+
+    /**
+     *
+     * @param third
+     * @return
+     * @throws Exception
+     * 根据第三级品类查询商品
+     */
+    @ResponseBody
+    @GetMapping("/commodity/third")
+    public Result getCommodityByThird(int third) throws Exception{
+        return commodityService.getCommodityByThird(third);
+    }
 }
 

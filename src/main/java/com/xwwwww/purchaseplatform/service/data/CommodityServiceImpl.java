@@ -101,4 +101,14 @@ public class CommodityServiceImpl implements CommodityService{
         List<Commodity> commodityList=commodityMapper.selectList(queryWrapper);
         return Result.SUCCESS(commodityList);
     }
+
+    @Override
+    public Result getCommodityByThird(int third) throws Exception {
+        QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("third_category",third);
+        List<Commodity> commodityList=commodityMapper.selectList(queryWrapper);
+        return Result.SUCCESS(commodityList);
+    }
+
+
 }
