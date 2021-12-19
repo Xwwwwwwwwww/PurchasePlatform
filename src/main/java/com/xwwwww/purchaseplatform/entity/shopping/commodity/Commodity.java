@@ -57,6 +57,9 @@ public class Commodity {
     //第一筛选
     private int firstSpecificationSelection;
 
+    //第二筛选值
+    private String firstSpecificationValue;
+
     //第二筛选
     private int secondSpecificationSelection;
 
@@ -69,7 +72,7 @@ public class Commodity {
     //推荐与否
     private int ifRecommend;
 
-    private String first_Specification_Selection_name;
+    private String firstSpecificationSelectionName;
 
-    private String second_Specification_Selection_name;
+    private String secondSpecificationSelectionName;
 }

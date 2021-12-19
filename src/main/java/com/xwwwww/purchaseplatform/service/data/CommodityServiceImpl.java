@@ -24,6 +24,7 @@ public class CommodityServiceImpl implements CommodityService{
     @Override
     public Result getCommodityByName(String name) throws Exception {
         QueryWrapper<Commodity> queryWrapper=new QueryWrapper<>();
+        System.out.println(name);
         //模糊查询：%value%
         queryWrapper.like("name",name);
         List<Commodity> commodityList=commodityMapper.selectList(queryWrapper);

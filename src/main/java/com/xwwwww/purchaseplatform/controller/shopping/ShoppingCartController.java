@@ -52,7 +52,7 @@ public class ShoppingCartController {
 
     @ResponseBody
     @PostMapping("/shoppingCart")
-    public int insertShoppingCart(ShoppingCart shoppingCart) throws Exception{
+    public int insertShoppingCart(@RequestBody ShoppingCart shoppingCart) throws Exception{
         return shoppingCartMapper.insert(shoppingCart);
     }
 
