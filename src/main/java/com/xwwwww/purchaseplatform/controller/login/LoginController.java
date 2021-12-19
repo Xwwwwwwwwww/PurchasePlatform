@@ -30,6 +30,7 @@ public class LoginController {
     @ResponseBody
     @PostMapping("/admin")
     public Result login(@RequestBody Admin admin) throws Exception{
+        System.out.println("controller打印admin："+admin);
        return loginService.login(admin);
     }
 }

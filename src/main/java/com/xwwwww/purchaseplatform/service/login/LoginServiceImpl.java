@@ -39,6 +39,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result login(Admin admin) throws Exception{
+        System.out.println("admin打印 service里:"+admin);
         if (admin.getFlag()==1){
             //平台管理员
             PlatformAdministrator platformAdministrator=new PlatformAdministrator();
