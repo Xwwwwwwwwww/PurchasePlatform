@@ -26,6 +26,142 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+    var count=0;
+    var commoditydata=[];
+    function canclerecommend(i){
+        // var recommend_btn=[];
+        var httpUrl1="http://localhost:8088/shopping/commodity"
+            // recommend_btn[i] = document.getElementById("recommend_btn" +i);
+            // console.log(recommend_btn[i]);
+            console.log(commoditydata[i]);
+            commoditydata[i].ifRecommend=0;
+
+                $.ajax({
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    type: "PUT",
+                    url: httpUrl1,
+                    data:{ "id":commoditydata[i].id,"ifRecommend":commoditydata[i].ifRecommend},
+                    dataType:"json",
+                    // xhrFields: {
+                    //     withCredentials: true
+                    // },
+                    success: function (data) {
+                        alert("撤销成功!");
+                        window.location.href="平台推荐商品.html";
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.responseText);
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus); // parser error;
+                    }
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    window.onload = function(){
+        var recommend_commodity= document.getElementById("recommend_commodity");
+        var httpUrl = "http://localhost:8088/shopping/commodity/recommend";
+        var chose = 0;
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="shopkeeperlogin.html";
+        }
+        //发送请求
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                console.log(data);
+                var data1=data.data
+              console.log(data1.length);
+              count=data1.length;
+                for(var i=0;i<data1.length;i++){
+                    commoditydata[i]=data1[i];
+                    console.log(commoditydata[i]);
+                    recommend_commodity.innerHTML+=`<tr>
+    <td>
+        <input class="form-check-input" type="checkbox">
+    </td>
+    <td>${data1[i].id}</td>>
+    <td>${data1[i].belongingShop}</td>
+    <td>${data1[i].name}</td>>
+    <td>${data1[i].price}</td>
+    <td>${data1[i].discount}</td>
+    <td>${data1[i].sizeSystem}</td>
+    <td>
+        <span class="text-success">${data1[i].stock}</span>
+    </td>
+    <td>
+        ${data1[i].thumbnailUrl}
+    </td>
+    <td>${data1[i].introduce}</td>
+    <td class="text-end">
+        <div class="d-flex">
+            <div class="dropdown ms-auto">
+                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <button id="recommend_btn${i}" onclick="canclerecommend(${i})" class="dropdown-item">取消推荐</button>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>`
+
+                    }
+
+
+
+
+                },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+    });
+
+
+
+    }
+</script>
 <body>
 <!-- menu -->
 <div class="menu">
@@ -264,80 +400,7 @@
                             <th class="text-end">商品操作</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">取消推荐</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">取消推荐</a>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        <tbody id="recommend_commodity">
                         </tbody>
                     </table>
                 </div>
@@ -361,8 +424,7 @@
             </div>
             
         </div>
-    
-        </div>
+    </div>
 
 
     <!-- content-footer -->

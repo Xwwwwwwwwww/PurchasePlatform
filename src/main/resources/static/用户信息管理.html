@@ -26,6 +26,37 @@
     <![endif]-->
 </head>
 <script>
+    var length=0;
+    var userdata=[];
+    function test(i){
+        var delete_btn=[];
+        var httpUrl1 = "http://localhost:8088/shopping/customer";
+
+            delete_btn[i]=document.getElementById("delete_btn"+i);
+                //发送请求
+                $.ajax({
+                    // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                    url: httpUrl1,
+                    type: "DELETE",
+                    data:{"id":userdata[i].id},
+                    success: function (data) {
+                        console.log(data);
+                        alert("用户删除成功!");
+                        window.location.href="用户信息管理.html"
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("error!");
+                        console.log(XMLHttpRequest.responseText);
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+
+                })
+
+
+
+    }
     window.onload = function(){
         var customers = document.getElementById("customers");
         var httpUrl = "http://localhost:8088/shopping/customer/all";
@@ -61,8 +92,9 @@
             // },
             success: function (data) {
                 console.log(data);
-                var delete_btn=[];
+                length=data.length;
                 for(var i=0;i<data.length;i++){
+                    userdata[i]=data[i];
                     customers.innerHTML+=`<tr>
                     <td>
                     <input class="form-check-input" type="checkbox">
@@ -83,49 +115,14 @@
                         <i class="bi bi-three-dots"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                        <button type="button" class="dropdown-item"  id="delete_btn${i}">删除用户</button>
+                        <button type="button" class="dropdown-item" onclick="test(${i})" id="delete_btn${i}">删除用户</button>
                         </div>
                         </div>
                         </div>
                         </td>
                         </tr>`;
-                    delete_btn[i]=document.getElementById("delete_btn"+i);
-                    console.log("abc"+delete_btn);
-                    var customer_id=document.getElementsByClassName("customer_id");
-                   var delete_id=customer_id[i].innerText;
-                    var httpUrl1 = "http://localhost:8088/shopping/customer";
-                    delete_btn[i].onclick=function(){
-                        //发送请求
-                        $.ajax({
-                            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-                            url: httpUrl1,
-                            type: "DELETE",
-                            data:{"id":delete_id},
-                            success: function (data) {
-                                console.log(data);
-                                alert(data.message);
-                                window.location.href="用户信息管理.html"
-                            },
-                            error : function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert("error!");
-                                console.log(XMLHttpRequest.responseText);
-                                console.log(XMLHttpRequest.status);
-                                console.log(XMLHttpRequest.readyState);
-                                console.log(textStatus);
-                            }
-
-                        })
-
-                    }
                 }
-                // alert(data.message);
-                //判断登陆成功则跳转
-                // if(data.code == 0){
-                //     document.cookie = "token="+data.data+";path=/";
-                //     console.log(document.cookie);
-                //
-                //     window.location.href="index1.html";
-                // }
+
             },
             error : function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest.responseText);

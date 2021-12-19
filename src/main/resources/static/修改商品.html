@@ -27,6 +27,189 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
+<script>
+    window.onload = function(){
+        var commodity = document.getElementById("commodity");
+        var httpUrl = "http://localhost:8088/shopping/commodity/shop";
+        var chose = 0;
+        var length=0;
+        var commoditydata=[];
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        var user_name="";
+        var shop_id=0;
+        var shop_name="";
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="shopkeeperlogin.html";
+        }
+        else{
+            var cookie=getCookie("token");
+            console.log(getCookie("token"));
+            console.log(cookie.indexOf("%"));
+            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
+            console.log(username);
+            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
+            console.log(shop_id);
+            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
+            console.log(shop_name);
+        }
+        //发送请求
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                var data1=data.data;
+                length=data1.length;
+                console.log(data1);
+                for(var i=0;i<data1.length;i++){
+                    admindata[i]=data1[i];
+                    admin.innerHTML+=`<tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox">
+                            </td>
+                            <td>
+                                <a href="#">#1</a>
+                            </td>
+                            <td>123</td>
+
+                            <td>Headphone</td>
+                            <td>200RMB</td>
+                            <td>90%</td>
+                            <td>xl</td>
+
+                            <td>
+                                <span class="text-success">In Stock</span>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
+                                </a>
+                            </td>
+                            <td>123</td>
+                            <td class="text-end">
+                                <div class="d-flex">
+                                    <div class="dropdown ms-auto">
+                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button class="dropdown-item" id="recommend_btn">设为推荐</button>
+                                            <button id="changecommodity_btn" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</button>
+                                            <button id="deletecommodity_btn" class="dropdown-item">删除商品</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`;
+                }
+                var httpUrl1="http://localhost:8088/admin/enterpriseAdmin"
+                var delete_btn=[];
+                for(var i=0;i<length;i++){
+                    delete_btn[i]=document.getElementById("delete_btn"+i);
+                    delete_btn[i].onclick=function(){
+                        $.ajax({
+                            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                            url: httpUrl1,
+                            type: "DELETE",
+                            data:{"id":admindata[i].id},
+                            success: function (data) {
+                                console.log(data);
+                                alert("用户删除成功!");
+                                window.location.href="角色管理.html"
+                            },
+                            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                                alert("error!");
+                                console.log(XMLHttpRequest.responseText);
+                                console.log(XMLHttpRequest.status);
+                                console.log(XMLHttpRequest.readyState);
+                                console.log(textStatus);
+                            }
+
+                        })
+
+                    }
+                }
+                //删除管理员
+
+                var httpUrl2="http://localhost:8088/admin/enterpriseAdmin"
+                var pwdchange_btn=[];
+                for(var i=0;i<length;i++){
+                    pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
+                    console.log(pwdchange_btn[i]);
+                    pwdchange_btn[i].onclick=function(){
+                        console.log("hahaha");
+                        var change_btn=document.getElementById("change_btn");
+                        change_btn.onclick=function(){
+                            var change_pwd=document.getElementById("change_pwd").value;
+                            admindata[i].password=change_pwd;
+
+                            $.ajax({
+                                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                                url: httpUrl2,
+                                type: "PUT",
+                                data:{"EnterpriseAdministrator":admindata[i]},
+                                success: function (data) {
+                                    console.log(data);
+                                    alert("修改成功!");
+                                    window.location.href="角色管理.html"
+                                },
+                                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                                    alert("error!");
+                                    console.log(XMLHttpRequest.responseText);
+                                    console.log(XMLHttpRequest.status);
+                                    console.log(XMLHttpRequest.readyState);
+                                    console.log(textStatus);
+                                }
+
+                            })
+
+                        }
+
+
+
+
+                    }
+
+                }
+
+
+
+
+
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+    }
+</script>
+
+
+
 <body>
 
 <!-- preloader -->
@@ -253,83 +436,8 @@
                             <th class="text-end">商品操作</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
+                        <tbody id="commodity">
 
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">设为推荐</a>
-                                            <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</a>
-                                            <a href="#" class="dropdown-item">删除商品</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">设为推荐</a>
-                                            <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</a>
-                                            <a href="#" class="dropdown-item">删除商品</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>

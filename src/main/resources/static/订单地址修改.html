@@ -15,7 +15,7 @@
     <!-- Bootstrap Docs -->
     <link rel="stylesheet" href="static/css/bootstrap-docs.css" type="text/css">
 
-        <!-- Slick -->
+    <!-- Slick -->
     <link rel="stylesheet" href="static/css/slick.css" type="text/css">
 
     <!-- Main style file -->
@@ -28,6 +28,134 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+    var length=0;
+    var orderdata=[];
+    function changeAddress(i){
+        var httpUrl1 = "http://localhost:8088/shopping/order";
+            var change_btn=[];
+            change_btn[i]=document.getElementById("change_btn"+i);
+
+                var save_btn=document.getElementById("save_btn");
+                save_btn.onclick=function() {
+                    var changed_address=document.getElementById("changed_address").value;
+                    console.log("地址：")
+                    console.log(changed_address);
+                    console.log("hahah")
+                    orderdata[i].deliveryAddress=changed_address;
+                    $.ajax({
+                        // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                        url: httpUrl1,
+                        type: "PUT",
+                        data:{"id":orderdata[i].id,
+                        "deliveryAddress":orderdata[i].deliveryAddress},
+                        success: function (data) {
+                            console.log(data);
+                            alert("地址修改成功！");
+                            window.location.href="订单地址修改.html"
+                        },
+                        error : function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("error!");
+                            console.log(XMLHttpRequest.responseText);
+                            console.log(XMLHttpRequest.status);
+                            console.log(XMLHttpRequest.readyState);
+                            console.log(textStatus);
+                        }
+
+                    })
+                }
+
+
+
+
+
+
+    };
+    window.onload = function(){
+        var order= document.getElementById("order");
+        var httpUrl = "http://localhost:8088/shopping/order/all";
+        var chose = 0;
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="shopkeeperlogin.html";
+        }
+        //发送请求
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                console.log(data);
+                length=data.length;
+                for(var i=0;i<data.length;i++){
+                    orderdata[i]=data[i];
+                    order.innerHTML+=`<tr>
+                    <td>
+                    <input class="form-check-input" type="checkbox">
+                        </td>
+                        <td class="order_id">${data[i].id}</td>
+                        <td>${data[i].customerId}</td>
+                        <td>${data[i].commodityId}</td>
+                        <td>${data[i].quantity}</td>
+                        <td>${data[i].sizeSystem}</td>
+                        <td>${data[i].size}</td>
+                        <td>${data[i].orderStatus}</td>
+                        <td>${data[i].logisticsNumber}</td>
+                        <td>${data[i].price}</td>
+                    <td>${data[i].discount}</td>
+                    <td>${data[i].freight}</td>
+                    <td>${data[i].remarks}</td>
+                    <td>${data[i].expressCompany}</td>
+                    <td id="address"+${i}>${data[i].deliveryAddress}</td>
+                    <td class="text-end">
+                        <div class="d-flex">
+                        <div class="dropdown ms-auto">
+                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                        <buttun class="dropdown-item" id="change_btn${i}" type="button" onclick="changeAddress(${i})" data-toggle="modal" data-target="#myModal">地址修改</a>
+                        </div>
+                        </div>
+                        </div>
+                        </td>
+                        </tr>`
+                    ;
+                }
+
+
+
+
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+    }
+</script>
 <body>
 <!-- menu -->
 <div class="menu">
@@ -70,7 +198,7 @@
                     <li>
                         <a href="检索日志.html">检索日志</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -86,7 +214,7 @@
                     <li>
                         <a href="用户信息管理.html">用户信息管理</a>
                     </li>
-            
+
                 </ul>
             </li>
             <li>
@@ -129,7 +257,7 @@
                     <li>
                         <a href="订单地址修改.html">订单地址修改</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -184,38 +312,38 @@
 
     <!-- header -->
     <div class="header">
-    <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
-        <a href="#">
-            <i class="bi bi-list"></i>
+        <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
+            <a href="#">
+                <i class="bi bi-list"></i>
+            </a>
+        </div>
+        <!-- Logo -->
+        <a href="" class="logo">
+            <img width="100" src="static/picture/logo.svg" alt="logo">
         </a>
-    </div>
-    <!-- Logo -->
-    <a href="" class="logo">
-        <img width="100" src="static/picture/logo.svg" alt="logo">
-    </a>
-    <div class="header-bar ms-auto">
-        <ul class="navbar-nav justify-content-end">
-            <li class="nav-item ms-3">
+        <div class="header-bar ms-auto">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item ms-3">
                     <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
-            </li>
-        </ul>
-    </div>
-    <!-- Header mobile buttons -->
-    <div class="header-mobile-buttons">
-        <a href="#" class="search-bar-btn">
-            <i class="bi bi-search"></i>
-        </a>
-        <a href="#" class="actions-btn">
-            <i class="bi bi-three-dots"></i>
-        </a>
-    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Header mobile buttons -->
+        <div class="header-mobile-buttons">
+            <a href="#" class="search-bar-btn">
+                <i class="bi bi-search"></i>
+            </a>
+            <a href="#" class="actions-btn">
+                <i class="bi bi-three-dots"></i>
+            </a>
+        </div>
     </div>
     <!-- ./ Header mobile buttons -->
 
     <!-- ./ header -->
-    
+
     <div class="content ">
-    
+
         <div class="card">
             <div class="card-body">
                 <div class="d-md-flex gap-4 align-items-center">
@@ -244,7 +372,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="table-responsive">
             <table class="table table-custom table-lg mb-0" id="orders">
                 <thead>
@@ -265,79 +393,16 @@
                     <th>运费</th>
                     <th>备注</th>
                     <th>快递公司</th>
+                    <th>收货地址</th>
                     <th class="text-end">订单操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>未发货</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">地址修改</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>未发货</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">地址修改</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                <tbody id="order">
 
                 </tbody>
             </table>
-        
-           </div>
+
+        </div>
         <nav class="mt-4" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
@@ -355,8 +420,8 @@
                 </li>
             </ul>
         </nav>
-    
-        
+
+
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -365,22 +430,18 @@
                     <h4 class="modal-title">修改订单状态</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3" id="">
-                        <label class="form-label">收货地址为：</label>
-                        <input type="text" class="form-control" id="" value="">
-                    </div>
-                    <div class="mb-3" id="">
+                    <div class="mb-3" >
                         <label class="form-label">修改收货地址为：</label>
-                        <input type="text" class="form-control" id="" value="">
+                        <input type="text" class="form-control" id="changed_address" >
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" id="save_btn" class="btn btn-primary">保存</button>
                 </div>
             </div>
         </div>
-    </div>             
+    </div>
 
     <!-- content-footer -->
     <footer class="content-footer">

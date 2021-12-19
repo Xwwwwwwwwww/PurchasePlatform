@@ -26,6 +26,43 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+    window.onload = function(){
+//进入页面的初始化操作
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        var user_name="";
+        var shop_id=0;
+        var shop_name="";
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="shopkeeperlogin.html";
+        }
+        else{
+            var cookie=getCookie("token");
+            console.log(getCookie("token"));
+            console.log(cookie.indexOf("%"));
+            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
+            console.log(username);
+            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
+            console.log(shop_id);
+            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
+            console.log(shop_name);
+        }}
+</script>
 <body>
 
 <!-- preloader -->

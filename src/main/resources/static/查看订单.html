@@ -27,6 +27,177 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+    window.onload = function(){
+//进入页面的初始化操作
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        var user_name="";
+        var shop_id=0;
+        var shop_name="";
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="shopkeeperlogin.html";
+        }
+        else{
+            var cookie=getCookie("token");
+            console.log(getCookie("token"));
+            console.log(cookie.indexOf("%"));
+            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
+            console.log(username);
+            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
+            console.log(shop_id);
+            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
+            console.log(shop_name);
+        }
+// //根据token中保存的管理员name值拿到店铺ID,和店铺名称
+//         var shop_id=0;
+//         var shop_name="";
+//         httpUrl0="";
+//         $.ajax({
+//             headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//             type: "GET",
+//             url: httpUrl0,
+//             data:{"username":username},
+//             dataType: "json",
+//             // xhrFields: {
+//             //     withCredentials: true
+//             // },
+//             success: function (data) {
+//                 console.log(data);
+//
+//                  shop_id=data.shopId;
+//                  shop_name=data.shopName;
+//
+//                 },
+//             error:function(XMLHttpRequest, textStatus, errorThrown) {
+//                 console.log(XMLHttpRequest.responseText);
+//                 console.log(XMLHttpRequest.status);
+//                 console.log(XMLHttpRequest.readyState);
+//                 console.log(textStatus); // parser error;
+//             }})
+//
+//         document.cookie="token="+data.data+"/user_name="+user_name+"/shop_id="+shop_id
+//             +"/shop_name="+shop_name
+//             +"%"+";path=/";
+
+
+        var order= document.getElementById("order");
+        var httpUrl = "http://localhost:8088/shopping/order/shop";
+        var chose = 0;
+        var orderdata=[];
+        var length=0;
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            data:{"shop_id":shop_id},
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                console.log(data);
+                length=data.length;
+                for (var i = 0; i < data.length; i++) {
+                    orderdata[i]=data[i];
+                    order.innerHTML += `<tr>
+                    <td>
+                    <input class="form-check-input" type="checkbox">
+                        </td>
+                        <td>
+                        ${data[i].id}
+                        </td>
+                        <td>${data[i].customer_id}</td>
+                        <td>${data[i].commodity_id}</td>
+                        <td>${data[i].quantity}</td>
+                        <td>&{data[i].size_System}</td>
+                        <td>${data[i].size}</td>
+                        <td>${data[i].order_Status}</td>
+                        <td>${data[i].logistics_Number}</td>
+                        <td>${data[i].price}</td>
+                    <td>${data[i].discount}</td>
+                    <td>${data[i].freight}</td>
+                    <td>${data[i].remarks}</td>
+                    <td>${data[i].express_Company}</td>
+                    <td class="text-end">
+                        <div class="d-flex">
+                        <div class="dropdown ms-auto">
+                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                        <button  class="dropdown-item" type="button" id="delivery_btn${i}" data-toggle="modal" data-target="#myModal">订单发货</button>
+                        </div>
+                        </div>
+                        </div>
+                        </td>
+                        </tr>`
+                    ;
+
+
+                }
+                var httpUrl1="";
+                var delivery_btn=[];
+                for(var i=0;i<length;i++) {
+                    delivery_btn[i] = document.getElementById("delivery_btn" + i);
+                    delivery_btn[i].onclick = function () {
+                        var save_btn=document.getElementById("save_btn");
+                        save_btn.onclick=function(){
+                            var express_company=document.getElementById("express_Company").value;
+                            var express_number=document.getElementById("express_Number").value;
+                            orderdata[i].expressCompany=express_company;
+                            orderdata[i].expressNumber=express_number;
+                            orderdata[i].order_Status="2";
+
+                            $.ajax({
+                                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                                type: "PUT",
+                                url: httpUrl1,
+                                data:{"Orders":orderdata[i]},
+                                dataType: "json",
+                                // xhrFields: {
+                                //     withCredentials: true
+                                // },
+                                success: function (data) {
+                                    console.log(data);
+                                    alert("商品已发货!");
+                                },
+                                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log(XMLHttpRequest.responseText);
+                                    console.log(XMLHttpRequest.status);
+                                    console.log(XMLHttpRequest.readyState);
+                                    console.log(textStatus); // parser error;
+                                }})
+
+                        }
+
+                            }
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+    }
+</script>
 <body>
 <!-- preloader -->
 <div class="preloader">
@@ -262,74 +433,7 @@
                     <th class="text-end">订单操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>未发货</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">确认发货</a>
-                                    <a href="#" class="dropdown-item">删除订单</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>未发货</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">确认发货</a>
-                                    <a href="#" class="dropdown-item">删除订单</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
+                <tbody id="order">
                 </tbody>
             </table>
         
@@ -358,13 +462,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">修改订单状态</h4>
+                    <h4 class="modal-title">发货界面</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3" id="">
+                    <div class="mb-3" >
                         <label class="form-label" >快递公司:</label>
                         <div class="d-flex gap-3">
-                            <select class="form-select">
+                            <select class="form-select" id="express_Company">
                                 <option>圆通快递</option>
                                 <option>中通快递</option>
                                 <option>顺丰快递</option>
@@ -373,14 +477,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mb-3" id="">
+                    <div class="mb-3" >
                         <label class="form-label">物流编号为：</label>
-                        <input type="text" class="form-control" id="" value="">
+                        <input type="text" class="form-control" id="express_Number" >
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-primary" id="save_btn">确认发货</button>
                 </div>
             </div>
         </div>

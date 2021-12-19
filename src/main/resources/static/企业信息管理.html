@@ -24,14 +24,51 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <![endif]-->
 </head>
 <script>
+    var length=0;
+    var enterprisedata=[];
+    function abc(i){
+        console.log("123");
+        console.log(length);
+        var delete_btn=[];
+
+            delete_btn[i]=document.getElementById("delete_btn"+i);
+            console.log("abc"+delete_btn);
+            var enterprise_id=[];
+            var httpUrl1 = "http://localhost:8088/data/enterprise";
+            console.log(enterprisedata[i].id);
+            //发送请求
+            $.ajax({
+                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                url: httpUrl1,
+                type: "DELETE",
+                data:{"id":enterprisedata[i].id},
+                success: function (data) {
+                    console.log(data);
+                    alert(data.message);
+                    window.location.href="企业信息管理.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            });
+
+
+
+    }
+
     window.onload = function(){
         var enterprise = document.getElementById("enterpriseinfo");
-        var httpUrl = "http://localhost:8088/html/enterprise/all";
+        var httpUrl = "http://localhost:8088/data/enterprise/all";
         var chose = 0;
-        var delete_btn=[];
         function getCookie(c_name){
             if (document.cookie.length>0){
                 c_start=document.cookie.indexOf(c_name + "=")
@@ -61,15 +98,18 @@
             //     withCredentials: true
             // },
             success: function (data) {
-                console.log(data);
-                for(var i=0;i<data.length;i++){
+                var data1=data.data;
+                console.log(data1);
+                length=data1.length;
+                for(var i=0;i<data1.length;i++){
+                    enterprisedata[i]=data1[i];
                     enterprise.innerHTML+=`<tr>
                     <td>
                     <input class="form-check-input" type="checkbox">
                         </td>
-                        <td>${data[i].id}</td>
+                        <td id="enterprise_id${i}">${data1[i].id}</td>
 
-                        <td class="enterprise_id">${data[i].name}</td>
+                        <td>${data1[i].name}</td>
                         <td class="text-end">
                         <div class="d-flex">
                         <div class="dropdown ms-auto">
@@ -77,51 +117,16 @@
                         <i class="bi bi-three-dots"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                        <button href="#" id="delete_btn${i}" class="dropdown-item">删除企业</button>
+                        <button type="button" id="delete_btn${i}" onclick="abc(${i})" class="dropdown-item">删除企业</button>
                         </div>
                         </div>
                         </div>
                         </td>
                         </tr>`
-                    delete_btn[i]=document.getElementById("delete_btn"+i);
-                    console.log("abc"+delete_btn);
-                    var enterprise_id=document.getElementsByClassName("enterprise_id");
-                    var delete_id=enterprise_id[i].innerText;
-                    var httpUrl1 = "http://localhost:8088/html/enterprise/delete";
-                    delete_btn[i].onclick=function(){
-                        //发送请求
-                        $.ajax({
-                            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-                            url: httpUrl1,
-                            type: "DELETE",
-                            data:{"id":delete_id},
-                            success: function (data) {
-                                console.log(data);
-                                alert(data.message);
-                                window.location.href="企业信息管理.html"
-                            },
-                            error : function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert("error!");
-                                console.log(XMLHttpRequest.responseText);
-                                console.log(XMLHttpRequest.status);
-                                console.log(XMLHttpRequest.readyState);
-                                console.log(textStatus);
-                            }
-
-                        })
-
-                    }
 
                 }
-                // alert(data.message);
-                //判断登陆成功则跳转
-                // if(data.code == 0){
-                //     document.cookie = "token="+data.data+";path=/";
-                //     console.log(document.cookie);
-                //
-                //     window.location.href="index1.html";
-                // }
-            },
+
+                },
             error : function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest.responseText);
                 console.log(XMLHttpRequest.status);
@@ -129,8 +134,9 @@
                 console.log(textStatus); // parser error;
             }
 
-        })
-    }
+        });
+
+        }
 </script>
 <body>
 <!-- menu -->
@@ -362,6 +368,7 @@
                             <th>企业ID</th>
                            
                             <th>企业名称</th>
+
                             <th class="text-end">企业信息操作</th>
                         </tr>
                         </thead>

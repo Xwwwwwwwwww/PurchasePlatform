@@ -26,6 +26,82 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script>
+    window.onload = function(){
+        var httpUrl = "http://localhost:8088/data/banner";
+        var chose = 0;
+
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="ShopAdminlogin.html";
+        }
+        else{
+            var cookie=getCookie("token");
+            console.log(getCookie("token"));
+            console.log(cookie.indexOf("%"));
+            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
+            console.log(username);
+            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
+            console.log(shop_id);
+            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
+            console.log(shop_name);
+        }
+
+        add_btn=document.getElementById("add_btn");
+        add_btn.onclick=function(){
+            var banner_name=document.getElementById("banner_name").value;
+            console.log("123"+banner_name);
+            var banner_deadline=document.getElementById("banner_deadline").value;
+            console.log("123"+banner_deadline);
+            var banner_describes=document.getElementById("banner_describes").value;
+            console.log("123"+banner_describes);
+            $.ajax({
+                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                url: httpUrl,
+                type: "POST",
+                data:{"name":banner_name,
+                    "deadline":banner_deadline,
+                    "describes":banner_describes,
+                },
+                dataType:"json",
+                success: function (data) {
+                    console.log(data);
+                    alert("活动添加成功");
+                    //window.location.href="添加商品.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+        }
+
+
+
+
+    }
+</script>
+
 <body>
 
 <!-- preloader -->
@@ -209,115 +285,116 @@
                         <div class="mb-4">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <h6 class="card-title mb-4">banner发布</h6>
+                                    <h6 class="card-title mb-4">活动发布</h6>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">banner名称</label>
-                                                <input type="text" class="form-control" value="好消息">
+                                                <label class="form-label">活动名称</label>
+                                                <input type="text" class="form-control" id="banner_name">
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">banner截止时间</label>
-                                                <div class="d-flex gap-3">
-                                                    <select class="form-select">
-                                                        <option>Day</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-                                                        <option>10</option>
-                                                        <option>11</option>
-                                                        <option>12</option>
-                                                        <option>13</option>
-                                                        <option>14</option>
-                                                        <option>15</option>
-                                                        <option>16</option>
-                                                        <option>17</option>
-                                                        <option>18</option>
-                                                        <option>19</option>
-                                                        <option selected="">20</option>
-                                                        <option>21</option>
-                                                        <option>22</option>
-                                                        <option>23</option>
-                                                        <option>24</option>
-                                                        <option>25</option>
-                                                        <option>26</option>
-                                                        <option>27</option>
-                                                        <option>28</option>
-                                                        <option>29</option>
-                                                        <option>30</option>
-                                                    </select>
-                                                    <select class="form-select">
-                                                        <option>Month</option>
-                                                        <option selected="">Jan</option>
-                                                        <option>Feb</option>
-                                                        <option>Mar</option>
-                                                        <option>Apr</option>
-                                                        <option>May</option>
-                                                        <option>Jun</option>
-                                                        <option>Jul</option>
-                                                        <option>Aug</option>
-                                                        <option>Sep</option>
-                                                        <option>Oct</option>
-                                                        <option>Nov</option>
-                                                        <option>Dec</option>
-                                                    </select>
-                                                    <select class="form-select">
-                                                        <option>Year</option>
-                                                        <option>2018</option>
-                                                        <option>2017</option>
-                                                        <option>2016</option>
-                                                        <option>2015</option>
-                                                        <option>2014</option>
-                                                        <option>2013</option>
-                                                        <option>2012</option>
-                                                        <option>2011</option>
-                                                        <option>2010</option>
-                                                        <option>2009</option>
-                                                        <option>2008</option>
-                                                        <option>2007</option>
-                                                        <option>2006</option>
-                                                        <option>2005</option>
-                                                        <option>2004</option>
-                                                        <option>2003</option>
-                                                        <option>2002</option>
-                                                        <option>2001</option>
-                                                        <option>2000</option>
-                                                        <option>1999</option>
-                                                        <option>1998</option>
-                                                        <option>1997</option>
-                                                        <option>1996</option>
-                                                        <option>1995</option>
-                                                        <option>1994</option>
-                                                        <option>1993</option>
-                                                        <option>1992</option>
-                                                        <option>1991</option>
-                                                        <option>1990</option>
-                                                        <option selected="">1989</option>
-                                                        <option>1988</option>
-                                                        <option>1987</option>
-                                                        <option>1986</option>
-                                                        <option>1985</option>
-                                                        <option>1984</option>
-                                                        <option>1983</option>
-                                                        <option>1982</option>
-                                                        <option>1981</option>
-                                                        <option>1980</option>
-                                                    </select>
-                                                </div>
+                                                <label class="form-label">活动截止时间</label>
+<!--                                                <div class="d-flex gap-3" id="banner_deadline">-->
+<!--                                                    <select class="form-select">-->
+<!--                                                        <option>Day</option>-->
+<!--                                                        <option>1</option>-->
+<!--                                                        <option>2</option>-->
+<!--                                                        <option>3</option>-->
+<!--                                                        <option>4</option>-->
+<!--                                                        <option>5</option>-->
+<!--                                                        <option>6</option>-->
+<!--                                                        <option>7</option>-->
+<!--                                                        <option>8</option>-->
+<!--                                                        <option>9</option>-->
+<!--                                                        <option>10</option>-->
+<!--                                                        <option>11</option>-->
+<!--                                                        <option>12</option>-->
+<!--                                                        <option>13</option>-->
+<!--                                                        <option>14</option>-->
+<!--                                                        <option>15</option>-->
+<!--                                                        <option>16</option>-->
+<!--                                                        <option>17</option>-->
+<!--                                                        <option>18</option>-->
+<!--                                                        <option>19</option>-->
+<!--                                                        <option selected="">20</option>-->
+<!--                                                        <option>21</option>-->
+<!--                                                        <option>22</option>-->
+<!--                                                        <option>23</option>-->
+<!--                                                        <option>24</option>-->
+<!--                                                        <option>25</option>-->
+<!--                                                        <option>26</option>-->
+<!--                                                        <option>27</option>-->
+<!--                                                        <option>28</option>-->
+<!--                                                        <option>29</option>-->
+<!--                                                        <option>30</option>-->
+<!--                                                    </select>-->
+<!--                                                    <select class="form-select">-->
+<!--                                                        <option>Month</option>-->
+<!--                                                        <option selected="">Jan</option>-->
+<!--                                                        <option>Feb</option>-->
+<!--                                                        <option>Mar</option>-->
+<!--                                                        <option>Apr</option>-->
+<!--                                                        <option>May</option>-->
+<!--                                                        <option>Jun</option>-->
+<!--                                                        <option>Jul</option>-->
+<!--                                                        <option>Aug</option>-->
+<!--                                                        <option>Sep</option>-->
+<!--                                                        <option>Oct</option>-->
+<!--                                                        <option>Nov</option>-->
+<!--                                                        <option>Dec</option>-->
+<!--                                                    </select>-->
+<!--                                                    <select class="form-select">-->
+<!--                                                        <option>Year</option>-->
+<!--                                                        <option>2018</option>-->
+<!--                                                        <option>2017</option>-->
+<!--                                                        <option>2016</option>-->
+<!--                                                        <option>2015</option>-->
+<!--                                                        <option>2014</option>-->
+<!--                                                        <option>2013</option>-->
+<!--                                                        <option>2012</option>-->
+<!--                                                        <option>2011</option>-->
+<!--                                                        <option>2010</option>-->
+<!--                                                        <option>2009</option>-->
+<!--                                                        <option>2008</option>-->
+<!--                                                        <option>2007</option>-->
+<!--                                                        <option>2006</option>-->
+<!--                                                        <option>2005</option>-->
+<!--                                                        <option>2004</option>-->
+<!--                                                        <option>2003</option>-->
+<!--                                                        <option>2002</option>-->
+<!--                                                        <option>2001</option>-->
+<!--                                                        <option>2000</option>-->
+<!--                                                        <option>1999</option>-->
+<!--                                                        <option>1998</option>-->
+<!--                                                        <option>1997</option>-->
+<!--                                                        <option>1996</option>-->
+<!--                                                        <option>1995</option>-->
+<!--                                                        <option>1994</option>-->
+<!--                                                        <option>1993</option>-->
+<!--                                                        <option>1992</option>-->
+<!--                                                        <option>1991</option>-->
+<!--                                                        <option>1990</option>-->
+<!--                                                        <option selected="">1989</option>-->
+<!--                                                        <option>1988</option>-->
+<!--                                                        <option>1987</option>-->
+<!--                                                        <option>1986</option>-->
+<!--                                                        <option>1985</option>-->
+<!--                                                        <option>1984</option>-->
+<!--                                                        <option>1983</option>-->
+<!--                                                        <option>1982</option>-->
+<!--                                                        <option>1981</option>-->
+<!--                                                        <option>1980</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+                                                <input type="text" class="form-control" id="banner_deadline">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">banner内容</label>
-                                                <textarea class="form-control">好消息</textarea>
+                                                <textarea class="form-control" id="banner_describes"></textarea>
 
                                             </div>
                                             <div class="mb-3">
-                                                <input type="button" class="btn btn-primary btn-icon" value="发布banner">
+                                                <input type="button" id="add_btn" class="btn btn-primary btn-icon" value="发布banner">
                                             </div>
                                         </div>
                                        
