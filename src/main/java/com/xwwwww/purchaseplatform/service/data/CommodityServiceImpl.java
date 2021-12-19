@@ -110,6 +110,4 @@ public class CommodityServiceImpl implements CommodityService{
         List<Commodity> commodityList=commodityMapper.selectList(queryWrapper);
         return Result.SUCCESS(commodityList);
     }
-
-
 }

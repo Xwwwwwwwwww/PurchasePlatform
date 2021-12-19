@@ -5,6 +5,7 @@ import com.xwwwww.purchaseplatform.entity.administration.administrator.PlatformA
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.service.login.LoginService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
+import com.xwwwww.purchaseplatform.utils.token.AesUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class LoginController {
     private LoginService loginService;
 
     @ResponseBody
-    @PostMapping("/user/login")
+    @PostMapping("/customer")
     public Result login(Customer customer) throws Exception{
         return  loginService.login(customer);
     }

@@ -1,5 +1,6 @@
 package com.xwwwww.purchaseplatform.service.login;
 
+import ch.qos.logback.core.subst.Token;
 import com.xwwwww.purchaseplatform.entity.administration.administrator.PlatformAdministrator;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.administration.administrator.PlatformAdministratorMapper;
@@ -16,10 +17,11 @@ public class LoginServiceImpl implements LoginService {
     CustomerMapper customerMapper;
     @Autowired
     PlatformAdministratorMapper platformAdministratorMapper;
+
     @Override
     public Result login(Customer customer) throws Exception{
         if(customerMapper.login(customer)!=null)
-            return Result.SUCCESS(AesUtils.encrypt(customer.getPhoneNumber()));
+            return Result.SUCCESS(customer);
         else
             return new Result(ResultCode.USER_LOGIN_ERROR,"error");
     }

@@ -1,8 +1,11 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwwwww.purchaseplatform.entity.administration.administrator.Shopkeeper;
 import com.xwwwww.purchaseplatform.entity.shopping.shop.Shop;
 import com.xwwwww.purchaseplatform.mapper.shopping.shop.ShopMapper;
+import com.xwwwww.purchaseplatform.service.data.ShopService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,9 @@ import java.util.List;
 public class ShopController {
     @Autowired
     ShopMapper shopMapper;
+
+    @Autowired
+    ShopService shopService;
 
     @ResponseBody
     @GetMapping("/shop")
@@ -52,5 +58,11 @@ public class ShopController {
     @GetMapping("/shop/all")
     public List<Shop> getAllShops() throws Exception{
         return shopMapper.selectList(null);
+    }
+
+    @ResponseBody
+    @GetMapping("/shop/shopKeeperId")
+    public Result getShopByShopKeeper(@RequestBody Shopkeeper shopkeeper) throws Exception{
+        return shopService.getShopByShpShopKeeper(shopkeeper);
     }
 }

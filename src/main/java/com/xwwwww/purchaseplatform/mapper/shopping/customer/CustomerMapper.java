@@ -12,7 +12,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 
     public Customer getByNickName(String nickName);
 
-    public Customer login(Customer customer);
+    Customer login(Customer customer);
 
     public Customer getByPhoneNumber(String phoneNumber);
     public List<Customer> getAllCustomers();

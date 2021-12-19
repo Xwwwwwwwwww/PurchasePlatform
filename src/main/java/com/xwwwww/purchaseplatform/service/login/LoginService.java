@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface LoginService {
-    public Result login(Customer customer) throws Exception;
-    public Result login(PlatformAdministrator platformAdministrator) throws Exception;
+    Result login(Customer customer) throws Exception;
+    Result login(PlatformAdministrator platformAdministrator) throws Exception;
 }
