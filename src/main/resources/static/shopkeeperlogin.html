@@ -22,7 +22,8 @@
             var login_button = document.getElementById("login_button");
             var user = document.getElementById("user_input");
             var password = document.getElementById("password_input");
-            var httpUrl = "http://localhost:8088/login/shopKeeper/login";
+            var identity = document.getElementById("identity");
+            var httpUrl = "http://localhost:8088/login/admin";
             var chose = 0;
             //按钮点击函数
             login_button.onclick = function(){
@@ -30,16 +31,17 @@
                 //搞到用户名密码并且组装
                 var user_name = user.value;
                 var user_password = password.value;
-
+                var admin_identity =identity.value;
                 console.log(user_name);
                 console.log(user_password);
-
+                console.log(admin_identity);
                 //发送请求
                 $.ajax({
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    headers: {
+                        "Content-Type": "application/json" },
                     type: "POST",
                     url: httpUrl,
-                    data: { "userName": user_name,"password": user_password},
+                    data: { "userName": user_name,"password": user_password,"flag":admin_identity},
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
@@ -48,10 +50,17 @@
                         //判断登陆成功则跳转
                         if(data.code == 0){
                             // console.log(data.data);
-                            document.cookie = "token="+data.data+"/user_name="+user_name+"%"+";path=/";
+                            document.cookie = "token="+data.data+";path=/";
                             console.log(user_name);
                             console.log(document.cookie);
-                            window.location.href="index.html";
+                            if(admin_identity==1)
+                            {window.location.href="index.html";}
+                            else if(admin_identity==2){
+                                window.location.href="index.html";
+                            }
+                            else if(admin_identity==3){
+                                window.location.href="index.html";
+                            }
                         }
                     },
                     error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -88,6 +97,7 @@
                             <div class="my-5 text-center text-lg-start">
                                 <h1 class="display-8">登陆</h1>
                             </div>
+
                             <form class="mb-5">
                                 <div class="mb-3">
                                     <input id="user_input" type="email" class="form-control" placeholder="账号" autofocus="" required="">
@@ -96,9 +106,17 @@
                                     <input id="password_input" type="password" class="form-control" placeholder="密码" required="">
                                 </div>
                                 <div class="text-center text-lg-start">
+                                    <div class="d-flex gap-3">
+                                        <select class="form-select" id="identity">
+                                            <option value="2">店铺管理员</option>
+                                            <option value="3">企业管理员</option>
+                                            <option value="1">平台管理员</option>
+                                        </select>
+                                    </div>
                                     <p class="small">无法访问您的帐户?<a href="#">重置密码</a>.</p>
                                     <button id="login_button" class="btn btn-primary">登陆</button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
