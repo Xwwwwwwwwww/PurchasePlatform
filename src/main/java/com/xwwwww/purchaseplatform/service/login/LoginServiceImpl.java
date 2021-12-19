@@ -20,11 +20,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result login(Customer customer) throws Exception{
-        if(customerMapper.login(customer)!=null)
-            return Result.SUCCESS(customer);
-        else
+        customer=customerMapper.login(customer);
+        if (customer==null)
             return new Result(ResultCode.USER_LOGIN_ERROR,"error");
+        return Result.SUCCESS(customer);
     }
+
     @Override
     public Result login(PlatformAdministrator platformAdministrator) throws Exception{
         if(platformAdministratorMapper.login(platformAdministrator)!=null)
