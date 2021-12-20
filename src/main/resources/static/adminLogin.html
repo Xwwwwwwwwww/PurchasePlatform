@@ -22,31 +22,33 @@
             var login_button = document.getElementById("login_button");
             var user = document.getElementById("user_input");
             var password = document.getElementById("password_input");
-            var httpUrl = "http://localhost:8088/login/admin";
+            var httpUrl = "http://localhost:8088/login/customer";
             var chose = 0;
             //按钮点击函数
             login_button.onclick = function(){
+
                 //搞到用户名密码并且组装
                 var user_name = user.value;
                 var user_password = password.value;
+
                 console.log(user_name);
                 console.log(user_password);
 
                 //发送请求
-                $.ajax({
+                $.post({
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    type: "POST",
                     url: httpUrl,
-                    data: { "userName": user_name,"password": user_password},
+                    data: { "phoneNumber": user_name,"password": user_password},
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
                         alert(data.message);
+
                         //判断登陆成功则跳转
                         if(data.code == 0){
                             document.cookie = "token="+data.data+";path=/";
                             console.log(document.cookie);
-                            window.location.href="adminIndex.html";
+                            window.location.href="http://localhost:8088/html/index";
                         }
                     },
                     error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -55,6 +57,7 @@
                         console.log(XMLHttpRequest.readyState);
                         console.log(textStatus); // parser error;
                     }
+
                 })
             }
         }

@@ -1,13 +1,28 @@
 package com.xwwwww.purchaseplatform.service.data;
 
+import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface OrdersService {
-    public Result getOrdersByShop(int shopId) throws Exception;
+    Result getOrdersByShop(int shopId) throws Exception;
 
-    public Result getOrderStatusNumber(int customerId) throws Exception;
+    Result getOrderStatusNumber(int customerId) throws Exception;
 
-    public Result getOrderByCommodityId(int commodityId) throws Exception;
+    Result getOrderByCommodityId(int commodityId) throws Exception;
+
+    Result getOrderByCustomerId(int customerId) throws Exception;
+
+    Result getOrderByStatus(int orderStatus) throws Exception;
+
+    Result insertOrder(Orders order) throws Exception;
+
+    Result deleteOrder(int id) throws Exception;
+
+    Result updateOrder(Orders order) throws  Exception;
+
+    Result getAllOrder() throws Exception;
+
+
 }

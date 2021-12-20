@@ -32,9 +32,11 @@ public class Customer {
     //密码
     private  String password;
 
+    //帐号状态
+    private int status;
+
     //从属企业id
     private  int belongingEnterprise;
 
-    //帐号状态
-    private int customerStatus;
+
 }

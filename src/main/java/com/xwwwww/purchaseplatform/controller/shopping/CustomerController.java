@@ -1,14 +1,10 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
 import com.xwwwww.purchaseplatform.service.customer.CustomerService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
@@ -17,8 +13,10 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-@Autowired
-CustomerMapper customerMapper;
+
+    @Autowired
+    CustomerMapper customerMapper;
+
     @ResponseBody
     @GetMapping("/customer")
     public Customer getCustomerByNickName(String nickName) throws Exception{
@@ -34,13 +32,14 @@ CustomerMapper customerMapper;
     @ResponseBody
     @PutMapping("/customer")
     public int updateCustomer(Customer customer) throws  Exception{
+        System.out.println("controller"+customer);
         return customerService.updateCustomer(customer);
     }
 
     @ResponseBody
     @DeleteMapping("/customer")
-    public int deleteCustomerByid(int id) throws Exception{
-        return customerMapper.deleteById(id);
+    public int deleteCustomerById(int id) throws Exception{
+        return customerService.deleteCustomerById(id);
     }
 
     /**

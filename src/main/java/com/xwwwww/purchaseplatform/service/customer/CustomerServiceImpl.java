@@ -51,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService{
      * 更新顾客信息
      */
     public int updateCustomer(Customer customer) throws  Exception{
+        System.out.println(customer);
         return customerMapper.updateById(customer);
     }
 
@@ -61,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService{
      * @throws Exception
      * 删除顾客
      */
-    public int deleteCustomerByid(int id) throws Exception{
+    public int deleteCustomerById(int id) throws Exception{
         return customerMapper.deleteById(id);
     }
 

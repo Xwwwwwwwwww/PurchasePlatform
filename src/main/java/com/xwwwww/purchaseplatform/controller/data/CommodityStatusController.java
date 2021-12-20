@@ -14,7 +14,7 @@ public class CommodityStatusController {
 
     @ResponseBody
     @GetMapping("/commoditystatus")
-    public CommodityStatus getCommodityStatusByid(int id) throws Exception{
+    public CommodityStatus getCommodityStatusById(int id) throws Exception{
         return commodityStatusMapper.selectById(id);
     }
 
@@ -26,7 +26,7 @@ public class CommodityStatusController {
 
     @ResponseBody
     @DeleteMapping("/commoditystatus")
-    public int deleteCommodityStatusByid(int id) throws Exception{
+    public int deleteCommodityStatusById(int id) throws Exception{
         return commodityStatusMapper.deleteById((id));
     }
 

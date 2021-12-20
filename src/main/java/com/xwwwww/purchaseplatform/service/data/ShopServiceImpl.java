@@ -19,5 +19,41 @@ public class ShopServiceImpl implements ShopService{
         shopQueryWrapper.eq("shop_keeper_id",shopKeeper.getUserName());
         return Result.SUCCESS(shopMapper.selectList(shopQueryWrapper));
     }
+
+    @Override
+    public Result getShopById(int id) throws Exception {
+        return Result.SUCCESS(shopMapper.selectById(id));
+    }
+
+    @Override
+    public Result getShopByName(String name) throws Exception {
+        QueryWrapper<Shop> queryWrapper=new QueryWrapper<>();
+        //模糊查询：%value%
+        queryWrapper.like("name",name);
+        return Result.SUCCESS(shopMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public Result insertShop(Shop shop) throws Exception {
+        shopMapper.insert(shop);
+        return Result.SUCCESS(shop.getId());
+    }
+
+    @Override
+    public Result deleteShop(int id) throws Exception {
+        shopMapper.deleteById((id));
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result updateShop(Shop shop) throws Exception {
+        shopMapper.updateById(shop);
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result getAllShops() throws Exception {
+        return Result.SUCCESS(shopMapper.selectList(null));
+    }
 }
 

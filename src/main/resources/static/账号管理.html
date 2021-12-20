@@ -31,6 +31,7 @@
 </head>
 
 <script>
+    var status = 1;
     var length=0;
     var accountdata=[];
     var httpUrl1="http://localhost:8088/shopping/customer"
@@ -39,36 +40,30 @@
         var change_btn=document.getElementById("changed_btn");
                 change_btn.onclick=function(){
                     // console.log(accountdata[i].id);
-                    var account_status=document.getElementById("account_status").value;
+                    var status=document.getElementById("account_status").value;
                     // console.log(account_status);
                     // console.log("账号：")
                     // console.log(accountdata[i]);
-                    accountdata[i].customerStatus=account_status;
+                    accountdata[i].customerStatus=status;
                     console.log("账号：")
                     console.log(accountdata[i].customerStatus);
+                    console.log(status);
                     //发送请求
                     $.ajax({
-                        // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                        headers: { "Content-Type": "application/x-www-form-urlencoded"},
                         url: httpUrl1,
                         type: "PUT",
-                        data:{"Customer":accountdata[i]},
-                    data:{
+                        data:{
+                            "status:":status,
                             "id":accountdata[i].id,
-                        "customerStatus:":accountdata[i].customerStatus,
-                        // "nickName":accountdata[i].nickName,
-                        // "avatarUrl":accountdata[i].avatarUrl,
-                        // "belongingEnterprise":accountdata[i].belongingEnterprise,
-                        // "cardBalance":accountdata[i].cardBalance,
-                        // "identity":accountdata[i].identity,
-                        // "password":accountdata[i].password,
-                        // "phoneNumber":accountdata[i].phoneNumber
 
-                    },
+                            "nickName":accountdata[i].nickName,
+                            "avatarUrl":accountdata[i].avatarUrl
+                        },
                         dataType: "json",
                         success: function (data) {
                             console.log("修改后账号:");
                             console.log(accountdata[i]);
-                            // console.log(data);
                             alert("修改成功!");
                             // window.location.href="账号管理.html"
                         },
@@ -135,7 +130,7 @@
                         <td>${data[i].password}</td>
                         <td>${data[i].cardBalance}</td>
                         <td>${data[i].belongingEnterprise}</td>
-                        <td>${data[i].customerStatus}</td>
+                        <td>${data[i].status}</td>
                         <td class="text-end">
                         <div class="d-flex">
                         <div class="dropdown ms-auto">

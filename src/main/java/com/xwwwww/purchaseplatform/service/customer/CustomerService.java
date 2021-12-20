@@ -16,7 +16,7 @@ public interface CustomerService {
 
     public int updateCustomer(Customer customer) throws Exception;
 
-    public int deleteCustomerByid(int id) throws Exception;
+    public int deleteCustomerById(int id) throws Exception;
 
     public List<Customer> getAllCustomers() throws Exception;
 

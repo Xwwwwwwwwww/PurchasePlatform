@@ -51,4 +51,34 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         }
         return Result.SUCCESS(shoppingCartDisplayList);
     }
+
+    @Override
+    public Result getShoppingCartByCommodityId(int commodityId) throws Exception {
+        QueryWrapper<ShoppingCart> shoppingCartQueryWrapper=new QueryWrapper<>();
+        shoppingCartQueryWrapper.eq("commodity_id",commodityId);
+        return Result.SUCCESS(shoppingCartMapper.selectList(shoppingCartQueryWrapper));
+    }
+
+    @Override
+    public Result insertShoppingCart(ShoppingCart shoppingCart) throws Exception {
+        shoppingCartMapper.insert(shoppingCart);
+        return Result.SUCCESS(shoppingCart.getId());
+    }
+
+    @Override
+    public Result deleteShoppingCart(int id) throws Exception {
+        shoppingCartMapper.deleteById((id));
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result updateShoppingCart(ShoppingCart shoppingCart) throws Exception {
+        shoppingCartMapper.updateById(shoppingCart);
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result getAllShoppingCarts() throws Exception {
+        return Result.SUCCESS(shoppingCartMapper.selectList(null));
+    }
 }

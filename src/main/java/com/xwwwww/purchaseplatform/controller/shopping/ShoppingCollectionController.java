@@ -1,42 +1,34 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCollection;
-import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCollectionMapper;
 import com.xwwwww.purchaseplatform.service.data.ShoppingCollectionService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.invoke.CallSite;
-import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/shopping")
 public class ShoppingCollectionController {
     @Autowired
-    ShoppingCollectionMapper shoppingCollectionMapper;
-
-    @Autowired
     ShoppingCollectionService shoppingCollectionService;
 
     @ResponseBody
     @PostMapping("/shoppingCollection")
-    public int insertShoppingCollection(ShoppingCollection shoppingCollection) throws Exception{
-        return shoppingCollectionMapper.insert(shoppingCollection);
+    public Result insertShoppingCollection(@RequestBody ShoppingCollection shoppingCollection) throws Exception{
+        return shoppingCollectionService.insertShoppingCollection(shoppingCollection);
     }
 
     @ResponseBody
     @DeleteMapping("/shoppingCollection")
-    public int deleteShoppingCollection(int id) throws Exception{
-        return shoppingCollectionMapper.deleteById((id));
+    public Result deleteShoppingCollection(int id) throws Exception{
+        return shoppingCollectionService.deleteShoppingCollection(id);
     }
 
     @ResponseBody
     @PutMapping("/shoppingCollection")
-    public int updateShoppingCollection(ShoppingCollection shoppingCollection) throws  Exception{
-        return shoppingCollectionMapper.updateById(shoppingCollection);
+    public Result updateShoppingCollection(@RequestBody ShoppingCollection shoppingCollection) throws  Exception{
+        return shoppingCollectionService.updateShoppingCollection(shoppingCollection);
     }
 
     /**
@@ -47,23 +39,20 @@ public class ShoppingCollectionController {
      */
     @ResponseBody
     @GetMapping("/shoppingCollection/all")
-    public List<ShoppingCollection> getAllShoppingCollection() throws Exception{
-        return shoppingCollectionMapper.selectList(null);
+    public Result getAllShoppingCollection() throws Exception {
+        return shoppingCollectionService.getAllShoppingCollection();
     }
-
     /**
      *
-     * @param customer_id
+     * @param customerId
      * @return list
      * @throws Exception
      * 查询某位顾客的收藏夹
      */
     @ResponseBody
     @GetMapping("/shoppingCollection/customer")
-    public List<ShoppingCollection> getShoppingCollectionByCustomerId(int customer_id) throws  Exception{
-        QueryWrapper<ShoppingCollection> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("customer_id",customer_id);
-        return shoppingCollectionMapper.selectList(queryWrapper);
+    public Result getShoppingCollectionByCustomerId(int customerId) throws  Exception{
+        return shoppingCollectionService.getShoppingCollectionByCustomerId(customerId);
     }
 
     @ResponseBody

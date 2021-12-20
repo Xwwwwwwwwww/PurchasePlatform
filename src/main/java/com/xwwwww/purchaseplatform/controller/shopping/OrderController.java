@@ -1,67 +1,53 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
-import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
-import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
 import com.xwwwww.purchaseplatform.service.data.OrdersService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/shopping")
 public class OrderController {
     @Autowired
-    OrderMapper orderMapper;
-
-    @Autowired
-    CommodityMapper commodityMapper;
-
-    @Autowired
     OrdersService ordersService;
 
     @ResponseBody
     @GetMapping("/order")
-    public List<Orders> getOrderByCustomerId(int customer_id) throws Exception {
-        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("customer_id", customer_id);
-        return orderMapper.selectList(queryWrapper);
+    public Result getOrderByCustomerId(int customerId) throws Exception {
+        return ordersService.getOrderByCustomerId(customerId);
     }
 
     /**
      *
-     * @param order_status
+     * @param orderStatus
      * @return list
      * @throws Exception
      * 根据订单状态获取订单
      */
     @ResponseBody
     @GetMapping("/order/status")
-    public List<Orders> getOrderByStatus(int order_status) throws Exception{
-        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("order_status",order_status);
-        return orderMapper.selectList(queryWrapper);
+    public Result getOrderByStatus(int orderStatus) throws Exception{
+        return ordersService.getOrderByStatus(orderStatus);
     }
 
     @ResponseBody
     @PostMapping("/order")
-    public int insertShoppingCart(Orders order) throws Exception{
-        return orderMapper.insert(order);
+    public Result insertOrder(@RequestBody Orders order) throws Exception{
+        return ordersService.insertOrder(order);
     }
 
     @ResponseBody
     @DeleteMapping("/order")
-    public int deleteShoppingCart(int id) throws Exception{
-        return orderMapper.deleteById(id);
+    public Result deleteOrder(int id) throws Exception{
+        return ordersService.deleteOrder(id);
     }
 
     @ResponseBody
     @PutMapping("/order")
-    public int updateShoppingCart(Orders order) throws  Exception{
-        return orderMapper.updateById(order);
+    public Result updateOrder(@RequestBody Orders order) throws  Exception{
+        return ordersService.updateOrder(order);
     }
 
     /**
@@ -72,8 +58,8 @@ public class OrderController {
      */
     @ResponseBody
     @GetMapping("/order/all")
-    public List<Orders> getAllOrder() throws Exception{
-        return orderMapper.selectList(null);
+    public Result getAllOrder() throws Exception{
+        return ordersService.getAllOrder();
     }
 
     /**
@@ -89,6 +75,13 @@ public class OrderController {
         return ordersService.getOrdersByShop(shopId);
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     * @throws Exception
+     * 查询某顾客的4种订单状态
+     */
     @ResponseBody
     @GetMapping("/order/orderStatusNumber")
     public Result getOrderStatusNumber(int customerId) throws Exception{

@@ -1,63 +1,54 @@
 package com.xwwwww.purchaseplatform.controller.shopping;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.administration.administrator.Shopkeeper;
 import com.xwwwww.purchaseplatform.entity.shopping.shop.Shop;
-import com.xwwwww.purchaseplatform.mapper.shopping.shop.ShopMapper;
 import com.xwwwww.purchaseplatform.service.data.ShopService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/shopping")
 public class ShopController {
     @Autowired
-    ShopMapper shopMapper;
-
-    @Autowired
     ShopService shopService;
 
     @ResponseBody
     @GetMapping("/shop")
-    public Shop getShopById(int id) throws Exception {
-       return shopMapper.selectById(id);
+    public Result getShopById(int id) throws Exception {
+       return shopService.getShopById(id);
     }
 
     @ResponseBody
     @GetMapping("/shop/name")
-    public List<Shop> getShopByName(String name) throws Exception{
-        QueryWrapper<Shop> queryWrapper=new QueryWrapper<>();
-        //模糊查询：%value%
-        queryWrapper.like("name",name);
-        return shopMapper.selectList(queryWrapper);
+    public Result getShopByName(String name) throws Exception{
+       return shopService.getShopByName(name);
     }
 
     @ResponseBody
     @PostMapping("/shop")
-    public int insertShop(Shop shop) throws Exception{
-        return shopMapper.insert(shop);
+    public Result insertShop(@RequestBody Shop shop) throws Exception{
+        return shopService.insertShop(shop);
     }
 
     @ResponseBody
     @DeleteMapping("/shop")
-    public int deleteShop(int id) throws Exception{
-        return shopMapper.deleteById((id));
+    public Result deleteShop(int id) throws Exception{
+        return shopService.deleteShop(id);
     }
 
     @ResponseBody
     @PutMapping("/shop")
-    public int updateShop(Shop shop) throws  Exception{
-        return shopMapper.updateById(shop);
+    public Result updateShop(@RequestBody Shop shop) throws  Exception{
+        return shopService.updateShop(shop);
     }
 
     @ResponseBody
     @GetMapping("/shop/all")
-    public List<Shop> getAllShops() throws Exception{
-        return shopMapper.selectList(null);
+    public Result getAllShops() throws Exception{
+        return shopService.getAllShops();
     }
 
     @ResponseBody

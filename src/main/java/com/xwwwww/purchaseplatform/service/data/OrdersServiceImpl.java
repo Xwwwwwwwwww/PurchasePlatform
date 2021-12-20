@@ -81,4 +81,41 @@ public class OrdersServiceImpl implements OrdersService {
         queryWrapper.eq("commodity_Id",commodityId);
         return Result.SUCCESS(orderMapper.selectList(queryWrapper));
     }
+
+    @Override
+    public Result getOrderByCustomerId(int customerId) throws Exception {
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("customer_id", customerId);
+        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public Result getOrderByStatus(int orderStatus) throws Exception {
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("order_status",orderStatus);
+        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public Result insertOrder(Orders order) throws Exception {
+        orderMapper.insert(order);
+        return Result.SUCCESS(order.getId());
+    }
+
+    @Override
+    public Result deleteOrder(int id) throws Exception {
+        orderMapper.deleteById(id);
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result updateOrder(Orders order) throws Exception {
+        orderMapper.updateById(order);
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result getAllOrder() throws Exception {
+        return Result.SUCCESS(orderMapper.selectList(null));
+    }
 }
