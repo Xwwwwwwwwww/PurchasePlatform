@@ -43,30 +43,31 @@
                     console.log(changed_address);
                     console.log("hahah")
                     orderdata[i].deliveryAddress=changed_address;
+                    var data={"id":orderdata[i].id,
+                        "customerId":orderdata[i].customerId,
+                        "commodityId":orderdata[i].commodityId,
+                        "quantity":orderdata[i].quantity,
+                        "sizeSystem":orderdata[i].sizeSystem,
+                        "size":orderdata[i].size,
+                        "orderStatus":orderdata[i].orderStatus,
+                        "logisticsNumber":orderdata[i].logisticsNumber,
+                        "price":orderdata[i].price,
+                        "discount":orderdata[i].discount,
+                        "freight":orderdata[i].freight,
+                        "remarks":orderdata[i].remarks,
+                        "expressCompany":orderdata[i].expressCompany,
+                        "thumbnailUrl":orderdata[i].thumbnailUrl,
+                        "belongingShop":orderdata[i].belongingShop,
+                        "belongShopName":orderdata[i].belongShopName,
+                        "sizeName":orderdata[i].sizeName,
+                        "commodityName":orderdata[i].commodityName,
+                        "deliveryAddress":orderdata[i].deliveryAddress}
                     $.ajax({
-                        // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                        headers: { "Content-Type": "application/json"},
                         url: httpUrl1,
                         type: "PUT",
-                        data:{
-                            "id":orderdata[i].id,
-                            "customerId":orderdata[i].customerId,
-                            "commodityId":orderdata[i].commodityId,
-                            "quantity":orderdata[i].quantity,
-                            "sizeSystem":orderdata[i].sizeSystem,
-                            "size":orderdata[i].size,
-                            "orderStatus":orderdata[i].orderStatus,
-                            // "logisticsNumber":orderdata[i].logisticsNumber,
-                            "price":orderdata[i].price,
-                            "discount":orderdata[i].discount,
-                            "freight":orderdata[i].freight,
-                            "remarks":orderdata[i].remarks,
-                            // "expressCompany":orderdata[i].expressCompany,
-                            "thumbnailUrl":orderdata[i].thumbnailUrl,
-                            "belongingShop":orderdata[i].belongingShop,
-                            "belongShopName":orderdata[i].belongShopName,
-                            "sizeName":orderdata[i].sizeName,
-                            "commodityName":orderdata[i].commodityName,
-                            "deliveryAddress":orderdata[i].deliveryAddress},
+                        data:JSON.stringify(data),
+                        dataType: "json",
                         success: function (data) {
                             console.log(data);
                             alert("地址修改成功！");
@@ -124,26 +125,27 @@
             success: function (data) {
                 console.log(data);
                 length=data.length;
-                for(var i=0;i<data.length;i++){
-                    orderdata[i]=data[i];
+                var data1=data.data;
+                for(var i=0;i<data1.length;i++){
+                    orderdata[i]=data1[i];
                     order.innerHTML+=`<tr>
                     <td>
                     <input class="form-check-input" type="checkbox">
                         </td>
-                        <td class="order_id">${data[i].id}</td>
-                        <td>${data[i].customerId}</td>
-                        <td>${data[i].commodityId}</td>
-                        <td>${data[i].quantity}</td>
-                        <td>${data[i].sizeSystem}</td>
-                        <td>${data[i].size}</td>
-                        <td>${data[i].orderStatus}</td>
-                        <td>${data[i].logisticsNumber}</td>
-                        <td>${data[i].price}</td>
-                    <td>${data[i].discount}</td>
-                    <td>${data[i].freight}</td>
-                    <td>${data[i].remarks}</td>
-                    <td>${data[i].expressCompany}</td>
-                    <td id="address"+${i}>${data[i].deliveryAddress}</td>
+                        <td class="order_id">${data1[i].id}</td>
+                        <td>${data1[i].customerId}</td>
+                        <td>${data1[i].commodityId}</td>
+                        <td>${data1[i].quantity}</td>
+                        <td>${data1[i].sizeSystem}</td>
+                        <td>${data1[i].size}</td>
+                        <td>${data1[i].orderStatus}</td>
+                        <td>${data1[i].logisticsNumber}</td>
+                        <td>${data1[i].price}</td>
+                    <td>${data1[i].discount}</td>
+                    <td>${data1[i].freight}</td>
+                    <td>${data1[i].remarks}</td>
+                    <td>${data1[i].expressCompany}</td>
+                    <td id="address"+${i}>${data1[i].deliveryAddress}</td>
                     <td class="text-end">
                         <div class="d-flex">
                         <div class="dropdown ms-auto">

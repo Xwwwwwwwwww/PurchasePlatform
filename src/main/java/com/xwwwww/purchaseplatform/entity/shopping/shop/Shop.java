@@ -22,6 +22,5 @@ public class Shop {
     //发货地址
     private String shopAddress;
 
-    //店铺头像
     private String titlePictureUrl;
 }
