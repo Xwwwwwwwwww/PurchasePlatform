@@ -62,6 +62,7 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
         for (ShoppingCollection collection : shoppingCollection) {
             ShoppingCollectionDisplay shoppingCollectionDisplay=new ShoppingCollectionDisplay();
             Commodity commodity=commodityMapper.selectById(collection.getCommodityId());
+            shoppingCollectionDisplay.setId(collection.getId());
             shoppingCollectionDisplay.setCustomerId(collection.getCustomerId());
             shoppingCollectionDisplay.setCommodityId(collection.getCommodityId());
             shoppingCollectionDisplay.setShopName(commodity.getBelongingShopName());

@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class ShoppingCollectionDisplay {
+    private int id;
+
     private int customerId;
 
     private int commodityId;
