@@ -74,4 +74,16 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
         }
         return Result.SUCCESS(shoppingCollectionDisplayList);
     }
+
+    @Override
+    public Result inShoppingCollection(ShoppingCollection shoppingCollection) throws Exception {
+        QueryWrapper<ShoppingCollection> queryWrapper1=new QueryWrapper<>();
+        queryWrapper1.eq("customer_id",shoppingCollection.getCustomerId());
+        List<ShoppingCollection> shoppingCollectionList=shoppingCollectionMapper.selectList(queryWrapper1);
+        for (ShoppingCollection collection : shoppingCollectionList) {
+            if (collection.getCommodityId()==shoppingCollection.getCommodityId())
+                return Result.SUCCESS();
+        }
+        return Result.FAIL();
+    }
 }

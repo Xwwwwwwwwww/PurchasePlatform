@@ -14,9 +14,6 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @Autowired
-    CustomerMapper customerMapper;
-
     @ResponseBody
     @GetMapping("/customer")
     public Customer getCustomerByNickName(String nickName) throws Exception{
@@ -51,7 +48,7 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers() throws Exception{
-        return customerMapper.selectList(null);
+        return customerService.getAllCustomers();
     }
 
     @ResponseBody
@@ -70,7 +67,7 @@ public class CustomerController {
     @GetMapping("/customer/all/user")
     public List<Customer> getAllUsers() throws Exception{
         //System.out.println("调用了！");
-        return customerMapper.selectList(null);
+        return customerService.getAllUsers();
     }
 
     /**

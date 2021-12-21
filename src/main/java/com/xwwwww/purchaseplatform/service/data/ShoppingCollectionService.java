@@ -17,4 +17,6 @@ public interface ShoppingCollectionService {
     Result getAllShoppingCollection() throws Exception;
 
     Result getShoppingCollectionByCustomerId(int customer_id) throws  Exception;
+
+    Result inShoppingCollection(ShoppingCollection shoppingCollection) throws Exception;
 }
