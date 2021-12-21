@@ -3,6 +3,7 @@ package com.xwwwww.purchaseplatform.controller.shopping;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
 import com.xwwwww.purchaseplatform.service.customer.CustomerService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -85,5 +86,16 @@ public class CustomerController {
         return customerService.getAllCompanyStaff();
     }
 
-
+    /**
+     *
+     * @param enterpriseId
+     * @return
+     * @throws Exception
+     * 根据企业id查询员工
+     */
+    @ResponseBody
+    @GetMapping("/customer/all/companystaff/id")
+    public Result getCompanyStaffById(int enterpriseId) throws Exception{
+        return customerService.getCompanyStaffById(enterpriseId);
+    }
 }

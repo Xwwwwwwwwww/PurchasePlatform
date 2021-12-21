@@ -5,6 +5,7 @@ import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.CustomerMapper;
+import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -100,5 +101,12 @@ public class CustomerServiceImpl implements CustomerService{
         //身份编号是1代表企业员工
         customerQueryWrapper.eq("identity",1);
         return customerMapper.selectList(customerQueryWrapper);
+    }
+
+    @Override
+    public Result getCompanyStaffById(int enterpriseId) throws Exception {
+        QueryWrapper<Customer> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("belonging_enterprise",enterpriseId);
+        return Result.SUCCESS(customerMapper.selectList(queryWrapper));
     }
 }
