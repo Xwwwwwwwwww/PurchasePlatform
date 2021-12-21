@@ -60,4 +60,17 @@ public class ShoppingCollectionController {
     public Result getShoppingCollectionItemsNumber(int customerId) throws Exception{
         return shoppingCollectionService.getShoppingCollectionItemsNumber(customerId);
     }
+
+    /**
+     *
+     * @param shoppingCollection
+     * @return
+     * @throws Exception
+     * 这件物品是否在收藏夹里
+     */
+    @ResponseBody
+    @GetMapping("/shoppingCollection/in")
+    public Result inShoppingCollection(@RequestBody ShoppingCollection shoppingCollection) throws Exception{
+        return shoppingCollectionService.inShoppingCollection(shoppingCollection);
+    }
 }

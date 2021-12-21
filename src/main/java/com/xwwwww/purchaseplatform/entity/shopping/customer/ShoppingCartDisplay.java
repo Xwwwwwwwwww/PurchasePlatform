@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class ShoppingCartDisplay {
+    private int id;
+
     private int customerId;
 
     private int commodityId;

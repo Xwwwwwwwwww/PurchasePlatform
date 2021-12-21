@@ -62,6 +62,7 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
         for (ShoppingCollection collection : shoppingCollection) {
             ShoppingCollectionDisplay shoppingCollectionDisplay=new ShoppingCollectionDisplay();
             Commodity commodity=commodityMapper.selectById(collection.getCommodityId());
+            shoppingCollectionDisplay.setId(collection.getId());
             shoppingCollectionDisplay.setCustomerId(collection.getCustomerId());
             shoppingCollectionDisplay.setCommodityId(collection.getCommodityId());
             shoppingCollectionDisplay.setShopName(commodity.getBelongingShopName());
@@ -73,5 +74,17 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
             shoppingCollectionDisplayList.add(shoppingCollectionDisplay);
         }
         return Result.SUCCESS(shoppingCollectionDisplayList);
+    }
+
+    @Override
+    public Result inShoppingCollection(ShoppingCollection shoppingCollection) throws Exception {
+        QueryWrapper<ShoppingCollection> queryWrapper1=new QueryWrapper<>();
+        queryWrapper1.eq("customer_id",shoppingCollection.getCustomerId());
+        List<ShoppingCollection> shoppingCollectionList=shoppingCollectionMapper.selectList(queryWrapper1);
+        for (ShoppingCollection collection : shoppingCollectionList) {
+            if (collection.getCommodityId()==shoppingCollection.getCommodityId())
+                return Result.SUCCESS();
+        }
+        return Result.FAIL();
     }
 }
