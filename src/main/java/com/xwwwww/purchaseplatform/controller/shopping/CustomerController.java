@@ -85,5 +85,16 @@ public class CustomerController {
     public List<Customer> getAllCompanyStaff() throws Exception{
         return customerService.getAllCompanyStaff();
     }
-
+/**
+     *
+     * @param enterpriseId
+     * @return
+     * @throws Exception
+     * 根据企业id查询企业员工
+     */
+    @ResponseBody
+    @GetMapping("/customer/all/companystaff/id")
+    public Result getCompanyStaffById(int enterpriseId) throws Exception{
+        return customerService.getCompanyStaffById(enterpriseId);
+    }
 }
