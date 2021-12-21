@@ -91,7 +91,7 @@ public class CustomerController {
      * @param enterpriseId
      * @return
      * @throws Exception
-     * 根据企业id查询员工
+     * 根据企业id查询企业员工
      */
     @ResponseBody
     @GetMapping("/customer/all/companystaff/id")
