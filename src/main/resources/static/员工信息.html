@@ -27,6 +27,79 @@
     <![endif]-->
 </head>
 <script>
+    var userdata=[];
+    var length=0;
+    function test(i){
+        var delete_btn=[];
+        var httpUrl1 = "http://localhost:8088/shopping/customer";
+
+        delete_btn[i]=document.getElementById("delete_btn"+i);
+        //发送请求
+        $.ajax({
+            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+            url: httpUrl1,
+            type: "DELETE",
+            data:{"id":userdata[i].id},
+            success: function (data) {
+                console.log(data);
+                alert("员工删除成功!");
+                window.location.href="员工信息.html"
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error!");
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+
+        })
+
+
+
+    }
+
+
+    function reset_pwd(i){
+        userdata[i].password="111111";
+        var httpUrl2="http://localhost:8088/shopping/customer";
+        var data={
+            "id":userdata[i].id,
+            "avatarUrl":userdata[i].avatarUrl,
+            "belongingEnterprise":userdata[i].belongingEnterprise,
+            "cardBalance":userdata[i].cardBalance,
+            "customerStatus":userdata[i].customerStatus,
+            "identity":userdata[i].identity,
+            "nickName":userdata[i].nickName,
+            "password":userdata[i].password,
+            "phoneNumber":userdata[i].phoneNumber
+        }
+        $.ajax({
+            headers: { "Content-Type": "application/json"},
+            url: httpUrl2,
+            type: "PUT",
+            data:JSON.stringify(data),
+            dataType:"json",
+            success: function (data) {
+                console.log(data);
+                alert("密码重置成功!");
+                window.location.href="员工信息.html"
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error!");
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+
+        })
+
+
+    }
+
+
+
     window.onload = function() {
 
         function getCookie(c_name) {
@@ -55,19 +128,53 @@
         var enterprise_name=token.substring(token.indexOf("/enterprise_name=")+17,token.length-1);
         console.log(enterprise_name);
         console.log(enterprise_id);
-        var httpUrl="http://localhost:8088/shopping/customer/companystaff"
+        var httpUrl="http://localhost:8088/shopping/customer/all/companystaff/id"
 
+        var companyStaff=document.getElementById("companyStaff");
         $.ajax({
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            // headers: { "Content-Type": "application/x-www-form-urlencoded" },
             type: "GET",
             url: httpUrl,
-            data:{"EnterpriseId":enterprise_id},
+            data:{"enterpriseId":enterprise_id},
             dataType: "json",
             // xhrFields: {
             //     withCredentials: true
             // },
             success: function (data) {
-                console.log(data);
+                console.log(data.data);
+                length=data.length;
+                var data1=data.data;
+                console.log(data1);
+                for(var i=0;i<data1.length;i++){
+                    userdata[i]=data1[i];
+                    companyStaff.innerHTML+=`<tr>
+                    <td>
+                    <input class="form-check-input" type="checkbox">
+                        </td>
+                        <td class="avatar"><img${data1[i].avatarUrl}></td>
+                        <td class="customer_id" id="customer_id">${data1[i].id}</td>
+                        <td>${data1[i].nickName}</td>
+                        <td>${data1[i].identity}</td>
+                        <td>${data1[i].phoneNumber}</td>
+                        <td>${data1[i].password}</td>
+                        <td>${data1[i].cardBalance}</td>
+                        <td>${data1[i].belongingEnterprise}</td>
+                        <td>${data1[i].customerStatus}</td>
+                        <td class="text-end">
+                        <div class="d-flex">
+                        <div class="dropdown ms-auto">
+                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                        <button type="button" class="dropdown-item" onclick="test(${i})" id="delete_btn${i}">删除用户</button>
+                         <button type="button" class="dropdown-item" onclick="reset_pwd(${i})">密码重置</button>
+                        </div>
+                        </div>
+                        </div>
+                        </td>
+                        </tr>`;
+                }
             },
             error:function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest.responseText);
@@ -192,6 +299,83 @@
 
     <!-- ./ header -->
     <div class="content ">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex gap-4 align-items-center">
+                            <div class="d-none d-md-flex">用户列表</div>
+                            <div class="d-md-flex gap-4 align-items-center">
+                                <form class="mb-3 mb-md-0">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <select class="form-select">
+                                                <option >排序</option>
+                                                <option value="desc">Desc</option>
+                                                <option value="asc">Asc</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search">
+                                                <button class="btn btn-outline-light" type="button">
+                                                    <i class="bi bi-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-custom table-lg mb-0" id="products">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="form-check-input select-all" type="checkbox" data-select-all-target="#products" id="defaultCheck1">
+                            </th>
+                            <th>用户头像</th>
+                            <th>用户ID</th>
+                            <th>用户昵称</th>
+                            <th>用户身份</th>
+                            <th>用户手机号</th>
+                            <th>用户密码</th>
+                            <th>餐卡余额</th>
+                            <th>所属企业id</th>
+                            <th>账号状态</th>
+                            <th class="text-end">用户操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="companyStaff">
+
+                        </tbody>
+                    </table>
+                </div>
+                <nav class="mt-4" aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
     </div>
 
     <!-- content-footer -->
