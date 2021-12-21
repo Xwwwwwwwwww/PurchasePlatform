@@ -28,165 +28,195 @@
     <![endif]-->
 </head>
 <script>
-    window.onload = function(){
-//进入页面的初始化操作
-        function getCookie(c_name){
-            if (document.cookie.length>0){
-                c_start=document.cookie.indexOf(c_name + "=")
-                if (c_start!=-1){
-                    c_start=c_start + c_name.length+1
-                    c_end=document.cookie.indexOf(";",c_start)
-                    if (c_end==-1)
-                        c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
-                }
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+            if (c_start!=-1){
+                c_start=c_start + c_name.length+1
+                c_end=document.cookie.indexOf(";",c_start)
+                if (c_end==-1)
+                    c_end=document.cookie.length
+                return unescape(document.cookie.substring(c_start,c_end))
             }
-            return ""
         }
+        return ""
+    }
+    var length=0;
+    var orderdata=[];
+    function delete_order(i){
+        var httpUrl1="http://localhost:8088/shopping/order"
+        // var delete_btn=[];
+        // delete_btn[i]=document.getElementById("delete_btn"+i);
+        $.ajax({
+            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+            url: httpUrl1,
+            type: "DELETE",
+            data:{"id":orderdata[i].id},
+            success: function (data) {
+                console.log(data);
+                alert("订单删除成功!");
+                window.location.href="查看订单.html"
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error!");
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
 
-        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
-        console.log(getCookie("token"));
-        if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
-        }
-        else{
-            var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
-        }
-// //根据token中保存的管理员name值拿到店铺ID,和店铺名称
-//         var shop_id=0;
-//         var shop_name="";
-//         httpUrl0="";
-//         $.ajax({
-//             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//             type: "GET",
-//             url: httpUrl0,
-//             data:{"username":username},
-//             dataType: "json",
-//             // xhrFields: {
-//             //     withCredentials: true
-//             // },
-//             success: function (data) {
-//                 console.log(data);
-//
-//                  shop_id=data.shopId;
-//                  shop_name=data.shopName;
-//
-//                 },
-//             error:function(XMLHttpRequest, textStatus, errorThrown) {
-//                 console.log(XMLHttpRequest.responseText);
-//                 console.log(XMLHttpRequest.status);
-//                 console.log(XMLHttpRequest.readyState);
-//                 console.log(textStatus); // parser error;
-//             }})
-//
-//         document.cookie="token="+data.data+"/user_name="+user_name+"/shop_id="+shop_id
-//             +"/shop_name="+shop_name
-//             +"%"+";path=/";
+        })
 
 
-        var order= document.getElementById("order");
+        //删除商品
+    }
+
+    function change_status(i){
+
+        var httpUrl2="http://localhost:8088/shopping/order"
+
+        var change_btn=document.getElementById("change_btn");
+        change_btn.onclick=function(){
+            var cookies=getCookie("token");
+            var shop_id=cookies.substring(cookies.indexOf("shop_id")+8,cookies.indexOf("shop_name")-1);
+            var shop_name=cookies.substring(cookies.indexOf("shop_name")+10,cookies.length);
+            var express_Number=document.getElementById("express_Number").value;
+            console.log(express_Number);
+            var express_Company=document.getElementById("express_Company").value;
+            // console.log(express_Company);
+            // console.log(shop_id);
+            // console.log(shop_name);
+            // console.log(orderdata[i].id);
+            // console.log(orderdata[i].discount);
+            // console.log(typeof(express_Company));
+            // console.log(typeof())
+            orderdata[i].expressCompany=express_Company;
+            orderdata[i].logisticsNumber=express_Number;
+            orderdata[i].orderStatus=2;
+            var data={"id":orderdata[i].id,
+                "customerId":orderdata[i].customerId,
+                "commodityId":orderdata[i].commodityId,
+                "quantity":orderdata[i].quantity,
+                "sizeSystem":orderdata[i].sizeSystem,
+                "size":orderdata[i].size,
+                "orderStatus":orderdata[i].orderStatus,
+                "logisticsNumber":orderdata[i].logisticsNumber,
+                "price":orderdata[i].price,
+                "discount":orderdata[i].discount,
+                "freight":orderdata[i].freight,
+                "remarks":orderdata[i].remarks,
+                "expressCompany":orderdata[i].expressCompany,
+                "thumbnailUrl":orderdata[i].thumbnailUrl,
+                "belongingShop":orderdata[i].belongingShop,
+                "belongShopName":orderdata[i].belongShopName,
+                "sizeName":orderdata[i].sizeName,
+                "commodityName":orderdata[i].commodityName,
+                "deliveryAddress":orderdata[i].deliveryAddress
+            }
+            $.ajax({
+                headers: { "Content-Type": "application/json"},
+                url: httpUrl2,
+                type: "PUT",
+                data:JSON.stringify(data),
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    alert("订单发货成功!");
+                    window.location.href="查看订单.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+        }
+
+
+
+
+
+
+
+    }
+
+    window.onload = function(){
+        var order = document.getElementById("order");
         var httpUrl = "http://localhost:8088/shopping/order/shop";
         var chose = 0;
-        var orderdata=[];
-        var length=0;
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="管理员登录界面.html";
+        }
+
+        var cookie=getCookie("token");
+        var shop_id=cookie.substring(cookie.indexOf("shop_id")+8,cookie.indexOf("shop_name")-1);
+        var shop_name=cookie.substring(cookie.indexOf("shop_name")+10,cookie.length);
+        //发送请求
         $.ajax({
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             type: "GET",
             url: httpUrl,
-            data:{"shop_id":shop_id},
+            data:{"shopId":shop_id},
             dataType: "json",
             // xhrFields: {
             //     withCredentials: true
             // },
             success: function (data) {
-                console.log(data);
-                length=data.length;
-                for (var i = 0; i < data.length; i++) {
-                    orderdata[i]=data[i];
-                    order.innerHTML += `<tr>
-                    <td>
-                    <input class="form-check-input" type="checkbox">
-                        </td>
-                        <td>
-                        ${data[i].id}
-                        </td>
-                        <td>${data[i].customer_id}</td>
-                        <td>${data[i].commodity_id}</td>
-                        <td>${data[i].quantity}</td>
-                        <td>&{data[i].size_System}</td>
-                        <td>${data[i].size}</td>
-                        <td>${data[i].order_Status}</td>
-                        <td>${data[i].logistics_Number}</td>
-                        <td>${data[i].price}</td>
-                    <td>${data[i].discount}</td>
-                    <td>${data[i].freight}</td>
-                    <td>${data[i].remarks}</td>
-                    <td>${data[i].express_Company}</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                        <div class="dropdown ms-auto">
-                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-three-dots"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                        <button  class="dropdown-item" type="button" id="delivery_btn${i}" data-toggle="modal" data-target="#myModal">订单发货</button>
-                        </div>
-                        </div>
-                        </div>
-                        </td>
-                        </tr>`
-                    ;
+                var data1=data.data;
+                length=data1.length;
+                console.log(data1);
+                for(var i=0;i<data1.length;i++){
+                    orderdata[i]=data1[i];
+                    order.innerHTML+=`<tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox">
+                            </td>
+                            <td>
+                                ${data1[i].id}
+                            </td>
+                            <td>${data1[i].customerId}</td>
 
+                            <td>${data1[i].commodityId}</td>
+                            <td>${data1[i].quantity}</td>
+                            <td>${data1[i].sizeSystem}</td>
+                            <td>${data1[i].size}</td>
+                            <td>${data1[i].orderStatus}</td>
 
+                            <td>
+                               ${data1[i].logisticsNumber}
+                            </td>
+                            <td>
+                               ${data1[i].price}
+                            </td>
+                            <td>${data1[i].discount}%</td>
+                            <td>${data1[i].freight}</td>
+                            <td>${data1[i].remarks}</td>
+                            <td>${data1[i].expressCompany}</td>
+                            <td class="text-end">
+                                <div class="d-flex">
+                                    <div class="dropdown ms-auto">
+                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button id="changecommodity_btn"  onclick="change_status(${i})" class="dropdown-item"  data-toggle="modal" data-target="#myModal">订单发货</button>
+                                            <button id="deletecommodity_btn" onclick="delete_order(${i})" class="dropdown-item">删除订单</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`;
                 }
-                var httpUrl1="";
-                var delivery_btn=[];
-                for(var i=0;i<length;i++) {
-                    delivery_btn[i] = document.getElementById("delivery_btn" + i);
-                    delivery_btn[i].onclick = function () {
-                        var save_btn=document.getElementById("save_btn");
-                        save_btn.onclick=function(){
-                            var express_company=document.getElementById("express_Company").value;
-                            var express_number=document.getElementById("express_Number").value;
-                            orderdata[i].expressCompany=express_company;
-                            orderdata[i].expressNumber=express_number;
-                            orderdata[i].order_Status="2";
 
-                            $.ajax({
-                                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                                type: "PUT",
-                                url: httpUrl1,
-                                data:{"Orders":orderdata[i]},
-                                dataType: "json",
-                                // xhrFields: {
-                                //     withCredentials: true
-                                // },
-                                success: function (data) {
-                                    console.log(data);
-                                    alert("商品已发货!");
-                                },
-                                error:function(XMLHttpRequest, textStatus, errorThrown) {
-                                    console.log(XMLHttpRequest.responseText);
-                                    console.log(XMLHttpRequest.status);
-                                    console.log(XMLHttpRequest.readyState);
-                                    console.log(textStatus); // parser error;
-                                }})
 
-                        }
-
-                            }
-                }
             },
             error : function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest.responseText);
@@ -302,10 +332,10 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
+                        <a href="添加活动.html">添加活动</a>
                     </li>
                     <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="查看活动.html">查看活动</a>
                     </li>
                     </ul>
             </li>
@@ -469,11 +499,11 @@
                         <label class="form-label" >快递公司:</label>
                         <div class="d-flex gap-3">
                             <select class="form-select" id="express_Company">
-                                <option>圆通快递</option>
-                                <option>中通快递</option>
-                                <option>顺丰快递</option>
-                                <option>韵达快递</option>
-                                <option>EMS</option>
+                                <option value="0">中通快递</option>
+                                <option value="1">圆通快递</option>
+                                <option value="2">顺丰快递</option>
+                                <option value="3">韵达快递</option>
+                                <option value="4">EMS</option>
                             </select>
                         </div>
                     </div>
@@ -484,7 +514,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="save_btn">确认发货</button>
+                    <button type="button" class="btn btn-primary" id="change_btn">确认发货</button>
                 </div>
             </div>
         </div>

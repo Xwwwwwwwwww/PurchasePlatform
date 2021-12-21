@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 集团内购平台店铺管理员后台  </title>
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="static/css/css2.css" rel="stylesheet">
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="static/css/bootstrap-icons.min.css" type="text/css">
+    <!-- Bootstrap Docs -->
+    <link rel="stylesheet" href="static/css/bootstrap-docs.css" type="text/css">
+
+        <!-- Slick -->
+    <link rel="stylesheet" href="static/css/slick.css" type="text/css">
+
+    <!-- Main style file -->
+    <link rel="stylesheet" href="static/css/app.min.css" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<script>
+    window.onload = function(){
+        var httpUrl = "http://localhost:8088/data/banner";
+        var chose = 0;
+
+        function getCookie(c_name){
+            if (document.cookie.length>0){
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1)
+                        c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
+
+        //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
+        console.log(getCookie("token"));
+        if(getCookie("token") == ""){
+            window.location.href="管理员登录界面.html";
+        }
+        add_btn=document.getElementById("add_btn");
+        add_btn.onclick=function(){
+            var banner_name=document.getElementById("banner_name").value;
+            console.log("123"+banner_name);
+            var banner_deadline=document.getElementById("banner_deadline").value;
+            console.log("123"+banner_deadline);
+            var banner_describes=document.getElementById("banner_describe").value;
+            console.log("123"+banner_describes);
+            var banner_image_url=document.getElementById("banner_image_url").value;
+            console.log("123"+banner_image_url);
+            $.ajax({
+                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                url: httpUrl,
+                type: "POST",
+                data:{"name":banner_name,
+                    "deadline":banner_deadline,
+                    "describes":banner_describes,
+                    "imageUrl":banner_image_url,
+                },
+                dataType:"json",
+                success: function (data) {
+                    console.log(data);
+                    alert("活动添加成功");
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+        }
+
+
+
+
+    }
+</script>
+<body>
+
+<!-- preloader -->
+<div class="preloader">
+    <img src="static/picture/logo.svg" alt="logo">
+    <div class="preloader-icon"></div>
+</div>
+<!-- ./ preloader -->
+
+<!-- menu -->
+<div class="menu">
+    <div class="menu-header">
+        <a href="" class="menu-header-logo">
+            <img src="static/picture/logo.svg" alt="logo">
+        </a>
+        <a href="" class="btn btn-sm menu-close-btn">
+            <i class="bi bi-x"></i>
+        </a>
+    </div>
+    <div class="menu-body">
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
+                <div class="avatar me-3">
+                    <!-- <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image"> -->
+                店铺头像
+                </div>
+                <div>
+                    <div class="fw-bold">店铺名称</div>
+                    <small class="text-muted">管理员名称</small>
+                </div>
+            </a>
+        </div>
+        <ul>
+            <li class="menu-divider">Manage</li>
+            <li>
+                <a  href="">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </span>
+                    <span>运费管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="运费模板.html">运费模板</a>
+                    </li>
+                    </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>商品管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="添加商品.html">添加商品</a>
+                    </li>
+                    <li>
+                        <a href="修改商品.html">修改商品</a>
+                    </li>
+            
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-truck"></i>
+                    </span>
+                    <span>订单管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="查看订单.html">查看订单
+                       </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </span>
+                    <span>店铺管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="店铺基本信息.html">基本信息</a>
+                    </li>
+                    <li>
+                        <a href="推荐列表.html">推荐列表</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="active" href="">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </span>
+                    <span>运营管理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="添加活动.html">添加活动</a>
+                    </li>
+                    <li>
+                        <a href="查看活动.html">查看活动</a>
+                    </li>
+                    </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>售后处理</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="发票管理.html">发票管理</a>
+                    </li>
+                    <li>
+                        <a href="维权管理.html">维权管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" class="disabled">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-hand-index-thumb"></i>
+                    </span>
+                    <span>Disabled</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- ./  menu -->
+
+<!-- layout-wrapper -->
+<div class="layout-wrapper">
+
+    <!-- header -->
+    <div class="header">
+    <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
+        <a href="#">
+            <i class="bi bi-list"></i>
+        </a>
+    </div>
+    <!-- Logo -->
+    <a href="" class="logo">
+        <img width="100" src="static/picture/logo.svg" alt="logo">
+    </a>
+    <div class="header-bar ms-auto">
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item ms-3">
+                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+            </li>
+        </ul>
+    </div>
+    <!-- Header mobile buttons -->
+    <div class="header-mobile-buttons">
+        <a href="#" class="search-bar-btn">
+            <i class="bi bi-search"></i>
+        </a>
+        <a href="#" class="actions-btn">
+            <i class="bi bi-three-dots"></i>
+        </a>
+    </div>
+    </div>
+    <!-- ./ Header mobile buttons -->
+
+    <!-- ./ header -->
+    <div class="content ">
+
+        <div class="row flex-column-reverse flex-md-row">
+            <div class="col-md-8">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="mb-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6 class="card-title mb-4">活动发布</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">活动名称</label>
+                                                <input type="text" class="form-control" id="banner_name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">活动截止时间</label>
+                                                <!--                                                <div class="d-flex gap-3">-->
+                                                <!--                                                    <select class="form-select">-->
+                                                <!--                                                        <option>Day</option>-->
+                                                <!--                                                        <option>1</option>-->
+                                                <!--                                                        <option>2</option>-->
+                                                <!--                                                        <option>3</option>-->
+                                                <!--                                                        <option>4</option>-->
+                                                <!--                                                        <option>5</option>-->
+                                                <!--                                                        <option>6</option>-->
+                                                <!--                                                        <option>7</option>-->
+                                                <!--                                                        <option>8</option>-->
+                                                <!--                                                        <option>9</option>-->
+                                                <!--                                                        <option>10</option>-->
+                                                <!--                                                        <option>11</option>-->
+                                                <!--                                                        <option>12</option>-->
+                                                <!--                                                        <option>13</option>-->
+                                                <!--                                                        <option>14</option>-->
+                                                <!--                                                        <option>15</option>-->
+                                                <!--                                                        <option>16</option>-->
+                                                <!--                                                        <option>17</option>-->
+                                                <!--                                                        <option>18</option>-->
+                                                <!--                                                        <option>19</option>-->
+                                                <!--                                                        <option selected="">20</option>-->
+                                                <!--                                                        <option>21</option>-->
+                                                <!--                                                        <option>22</option>-->
+                                                <!--                                                        <option>23</option>-->
+                                                <!--                                                        <option>24</option>-->
+                                                <!--                                                        <option>25</option>-->
+                                                <!--                                                        <option>26</option>-->
+                                                <!--                                                        <option>27</option>-->
+                                                <!--                                                        <option>28</option>-->
+                                                <!--                                                        <option>29</option>-->
+                                                <!--                                                        <option>30</option>-->
+                                                <!--                                                    </select>-->
+                                                <!--                                                    <select class="form-select">-->
+                                                <!--                                                        <option>Month</option>-->
+                                                <!--                                                        <option selected="">Jan</option>-->
+                                                <!--                                                        <option>Feb</option>-->
+                                                <!--                                                        <option>Mar</option>-->
+                                                <!--                                                        <option>Apr</option>-->
+                                                <!--                                                        <option>May</option>-->
+                                                <!--                                                        <option>Jun</option>-->
+                                                <!--                                                        <option>Jul</option>-->
+                                                <!--                                                        <option>Aug</option>-->
+                                                <!--                                                        <option>Sep</option>-->
+                                                <!--                                                        <option>Oct</option>-->
+                                                <!--                                                        <option>Nov</option>-->
+                                                <!--                                                        <option>Dec</option>-->
+                                                <!--                                                    </select>-->
+                                                <!--                                                    <select class="form-select">-->
+                                                <!--                                                        <option>Year</option>-->
+                                                <!--                                                        <option>2018</option>-->
+                                                <!--                                                        <option>2017</option>-->
+                                                <!--                                                        <option>2016</option>-->
+                                                <!--                                                        <option>2015</option>-->
+                                                <!--                                                        <option>2014</option>-->
+                                                <!--                                                        <option>2013</option>-->
+                                                <!--                                                        <option>2012</option>-->
+                                                <!--                                                        <option>2011</option>-->
+                                                <!--                                                        <option>2010</option>-->
+                                                <!--                                                        <option>2009</option>-->
+                                                <!--                                                        <option>2008</option>-->
+                                                <!--                                                        <option>2007</option>-->
+                                                <!--                                                        <option>2006</option>-->
+                                                <!--                                                        <option>2005</option>-->
+                                                <!--                                                        <option>2004</option>-->
+                                                <!--                                                        <option>2003</option>-->
+                                                <!--                                                        <option>2002</option>-->
+                                                <!--                                                        <option>2001</option>-->
+                                                <!--                                                        <option>2000</option>-->
+                                                <!--                                                        <option>1999</option>-->
+                                                <!--                                                        <option>1998</option>-->
+                                                <!--                                                        <option>1997</option>-->
+                                                <!--                                                        <option>1996</option>-->
+                                                <!--                                                        <option>1995</option>-->
+                                                <!--                                                        <option>1994</option>-->
+                                                <!--                                                        <option>1993</option>-->
+                                                <!--                                                        <option>1992</option>-->
+                                                <!--                                                        <option>1991</option>-->
+                                                <!--                                                        <option>1990</option>-->
+                                                <!--                                                        <option selected="">1989</option>-->
+                                                <!--                                                        <option>1988</option>-->
+                                                <!--                                                        <option>1987</option>-->
+                                                <!--                                                        <option>1986</option>-->
+                                                <!--                                                        <option>1985</option>-->
+                                                <!--                                                        <option>1984</option>-->
+                                                <!--                                                        <option>1983</option>-->
+                                                <!--                                                        <option>1982</option>-->
+                                                <!--                                                        <option>1981</option>-->
+                                                <!--                                                        <option>1980</option>-->
+                                                <!--                                                    </select>-->
+                                                <!--                                                </div>-->
+                                                <input type="text" class="form-control" id="banner_deadline">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">活动内容</label>
+                                                <textarea class="form-control" id="banner_describe"></textarea>
+
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">活动图片</label>
+                                                <input type="text" class="form-control" id="banner_image_url">
+
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="button" id="add_btn"class="btn btn-primary btn-icon" value="活动发布">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- content-footer -->
+    <footer class="content-footer">
+        <div>© 2021 Vetra - <a href="javascript:;" target="_blank">Laborasyon</a></div>
+        <div>
+            <nav class="nav gap-4">
+                <a href="javascript:;" class="nav-link">Licenses</a>
+                <a href="#" class="nav-link">Change Log</a>
+                <a href="#" class="nav-link">Get Help</a>
+            </nav>
+        </div>
+    </footer>
+    <!-- ./ content-footer -->
+
+</div>
+<!-- ./ layout-wrapper -->
+
+<!-- Bundle scripts -->
+<script src="static/js/bundle.js"></script>
+
+<!-- Apex chart -->
+<script src="static/js/apexcharts.min.js"></script>
+
+<!-- Slick -->
+<script src="static/js/slick.min.js"></script>
+
+<!-- Examples -->
+<script src="static/js/dashboard.js"></script>
+
+<!-- Main Javascript file -->
+<script src="static/js/app.min.js"></script>
+</body>
+</html>

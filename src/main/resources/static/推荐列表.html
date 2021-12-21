@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> 集团内购平台店铺管理员后台 </title>
-
+    <title>集团内购平台店铺管理员后台</title>
+    <script src="static/js/jquery-3.4.1.js"></script>
+    <script src="static/js/bootstrap.js"></script>
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link href="static/css/css2.css" rel="stylesheet">
@@ -15,56 +16,209 @@
     <!-- Bootstrap Docs -->
     <link rel="stylesheet" href="static/css/bootstrap-docs.css" type="text/css">
 
-        <!-- Slick -->
+    <!-- Slick -->
     <link rel="stylesheet" href="static/css/slick.css" type="text/css">
 
     <!-- Main style file -->
     <link rel="stylesheet" href="static/css/app.min.css" type="text/css">
-
+    <link href="static/css/bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
-
 <script>
-    window.onload = function(){
-//进入页面的初始化操作
-        function getCookie(c_name){
-            if (document.cookie.length>0){
-                c_start=document.cookie.indexOf(c_name + "=")
-                if (c_start!=-1){
-                    c_start=c_start + c_name.length+1
-                    c_end=document.cookie.indexOf(";",c_start)
-                    if (c_end==-1)
-                        c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
-                }
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+            if (c_start!=-1){
+                c_start=c_start + c_name.length+1
+                c_end=document.cookie.indexOf(";",c_start)
+                if (c_end==-1)
+                    c_end=document.cookie.length
+                return unescape(document.cookie.substring(c_start,c_end))
             }
-            return ""
         }
+        return ""
+    }
+    var length=0;
+    var commoditydata=[];
+
+
+
+
+
+
+
+    function cancle_recommend(i){
+
+        var httpUrl2="http://localhost:8088/shopping/commodity"
+        // var commodity_change_btn=[];
+
+        // pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
+        // console.log(pwdchange_btn[i]);
+        // console.log("hahaha");
+        // var change_btn=document.getElementById("change_btn");
+        // change_btn.onclick=function(){
+        // var cookies=getCookie("token");
+        // var shop_id=cookies.substring(cookies.indexOf("shop_id")+8,cookies.indexOf("shop_name")-1);
+        // var shop_name=cookies.substring(cookies.indexOf("shop_name")+10,cookies.length);
+        // var commodity_name=document.getElementById("commodity_name").value;
+        // console.log("commodity_name"+commodity_name);
+        // var commodity_price=document.getElementById("price").value;
+        // console.log("commodity_price"+commodity_price);
+        // var commodity_stock=document.getElementById("stock").value;
+        // console.log("commodity_stock"+commodity_stock);
+        // var commodity_size=document.getElementById("commodity_size").value;
+        // console.log("commodity_size"+commodity_size);
+        // var commodity_discount=document.getElementById("commodity_discount").value;
+        // commodity_discount=commodity_discount.substring(0,2);
+        // console.log("commodity_discount"+commodity_discount);
+        // var commodity_first_category=document.getElementById("first_category").value;
+        // console.log("commodity_first_category"+commodity_first_category);
+        // var commodity_second_category=document.getElementById("second_category").value;
+        // console.log("commodity_second_category"+commodity_second_category);
+        // var commodity_third_category=document.getElementById("third_category").value;
+        // console.log("commodity_third_category"+commodity_third_category);
+        // var commodity_introduce=document.getElementById("commodity_introduce").value;
+        // console.log("commodity_introduce"+commodity_introduce);
+        commoditydata[i].ifRecommend=0;
+        console.log(commoditydata[i].ifRecommend);
+
+        $.ajax({
+            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+            url: httpUrl2,
+            type: "PUT",
+            data:{
+                "id":commoditydata[i].id,
+                "name":commoditydata[i].name,
+                "price":commoditydata[i].price,
+                "discount":commoditydata[i].discount,
+                "sizeSystem":commoditydata[i].sizeSystem,
+                "stock":commoditydata[i].stock,
+                "firstCategory":commoditydata[i].firstCategory,
+                "secondCategory":commoditydata[i].secondcategory,
+                "thirdCategory":commoditydata[i].thirdcategory,
+                "introduce":commoditydata[i].introduce,
+                "belongingShop":commoditydata[i].belongingShop,
+                "belongingShopName":commoditydata[i].belongingShopName,
+                "thumbnailUrl":commoditydata[i].thumbnailUrl,
+                "rotationUrl":commoditydata[i].rotationUrl,
+                "rotationNumber":commoditydata[i].rotationNumber,
+                "detailsUrl":commoditydata[i].detailsUrl,
+                "detailsNumber":commoditydata[i].detailsNumber,
+                "firstSpecificationSelection":commoditydata[i].firstSpecificationSelection,
+                "firstSpecificationValue":commoditydata[i].firstSpecificationValue,
+                "secondSpecificationSelection":commoditydata[i].secondSpecificationSelection,
+                "secondSpecificationValue":commoditydata[i].secondSpecificationValue,
+                "releaseStatus":commoditydata[i].releaseStatus,
+                "ifRecommend":commoditydata[i].ifRecommend,
+                "firstSpecificationSelectionName":commoditydata[i].firstSpecificationSelectionName,
+                "secondSpecificationSelectionName":commoditydata[i].secondSpecificationSelectionName,
+
+            },
+            success: function (data) {
+                console.log(data);
+                alert("推荐商品撤销成功!");
+                window.location.href="推荐列表.html"
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error!");
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+
+        })
+
+
+    }
+
+    window.onload = function(){
+        var commodity = document.getElementById("commodity");
+        var httpUrl = "http://localhost:8088/shopping/commodity/recommend/shop";
+        var chose = 0;
 
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
+
         console.log(getCookie("token"));
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
-        else{
-            var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
-        }}
+
+        var cookie=getCookie("token");
+        var shop_id=cookie.substring(cookie.indexOf("shop_id")+8,cookie.indexOf("shop_name")-1);
+        var shop_name=cookie.substring(cookie.indexOf("shop_name")+10,cookie.length);
+        //发送请求
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            data:{"shopId":shop_id},
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                var data1=data.data;
+                length=data1.length;
+                console.log(data1);
+                for(var i=0;i<data1.length;i++){
+                    commoditydata[i]=data1[i];
+                    commodity.innerHTML+=`<tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox">
+                            </td>
+                            <td>
+                                ${data1[i].id}
+                            </td>
+                            <td>${data1[i].belongingShop}</td>
+
+                            <td>${data1[i].name}</td>
+                            <td>${data1[i].price}</td>
+                            <td>${data1[i].discount}%</td>
+                            <td>${data1[i].sizeSystem}</td>
+
+                            <td>
+                                <span class="text-success">${data1[i].stock}</span>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <img src="${data1[i].thumbnailUrl}" class="rounded" width="40" alt="...">
+                                </a>
+                            </td>
+                            <td>${data1[i].introduce}</td>
+                            <td class="text-end">
+                                <div class="d-flex">
+                                    <div class="dropdown ms-auto">
+                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button class="dropdown-item" onclick="cancle_recommend(${i})" id="recommend_btn">取消推荐</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`;
+                }
+
+
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+    }
 </script>
+
+
 
 <body>
 
@@ -90,7 +244,7 @@
             <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
                 <div class="avatar me-3">
                     <!-- <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image"> -->
-                店铺头像
+                    店铺头像
                 </div>
                 <div>
                     <div class="fw-bold">店铺名称</div>
@@ -111,10 +265,10 @@
                     <li>
                         <a href="运费模板.html">运费模板</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
-                <a href="#">
+                <a  href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
@@ -127,7 +281,7 @@
                     <li>
                         <a href="修改商品.html">修改商品</a>
                     </li>
-            
+
                 </ul>
             </li>
             <li>
@@ -140,12 +294,12 @@
                 <ul>
                     <li>
                         <a href="查看订单.html">查看订单
-                       </a>
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="active"href="#">
+                <a class="active" href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-wallet2"></i>
                     </span>
@@ -169,12 +323,12 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
+                        <a href="添加活动.html">添加活动</a>
                     </li>
                     <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="查看活动.html">查看活动</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -211,37 +365,37 @@
 
     <!-- header -->
     <div class="header">
-    <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
-        <a href="#">
-            <i class="bi bi-list"></i>
+        <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
+            <a href="#">
+                <i class="bi bi-list"></i>
+            </a>
+        </div>
+        <!-- Logo -->
+        <a href="" class="logo">
+            <img width="100" src="static/picture/logo.svg" alt="logo">
         </a>
-    </div>
-    <!-- Logo -->
-    <a href="" class="logo">
-        <img width="100" src="static/picture/logo.svg" alt="logo">
-    </a>
-    <div class="header-bar ms-auto">
-        <ul class="navbar-nav justify-content-end">
-            <li class="nav-item ms-3">
+        <div class="header-bar ms-auto">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item ms-3">
                     <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
-            </li>
-        </ul>
-    </div>
-    <!-- Header mobile buttons -->
-    <div class="header-mobile-buttons">
-        <a href="#" class="search-bar-btn">
-            <i class="bi bi-search"></i>
-        </a>
-        <a href="#" class="actions-btn">
-            <i class="bi bi-three-dots"></i>
-        </a>
-    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Header mobile buttons -->
+        <div class="header-mobile-buttons">
+            <a href="#" class="search-bar-btn">
+                <i class="bi bi-search"></i>
+            </a>
+            <a href="#" class="actions-btn">
+                <i class="bi bi-three-dots"></i>
+            </a>
+        </div>
     </div>
     <!-- ./ Header mobile buttons -->
 
     <!-- ./ header -->
     <div class="content ">
-        
+
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -269,7 +423,7 @@
                                     </div>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -292,80 +446,8 @@
                             <th class="text-end">商品操作</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
+                        <tbody id="commodity">
 
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">取消推荐</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="form-check-input" type="checkbox">
-                            </td>
-                            <td>
-                                <a href="#">#1</a>
-                            </td>
-                            <td>123</td>
-
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
-
-                            <td>
-                                <span class="text-success">In Stock</span>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
-                                </a>
-                            </td>
-                            <td>123</td>
-                            <td class="text-end">
-                                <div class="d-flex">
-                                    <div class="dropdown ms-auto">
-                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="#" class="dropdown-item">取消推荐</a>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -387,10 +469,99 @@
                     </ul>
                 </nav>
             </div>
-            
+
         </div>
-    
+
+    </div>
+    <!-- ./ content -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改商品</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">商品名称：</label>
+                                <input type="text" class="form-control" id="commodity_name" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">商品价格：</label>
+                                <input type="text" class="form-control" id="price">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">商品库存:</label>
+                                <input type="text" class="form-control" id="stock" >
+                            </div>
+                            <div class="mb-3" id="size_System">
+                                <label class="form-label" >商品尺码:</label>
+                                <div class="d-flex gap-3">
+                                    <select class="form-select" id="commodity_size">
+                                        <option value="1">S</option>
+                                        <option value="2">M</option>
+                                        <option value="3">L</option>
+                                        <option value="4">XL</option>
+                                        <option value="5">XXL</option>
+                                        <option value="6">XXXL</option>
+                                        <option value="0">NULL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3" id="discount">
+                                <label class="form-label">折扣：</label>
+                                <div class="d-flex gap-3">
+                                    <select class="form-select" id="commodity_discount">
+                                        <option>10%</option>
+                                        <option>20%</option>
+                                        <option>30%</option>
+                                        <option>40%</option>
+                                        <option>50%</option>
+                                        <option>60%</option>
+                                        <option>70%</option>
+                                        <option selected>80%</option>
+                                        <option>90%</option>
+                                        <option>100%</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">一级分类目录：</label>
+                                <select class="form-select">
+                                    <option  id="first_category">1</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" >二级分类目录</label>
+                                <select class="form-select">
+                                    <option id="second_category">2</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">三级分类目录</label>
+                                <select class="form-select" id="third_category">
+                                    <option>3</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">商品简介：</label>
+                                <textarea class="form-control" id="commodity_introduce" ></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">图片：</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="change_btn" class="btn btn-primary">保存</button>
+                </div>
+            </div>
         </div>
+    </div>
 
     <!-- content-footer -->
     <footer class="content-footer">

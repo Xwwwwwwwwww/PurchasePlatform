@@ -29,50 +29,230 @@
 </head>
 
 <script>
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+            if (c_start!=-1){
+                c_start=c_start + c_name.length+1
+                c_end=document.cookie.indexOf(";",c_start)
+                if (c_end==-1)
+                    c_end=document.cookie.length
+                return unescape(document.cookie.substring(c_start,c_end))
+            }
+        }
+        return ""
+    }
+    var length=0;
+    var commoditydata=[];
+    function delete_commodity(i){
+        var httpUrl1="http://localhost:8088/shopping/commodity"
+        // var delete_btn=[];
+        // delete_btn[i]=document.getElementById("delete_btn"+i);
+                $.ajax({
+                    // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                    url: httpUrl1,
+                    type: "DELETE",
+                    data:{"id":commoditydata[i].id},
+                    success: function (data) {
+                        console.log(data);
+                        alert("商品删除成功!");
+                        window.location.href="修改商品.html"
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("error!");
+                        console.log(XMLHttpRequest.responseText);
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+
+                })
+
+
+        //删除商品
+    }
+
+  function change_commodity(i){
+
+      var httpUrl2="http://localhost:8088/shopping/commodity"
+      // var commodity_change_btn=[];
+
+          // pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
+          // console.log(pwdchange_btn[i]);
+              // console.log("hahaha");
+              var change_btn=document.getElementById("change_btn");
+              change_btn.onclick=function(){
+                  var cookies=getCookie("token");
+                  var shop_id=cookies.substring(cookies.indexOf("shop_id")+8,cookies.indexOf("shop_name")-1);
+                  var shop_name=cookies.substring(cookies.indexOf("shop_name")+10,cookies.length);
+                  var commodity_name=document.getElementById("commodity_name").value;
+                  console.log("commodity_name"+commodity_name);
+                  var commodity_price=document.getElementById("price").value;
+                  console.log("commodity_price"+commodity_price);
+                  var commodity_stock=document.getElementById("stock").value;
+                  console.log("commodity_stock"+commodity_stock);
+                  var commodity_size=document.getElementById("commodity_size").value;
+                  console.log("commodity_size"+commodity_size);
+                  var commodity_discount=document.getElementById("commodity_discount").value;
+                  commodity_discount=commodity_discount.substring(0,2);
+                  console.log("commodity_discount"+commodity_discount);
+                  var commodity_first_category=document.getElementById("first_category").value;
+                  console.log("commodity_first_category"+commodity_first_category);
+                  var commodity_second_category=document.getElementById("second_category").value;
+                  console.log("commodity_second_category"+commodity_second_category);
+                  var commodity_third_category=document.getElementById("third_category").value;
+                  console.log("commodity_third_category"+commodity_third_category);
+                  var commodity_introduce=document.getElementById("commodity_introduce").value;
+                  console.log("commodity_introduce"+commodity_introduce);
+
+                  $.ajax({
+                      // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                      url: httpUrl2,
+                      type: "PUT",
+                      data:{
+                          "id":commoditydata[i].id,
+                          "name":commodity_name,
+                          "price":commodity_price,
+                          "discount":commodity_discount,
+                          "sizeSystem":commodity_size,
+                          "stock":commodity_stock,
+                          "firstCategory":commodity_first_category,
+                          "secondCategory":commodity_second_category,
+                          "thirdCategory":commodity_third_category,
+                          "introduce":commodity_introduce,
+                          "belongingShop":shop_id,
+                          "belongingShopName":shop_name,
+                          },
+                      success: function (data) {
+                          console.log(data);
+                          alert("修改成功!");
+                          window.location.href="修改商品.html"
+                      },
+                      error : function(XMLHttpRequest, textStatus, errorThrown) {
+                          alert("error!");
+                          console.log(XMLHttpRequest.responseText);
+                          console.log(XMLHttpRequest.status);
+                          console.log(XMLHttpRequest.readyState);
+                          console.log(textStatus);
+                      }
+
+                  })
+
+              }
+
+
+
+
+
+
+
+  }
+    function change_to_recommend(i){
+
+        var httpUrl2="http://localhost:8088/shopping/commodity"
+        // var commodity_change_btn=[];
+
+        // pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
+        // console.log(pwdchange_btn[i]);
+        // console.log("hahaha");
+        // var change_btn=document.getElementById("change_btn");
+        // change_btn.onclick=function(){
+            // var cookies=getCookie("token");
+            // var shop_id=cookies.substring(cookies.indexOf("shop_id")+8,cookies.indexOf("shop_name")-1);
+            // var shop_name=cookies.substring(cookies.indexOf("shop_name")+10,cookies.length);
+            // var commodity_name=document.getElementById("commodity_name").value;
+            // console.log("commodity_name"+commodity_name);
+            // var commodity_price=document.getElementById("price").value;
+            // console.log("commodity_price"+commodity_price);
+            // var commodity_stock=document.getElementById("stock").value;
+            // console.log("commodity_stock"+commodity_stock);
+            // var commodity_size=document.getElementById("commodity_size").value;
+            // console.log("commodity_size"+commodity_size);
+            // var commodity_discount=document.getElementById("commodity_discount").value;
+            // commodity_discount=commodity_discount.substring(0,2);
+            // console.log("commodity_discount"+commodity_discount);
+            // var commodity_first_category=document.getElementById("first_category").value;
+            // console.log("commodity_first_category"+commodity_first_category);
+            // var commodity_second_category=document.getElementById("second_category").value;
+            // console.log("commodity_second_category"+commodity_second_category);
+            // var commodity_third_category=document.getElementById("third_category").value;
+            // console.log("commodity_third_category"+commodity_third_category);
+            // var commodity_introduce=document.getElementById("commodity_introduce").value;
+            // console.log("commodity_introduce"+commodity_introduce);
+            commoditydata[i].ifRecommend=1;
+            console.log(commoditydata[i].ifRecommend);
+
+            $.ajax({
+                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                url: httpUrl2,
+                type: "PUT",
+                data:{
+                    "id":commoditydata[i].id,
+                    "name":commoditydata[i].name,
+                    "price":commoditydata[i].price,
+                    "discount":commoditydata[i].discount,
+                    "sizeSystem":commoditydata[i].sizeSystem,
+                    "stock":commoditydata[i].stock,
+                    "firstCategory":commoditydata[i].firstCategory,
+                    "secondCategory":commoditydata[i].secondcategory,
+                    "thirdCategory":commoditydata[i].thirdcategory,
+                    "introduce":commoditydata[i].introduce,
+                    "belongingShop":commoditydata[i].belongingShop,
+                    "belongingShopName":commoditydata[i].belongingShopName,
+                    "thumbnailUrl":commoditydata[i].thumbnailUrl,
+                    "rotationUrl":commoditydata[i].rotationUrl,
+                    "rotationNumber":commoditydata[i].rotationNumber,
+                    "detailsUrl":commoditydata[i].detailsUrl,
+                    "detailsNumber":commoditydata[i].detailsNumber,
+                    "firstSpecificationSelection":commoditydata[i].firstSpecificationSelection,
+                    "firstSpecificationValue":commoditydata[i].firstSpecificationValue,
+                    "secondSpecificationSelection":commoditydata[i].secondSpecificationSelection,
+                    "secondSpecificationValue":commoditydata[i].secondSpecificationValue,
+                    "releaseStatus":commoditydata[i].releaseStatus,
+                    "ifRecommend":commoditydata[i].ifRecommend,
+                    "firstSpecificationSelectionName":commoditydata[i].firstSpecificationSelectionName,
+                    "secondSpecificationSelectionName":commoditydata[i].secondSpecificationSelectionName,
+
+                },
+                success: function (data) {
+                    console.log(data);
+                    alert("推荐商品设置成功!");
+                    window.location.href="修改商品.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+
+    }
+
     window.onload = function(){
         var commodity = document.getElementById("commodity");
-        var httpUrl = "http://localhost:8088/shopping/commodity/shop";
+        var httpUrl = "http://localhost:8088/shopping/commodity/shopId";
         var chose = 0;
-        var length=0;
-        var commoditydata=[];
-        function getCookie(c_name){
-            if (document.cookie.length>0){
-                c_start=document.cookie.indexOf(c_name + "=")
-                if (c_start!=-1){
-                    c_start=c_start + c_name.length+1
-                    c_end=document.cookie.indexOf(";",c_start)
-                    if (c_end==-1)
-                        c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
-                }
-            }
-            return ""
-        }
 
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
+
         console.log(getCookie("token"));
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
-        else{
+
             var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
-        }
+            var shop_id=cookie.substring(cookie.indexOf("shop_id")+8,cookie.indexOf("shop_name")-1);
+            var shop_name=cookie.substring(cookie.indexOf("shop_name")+10,cookie.length);
         //发送请求
         $.ajax({
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             type: "GET",
             url: httpUrl,
+            data:{"shopId":shop_id},
             dataType: "json",
             // xhrFields: {
             //     withCredentials: true
@@ -82,30 +262,30 @@
                 length=data1.length;
                 console.log(data1);
                 for(var i=0;i<data1.length;i++){
-                    admindata[i]=data1[i];
-                    admin.innerHTML+=`<tr>
+                    commoditydata[i]=data1[i];
+                    commodity.innerHTML+=`<tr>
                             <td>
                                 <input class="form-check-input" type="checkbox">
                             </td>
                             <td>
-                                <a href="#">#1</a>
+                                ${data1[i].id}
                             </td>
-                            <td>123</td>
+                            <td>${data1[i].belongingShop}</td>
 
-                            <td>Headphone</td>
-                            <td>200RMB</td>
-                            <td>90%</td>
-                            <td>xl</td>
+                            <td>${data1[i].name}</td>
+                            <td>${data1[i].price}</td>
+                            <td>${data1[i].discount}%</td>
+                            <td>${data1[i].sizeSystem}</td>
 
                             <td>
-                                <span class="text-success">In Stock</span>
+                                <span class="text-success">${data1[i].stock}</span>
                             </td>
                             <td>
                                 <a href="#">
-                                    <img src="static/picture/1.jpg" class="rounded" width="40" alt="...">
+                                    <img src="${data1[i].thumbnailUrl}" class="rounded" width="40" alt="...">
                                 </a>
                             </td>
-                            <td>123</td>
+                            <td>${data1[i].introduce}</td>
                             <td class="text-end">
                                 <div class="d-flex">
                                     <div class="dropdown ms-auto">
@@ -113,87 +293,15 @@
                                             <i class="bi bi-three-dots"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <button class="dropdown-item" id="recommend_btn">设为推荐</button>
-                                            <button id="changecommodity_btn" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</button>
-                                            <button id="deletecommodity_btn" class="dropdown-item">删除商品</button>
+                                            <button class="dropdown-item" onclick="change_to_recommend(${i})" id="recommend_btn">设为推荐</button>
+                                            <button id="changecommodity_btn"  onclick="change_commodity(${i})" class="dropdown-item" type="button"  data-toggle="modal" data-target="#myModal">修改商品</button>
+                                            <button id="deletecommodity_btn" onclick="delete_commodity(${i})" class="dropdown-item">删除商品</button>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                         </tr>`;
                 }
-                var httpUrl1="http://localhost:8088/admin/enterpriseAdmin"
-                var delete_btn=[];
-                for(var i=0;i<length;i++){
-                    delete_btn[i]=document.getElementById("delete_btn"+i);
-                    delete_btn[i].onclick=function(){
-                        $.ajax({
-                            // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-                            url: httpUrl1,
-                            type: "DELETE",
-                            data:{"id":admindata[i].id},
-                            success: function (data) {
-                                console.log(data);
-                                alert("用户删除成功!");
-                                window.location.href="角色管理.html"
-                            },
-                            error : function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert("error!");
-                                console.log(XMLHttpRequest.responseText);
-                                console.log(XMLHttpRequest.status);
-                                console.log(XMLHttpRequest.readyState);
-                                console.log(textStatus);
-                            }
-
-                        })
-
-                    }
-                }
-                //删除管理员
-
-                var httpUrl2="http://localhost:8088/admin/enterpriseAdmin"
-                var pwdchange_btn=[];
-                for(var i=0;i<length;i++){
-                    pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
-                    console.log(pwdchange_btn[i]);
-                    pwdchange_btn[i].onclick=function(){
-                        console.log("hahaha");
-                        var change_btn=document.getElementById("change_btn");
-                        change_btn.onclick=function(){
-                            var change_pwd=document.getElementById("change_pwd").value;
-                            admindata[i].password=change_pwd;
-
-                            $.ajax({
-                                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-                                url: httpUrl2,
-                                type: "PUT",
-                                data:{"EnterpriseAdministrator":admindata[i]},
-                                success: function (data) {
-                                    console.log(data);
-                                    alert("修改成功!");
-                                    window.location.href="角色管理.html"
-                                },
-                                error : function(XMLHttpRequest, textStatus, errorThrown) {
-                                    alert("error!");
-                                    console.log(XMLHttpRequest.responseText);
-                                    console.log(XMLHttpRequest.status);
-                                    console.log(XMLHttpRequest.readyState);
-                                    console.log(textStatus);
-                                }
-
-                            })
-
-                        }
-
-
-
-
-                    }
-
-                }
-
-
-
 
 
             },
@@ -313,10 +421,10 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
+                        <a href="添加活动.html">添加活动</a>
                     </li>
                     <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="查看活动.html">查看活动</a>
                     </li>
                     </ul>
             </li>
@@ -475,34 +583,34 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">商品名称：</label>
-                                    <input type="text" class="form-control" id="commodityname" value="">
+                                    <input type="text" class="form-control" id="commodity_name" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">商品价格：</label>
-                                    <input type="text" class="form-control" id="price" value="">
+                                    <input type="text" class="form-control" id="price">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">商品库存:</label>
-                                        <input type="text" class="form-control" id="stock" value="">    
-                            </div>
+                                    <input type="text" class="form-control" id="stock" >
+                                </div>
                                 <div class="mb-3" id="size_System">
                                     <label class="form-label" >商品尺码:</label>
                                     <div class="d-flex gap-3">
-                                        <select class="form-select">
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
-                                            <option>XXL</option>
-                                            <option>XXXL</option>
-                                            <option>NULL</option>
+                                        <select class="form-select" id="commodity_size">
+                                            <option value="1">S</option>
+                                            <option value="2">M</option>
+                                            <option value="3">L</option>
+                                            <option value="4">XL</option>
+                                            <option value="5">XXL</option>
+                                            <option value="6">XXXL</option>
+                                            <option value="0">NULL</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mb-3" id="discount">
                                     <label class="form-label">折扣：</label>
                                     <div class="d-flex gap-3">
-                                        <select class="form-select">
+                                        <select class="form-select" id="commodity_discount">
                                             <option>10%</option>
                                             <option>20%</option>
                                             <option>30%</option>
@@ -516,38 +624,38 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="mb-3">
                                     <label class="form-label">一级分类目录：</label>
                                     <select class="form-select">
-                                        <option value="">1</option>
+                                        <option  id="first_category">1</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">二级分类目录</label>
+                                    <label class="form-label" >二级分类目录</label>
                                     <select class="form-select">
-                                        <option value="">2</option>
+                                        <option id="second_category">2</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">三级分类目录</label>
-                                    <select class="form-select">
-                                        <option value="">3</option>
+                                    <select class="form-select" id="third_category">
+                                        <option>3</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">商品简介：</label>
-                                    <textarea class="form-control" id="commodityname" value=""></textarea>
+                                    <textarea class="form-control" id="commodity_introduce" ></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">图片：</label>
-                                    <h6>点击添加图片</h6>
                                 </div>
-                                </div>
-                               </div> 
+                            </div>
+                        </div>
                    </div>    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary">保存</button>
+                        <button type="button" id="change_btn" class="btn btn-primary">保存</button>
                     </div>
             </div>
         </div>

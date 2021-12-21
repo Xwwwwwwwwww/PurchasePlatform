@@ -47,44 +47,42 @@
         }
 
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
-        console.log(getCookie("token"));
+        // console.log(getCookie("token"));
+        var cookie=getCookie("token");
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
         else{
-            var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
+            console.log("当前页面token为:")
+           console.log(cookie);
         }
-
+        // console.log(shop_id);
+        // console.log(shop_name);
         add_btn=document.getElementById("add_btn");
         add_btn.onclick=function(){
             var commodity_name=document.getElementById("commodity_name").value;
-            console.log("123"+commodity_name);
+            console.log("commodity_name"+commodity_name);
             var commodity_price=document.getElementById("price").value;
-            console.log("123"+commodity_price);
+            console.log("commodity_price"+commodity_price);
             var commodity_stock=document.getElementById("stock").value;
-            console.log("123"+commodity_stock);
+            console.log("commodity_stock"+commodity_stock);
             var commodity_size=document.getElementById("commodity_size").value;
-            console.log("123"+commodity_size);
+            console.log("commodity_size"+commodity_size);
             var commodity_discount=document.getElementById("commodity_discount").value;
             commodity_discount=commodity_discount.substring(0,2);
-            console.log("123"+commodity_discount);
+            console.log("commodity_discount"+commodity_discount);
             var commodity_first_category=document.getElementById("first_category").value;
-            console.log("123"+commodity_first_category);
+            console.log("commodity_first_category"+commodity_first_category);
             var commodity_second_category=document.getElementById("second_category").value;
+            console.log("commodity_second_category"+commodity_second_category);
             var commodity_third_category=document.getElementById("third_category").value;
+            console.log("commodity_third_category"+commodity_third_category);
             var commodity_introduce=document.getElementById("commodity_introduce").value;
-            console.log("123"+commodity_introduce);
+            console.log("commodity_introduce"+commodity_introduce);
+            var shop_id=cookie.substring(cookie.indexOf("shop_id")+8,cookie.indexOf("shop_name")-1);
+            var shop_name=cookie.substring(cookie.indexOf("shop_name")+10,cookie.length-1);
+            console.log(shop_id);
+            console.log(shop_name);
             //商品图片
             $.ajax({
                 // headers: { "Content-Type": "application/x-www-form-urlencoded"},
@@ -93,12 +91,14 @@
                 data:{"name":commodity_name,
                     "price":commodity_price,
                     "discount":commodity_discount,
-                    "size_System":commodity_size,
+                    "sizeSystem":commodity_size,
                     "stock":commodity_stock,
-                    "first_Category":commodity_first_category,
-                    "second_Category":commodity_second_category,
-                    "third_Category":commodity_third_category,
-                "introduce":commodity_introduce
+                    "firstCategory":commodity_first_category,
+                    "secondCategory":commodity_second_category,
+                    "thirdCategory":commodity_third_category,
+                    "introduce":commodity_introduce,
+                    "belongingShop":shop_id,
+                    "belongingShopName":shop_name,
                 },
                 dataType:"json",
                 success: function (data) {
@@ -227,10 +227,10 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
+                        <a href="添加活动.html">添加活动</a>
                     </li>
                     <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="查看活动.html">banner管理</a>
                     </li>
                     </ul>
             </li>
@@ -326,13 +326,13 @@
                                                         <label class="form-label" >商品尺码:</label>
                                                         <div class="d-flex gap-3">
                                                             <select class="form-select" id="commodity_size">
-                                                                <option>S</option>
-                                                                <option>M</option>
-                                                                <option>L</option>
-                                                                <option>XL</option>
-                                                                <option>XXL</option>
-                                                                <option>XXXL</option>
-                                                                <option>NULL</option>
+                                                                <option value="1">S</option>
+                                                                <option value="2">M</option>
+                                                                <option value="3">L</option>
+                                                                <option value="4">XL</option>
+                                                                <option value="5">XXL</option>
+                                                                <option value="6">XXXL</option>
+                                                                <option value="0">NULL</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -369,7 +369,7 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">三级分类目录</label>
                                                         <select class="form-select" id="third_category">
-                                                            <option value="">3</option>
+                                                            <option>3</option>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">

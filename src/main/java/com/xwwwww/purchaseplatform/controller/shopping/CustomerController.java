@@ -31,7 +31,7 @@ public class CustomerController {
 
     @ResponseBody
     @PutMapping("/customer")
-    public int updateCustomer(Customer customer) throws  Exception{
+    public int updateCustomer(@RequestBody Customer customer) throws  Exception{
         System.out.println("controller"+customer);
         return customerService.updateCustomer(customer);
     }
@@ -84,6 +84,5 @@ public class CustomerController {
     public List<Customer> getAllCompanyStaff() throws Exception{
         return customerService.getAllCompanyStaff();
     }
-
 
 }

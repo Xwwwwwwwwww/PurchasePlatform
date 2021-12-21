@@ -101,4 +101,5 @@ public class CustomerServiceImpl implements CustomerService{
         customerQueryWrapper.eq("identity",1);
         return customerMapper.selectList(customerQueryWrapper);
     }
+
 }

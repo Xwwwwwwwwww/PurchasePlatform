@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>集团内购平台管理员后台</title>
+    <title>集团内购平台企业管理员后台</title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -28,18 +28,14 @@
 </head>
 <script>
 
-    //获取cookie
     function getCookie(c_name){
         if (document.cookie.length>0){
-            // console.log(document.cookie);
-            // console.log("哈哈哈!");
-            // console.log(c_name);
             c_start=document.cookie.indexOf(c_name + "=")
             if (c_start!=-1){
                 c_start=c_start + c_name.length+1
                 c_end=document.cookie.indexOf(";",c_start)
                 if (c_end==-1)
-                c_end=document.cookie.length
+                    c_end=document.cookie.length
                 return unescape(document.cookie.substring(c_start,c_end))
             }
         }
@@ -49,43 +45,57 @@
     //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
     console.log(getCookie("token"));
     if(getCookie("token") == ""){
-        window.location.href="login.html";
+        window.location.href="管理员登录界面.html";
+    }
+    else {
+        var cookie = getCookie("token");
+        console.log("当前页面的cookie为：");
+        console.log(getCookie("token"));
     }
 
-    window.onload = function(){
-        // var httpUrl = "http://localhost:8088/html/index";
-        if(document.cookie)
-            console.log(document.cookie);
-        console.log(getCookie("token"));
+        window.onload = function(){
+            console.log("获取到的企业id为:");
+            var enterprise_id=cookie.substring(cookie.indexOf("enterprise_id=")+14,cookie.indexOf("/"));
+            console.log(enterprise_id);
 
-        //按钮点击函数
-        // login_button.onclick = function(){
-        //
-        //     //发送请求
-        //     $.ajax({
-        //         // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-        //         type: "GET",
-        //         url: httpUrl,
-        //         success: function (data) {
-        //             console.log(data);
-        //             alert(data.message);
-        //         },
-        //         error : function(XMLHttpRequest, textStatus, errorThrown) {
-        //             console.log(XMLHttpRequest.responseText);
-        //             console.log(XMLHttpRequest.status);
-        //             console.log(XMLHttpRequest.readyState);
-        //             console.log(textStatus);
-        //         }
-        //
-        //     })
-        // }
+            httpUrl0="http://localhost:8088/data/enterprise";
+            $.ajax({
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                type: "GET",
+                url: httpUrl0,
+                data:{"id":enterprise_id},
+                dataType: "json",
+                // xhrFields: {
+                //     withCredentials: true
+                // },
+                success: function (data) {
+                    console.log(data.data);
+                    console.log("修改前");
+                    console.log(document.cookie);
+                    var data1=data.data;
+                    document.cookie="token="+"enterprise_id="+data1.id+"/enterprise_name="+data1.name+"%";
+                    console.log(document.cookie);
+                    var token=getCookie("token");
+                    console.log(token);
+                    var enterprise_id=cookie.substring(cookie.indexOf("enterprise_id=")+14,cookie.indexOf("/enterprise_name="));
+                    var enterprise_name=cookie.substring(cookie.indexOf("/enterprise_name=")+17,cookie.length-1);
+                     console.log(enterprise_name);
+                    console.log(enterprise_id);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus); // parser error;
+                }})
+
     }
 </script>
 <body>
 <!-- menu -->
 <div class="menu">
     <div class="menu-header">
-        <a href="index.html" class="menu-header-logo">
+        <a href="店铺管理员界面.html" class="menu-header-logo">
             <img src="static/picture/logo.svg" alt="logo">
         </a>
         <a href="" class="btn btn-sm menu-close-btn">
@@ -111,17 +121,11 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-bar-chart"></i>
                     </span>
-                    <span>系统维护</span>
+                    <span>账号信息管理</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="运行监测.html">运行监测</a>
-                    </li>
-                    <li>
-                        <a href="数据检查.html">数据检查</a>
-                    </li>
-                    <li>
-                        <a href="检索日志.html">检索日志</a>
+                        <a href="员工信息.html">员工信息</a>
                     </li>
                     </ul>
             </li>
@@ -130,95 +134,28 @@
                     <span class="nav-link-icon">
                         <i class="bi bi-receipt"></i>
                     </span>
-                    <span>信息管理</span>
+                    <span>商品管控</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="企业信息管理.html">企业信息管理</a>
-                    </li>
-                    <li>
-                        <a href="用户信息管理.html">用户信息管理</a>
+                        <a href="企业管控商品.html">企业管控商品</a>
                     </li>
             
                 </ul>
             </li>
-            <li>
+            <!-- <li>
                 <a href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-truck"></i>
                     </span>
-                    <span>注册授权</span>
+                    <span>导入员工</span>
                 </a>
                 <ul>
                     <li>
-                        <a href="用户授权.html">用户授权</a>
+                        <a href="导入员工.html">导入员工</a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-wallet2"></i>
-                    </span>
-                    <span>系统后台管理</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="角色管理.html">角色管理</a>
-                    </li>
-                    <li>
-                        <a href="账号管理.html">账号管理</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-person-badge"></i>
-                    </span>
-                    <span>收货地址修改</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="订单地址修改.html">订单地址修改</a>
-                    </li>
-                    </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
-                    </span>
-                    <span>平台运营</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="平台推荐商品.html">平台推荐商品</a>
-                    </li>
-                    <li>
-                        <a href="平台活动.html">平台活动</a>
-                    </li>
-                    <li>
-                        <a href="平台公告.html">平台公告</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
-                    </span>
-                    <span>数据统计</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="销售统计.html">销售统计</a>
-                    </li>
-                    <li>
-                        <a href="资金统计.html">资金统计</a>
-                    </li>
-                </ul>
-            </li>
+            </li> -->
             <li>
                 <a href="#" class="disabled">
                     <span class="nav-link-icon">

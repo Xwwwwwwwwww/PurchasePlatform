@@ -33,8 +33,8 @@
     var orderdata=[];
     function changeAddress(i){
         var httpUrl1 = "http://localhost:8088/shopping/order";
-            var change_btn=[];
-            change_btn[i]=document.getElementById("change_btn"+i);
+            // var change_btn=[];
+            // change_btn[i]=document.getElementById("change_btn"+i);
 
                 var save_btn=document.getElementById("save_btn");
                 save_btn.onclick=function() {
@@ -47,8 +47,26 @@
                         // headers: { "Content-Type": "application/x-www-form-urlencoded"},
                         url: httpUrl1,
                         type: "PUT",
-                        data:{"id":orderdata[i].id,
-                        "deliveryAddress":orderdata[i].deliveryAddress},
+                        data:{
+                            "id":orderdata[i].id,
+                            "customerId":orderdata[i].customerId,
+                            "commodityId":orderdata[i].commodityId,
+                            "quantity":orderdata[i].quantity,
+                            "sizeSystem":orderdata[i].sizeSystem,
+                            "size":orderdata[i].size,
+                            "orderStatus":orderdata[i].orderStatus,
+                            // "logisticsNumber":orderdata[i].logisticsNumber,
+                            "price":orderdata[i].price,
+                            "discount":orderdata[i].discount,
+                            "freight":orderdata[i].freight,
+                            "remarks":orderdata[i].remarks,
+                            // "expressCompany":orderdata[i].expressCompany,
+                            "thumbnailUrl":orderdata[i].thumbnailUrl,
+                            "belongingShop":orderdata[i].belongingShop,
+                            "belongShopName":orderdata[i].belongShopName,
+                            "sizeName":orderdata[i].sizeName,
+                            "commodityName":orderdata[i].commodityName,
+                            "deliveryAddress":orderdata[i].deliveryAddress},
                         success: function (data) {
                             console.log(data);
                             alert("地址修改成功！");
@@ -92,7 +110,7 @@
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
         console.log(getCookie("token"));
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
         //发送请求
         $.ajax({
@@ -160,7 +178,7 @@
 <!-- menu -->
 <div class="menu">
     <div class="menu-header">
-        <a href="index.html" class="menu-header-logo">
+        <a href="店铺管理员界面.html" class="menu-header-logo">
             <img src="static/picture/logo.svg" alt="logo">
         </a>
         <a href="" class="btn btn-sm menu-close-btn">

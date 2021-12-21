@@ -15,7 +15,7 @@
     <!-- Bootstrap Docs -->
     <link rel="stylesheet" href="static/css/bootstrap-docs.css" type="text/css">
 
-        <!-- Slick -->
+    <!-- Slick -->
     <link rel="stylesheet" href="static/css/slick.css" type="text/css">
 
     <!-- Main style file -->
@@ -27,41 +27,114 @@
     <![endif]-->
 </head>
 <script>
-    window.onload = function(){
+
+var image=0;
+var shop_id=0;
+var shop_name=0;
+    function save_shop_info(){
+
+        var shopname = document.getElementById("shop_name").value;
+        var shopimage=image;
+        var shopaddress=document.getElementById("shop_address").value;
+        var shopstar=document.getElementById("shop_star").value;
+        // var admin_id=document.getElementById("admin_id");
+        var enterprise_id=document.getElementById("enterprise_id").value;
+        var httpUrl0="http://localhost:8088/shopping/shop";
+
+
+        $.ajax({
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            type: "PUT",
+            url: httpUrl0,
+            data: {"id":shop_id,
+            "name":shopname,
+                "titlePictureUrl":shopimage,
+                "star":shopstar,
+                "shopAddress":shopaddress,
+                "belongingEnterprise":enterprise_id
+            },
+            dataType: "json",
+            success: function (data) {
+                alert("信息修改成功!")
+                console.log(data);
+                },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+        })
+
+    }
+
+
+
+
+
+    window.onload = function() {
 //进入页面的初始化操作
-        function getCookie(c_name){
-            if (document.cookie.length>0){
-                c_start=document.cookie.indexOf(c_name + "=")
-                if (c_start!=-1){
-                    c_start=c_start + c_name.length+1
-                    c_end=document.cookie.indexOf(";",c_start)
-                    if (c_end==-1)
-                        c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
+        function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=")
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1
+                    c_end = document.cookie.indexOf(";", c_start)
+                    if (c_end == -1)
+                        c_end = document.cookie.length
+                    return unescape(document.cookie.substring(c_start, c_end))
                 }
             }
             return ""
         }
 
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
         console.log(getCookie("token"));
-        if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+        if (getCookie("token") == "") {
+            window.location.href = "管理员登录界面.html";
+        } else {
+            var cookie = getCookie("token");
+            console.log(cookie);
         }
-        else{
-            var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
-        }}
+         shop_id = cookie.substring(cookie.indexOf("shop_id") + 8, cookie.indexOf("shop_name") - 1);
+         shop_name = cookie.substring(cookie.indexOf("shop_name") + 10, cookie.length-1);
+        // console.log(shop_id);
+        // console.log(shop_name);
+        var httpUrl = "http://localhost:8088/shopping/shop";
+        $.ajax({
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            type: "GET",
+            url: httpUrl,
+            data: {"id":shop_id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var data1=data.data;
+                console.log(data1);
+                document.getElementById("shop_name").value=data1.name;
+                document.getElementById("shop_address").value=data1.shopAddress;
+                document.getElementById("enterprise_id").value=data1.belongingEnterprise;
+                document.getElementById("shop_star").value=data1.star;
+                console.log(document.getElementById("shop_image").innerHTML);
+                document.getElementById("shop_image").innerHTML=`<label class="form-label" >店铺头像</label>
+                    <img src="${data1.titlePictureUrl}"  >`;
+                     image=data1.titlePictureUrl;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+
+
+    }
+
+
+
+
 </script>
 <body>
 
@@ -87,7 +160,7 @@
             <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
                 <div class="avatar me-3">
                     <!-- <img src="static/picture/man_avatar3.jpg" class="rounded-circle" alt="image"> -->
-                店铺头像
+                    店铺头像
                 </div>
                 <div>
                     <div class="fw-bold">店铺名称</div>
@@ -108,7 +181,7 @@
                     <li>
                         <a href="运费模板.html">运费模板</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -124,7 +197,7 @@
                     <li>
                         <a href="修改商品.html">修改商品</a>
                     </li>
-            
+
                 </ul>
             </li>
             <li>
@@ -137,7 +210,7 @@
                 <ul>
                     <li>
                         <a href="查看订单.html">查看订单
-                       </a>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -166,12 +239,12 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="公告管理.html">公告管理</a>
+                        <a href="添加活动.html">添加活动</a>
                     </li>
                     <li>
-                        <a href="banner管理.html">banner管理</a>
+                        <a href="查看活动.html">查看活动</a>
                     </li>
-                    </ul>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -208,37 +281,37 @@
 
     <!-- header -->
     <div class="header">
-    <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
-        <a href="#">
-            <i class="bi bi-list"></i>
+        <div class="menu-toggle-btn"> <!-- Menu close button for mobile devices -->
+            <a href="#">
+                <i class="bi bi-list"></i>
+            </a>
+        </div>
+        <!-- Logo -->
+        <a href="" class="logo">
+            <img width="100" src="static/picture/logo.svg" alt="logo">
         </a>
-    </div>
-    <!-- Logo -->
-    <a href="" class="logo">
-        <img width="100" src="static/picture/logo.svg" alt="logo">
-    </a>
-    <div class="header-bar ms-auto">
-        <ul class="navbar-nav justify-content-end">
-            <li class="nav-item ms-3">
+        <div class="header-bar ms-auto">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item ms-3">
                     <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
-            </li>
-        </ul>
-    </div>
-    <!-- Header mobile buttons -->
-    <div class="header-mobile-buttons">
-        <a href="#" class="search-bar-btn">
-            <i class="bi bi-search"></i>
-        </a>
-        <a href="#" class="actions-btn">
-            <i class="bi bi-three-dots"></i>
-        </a>
-    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Header mobile buttons -->
+        <div class="header-mobile-buttons">
+            <a href="#" class="search-bar-btn">
+                <i class="bi bi-search"></i>
+            </a>
+            <a href="#" class="actions-btn">
+                <i class="bi bi-three-dots"></i>
+            </a>
+        </div>
     </div>
     <!-- ./ Header mobile buttons -->
 
     <!-- ./ header -->
     <div class="content ">
-        
+
         <div class="row flex-column-reverse flex-md-row">
             <div class="col-md-8">
                 <div class="tab-content" id="myTabContent">
@@ -249,58 +322,62 @@
                                     <h6 class="card-title mb-4">店铺信息</h6>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">店铺头像</label>
-                                                <image src="static/picture/logo.svg" ></image>
-                                                </div>
-                                            
+                                            <div class="mb-3" id="shop_image">
+                                                <label class="form-label" >店铺头像</label>
+                                                <img src="static/picture/logo.svg"  >
+                                            </div>
+
                                             <div class="mb-3">
                                                 <label class="form-label">店铺名称</label>
-                                                <input type="text" class="form-control" value="店铺">
+                                                <input type="text" class="form-control" id="shop_name">
                                             </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">店铺管理员ID</label>
-                                                <input type="text" class="form-control" value="1234658789">
-                                            </div>
+<!--                                            <div class="mb-3">-->
+<!--                                                <label class="form-label">店铺管理员ID</label>-->
+<!--                                                <input type="text" class="form-control" id="admin_id">-->
+<!--                                            </div>-->
                                             <div class="mb-3">
                                                 <label class="form-label">所属企业</label>
-                                                <input type="text" class="form-control" value="浙江天眼">
-                                                
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">店铺星级</label>
-                                                    <input type="text" class="form-control" value="4星">
+                                                <input type="text" class="form-control" id="enterprise_id">
+
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">店铺星级</label>
+                                                <input type="text" class="form-control" id="shop_star">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">店铺地址</label>
+                                                <input type="text" class="form-control" id="shop_address">
+                                            </div>
+                                            <!-- <div class="mb-3" id="size_System">
+                                                <label class="form-label" >支付方式设置:</label>
+                                                    <div class="form-group">
+                                                      <label class="checkbox-inline">
+                                                        <input type="checkbox"  value="option1">微信
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                        <input type="checkbox"  value="option2">支付宝
+                                                      </label>
+                                                      <label class="checkbox-inline">
+                                                      <input type="checkbox"  value="option3">网银
+                                                      </label>
                                                     </div>
-                                                    <div class="mb-3" id="size_System">
-                                                        <label class="form-label" >支付方式设置:</label>
-                                                            <div class="form-group">
-                                                              <label class="checkbox-inline">
-                                                                <input type="checkbox"  value="option1">微信
-                                                              </label>
-                                                              <label class="checkbox-inline">
-                                                                <input type="checkbox"  value="option2">支付宝
-                                                              </label>
-                                                              <label class="checkbox-inline">
-                                                              <input type="checkbox"  value="option3">网银
-                                                              </label>
-                                                            </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <input type="button" class="btn btn-primary btn-icon" value="保存修改">
-                                                    </div>
+                                            </div> -->
+                                            <div class="mb-3">
+                                                <button type="button" class="btn btn-primary btn-icon" onclick="save_shop_info()"  id="save_btn" >保存修改</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-                
+
                 </div>
+
             </div>
         </div>
-    
+    </div>
+
 
     <!-- content-footer -->
     <footer class="content-footer">
