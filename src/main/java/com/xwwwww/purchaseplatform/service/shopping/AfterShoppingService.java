@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AfterShoppingService {
     //顾客申请退款
-    Result ApplyForReturn(Orders order);
+    Result ApplyForReturn(int id);
 
     //店铺管理员同意退货
     Result ProcessReturn(Orders order);

@@ -15,9 +15,8 @@ public class AfterShoppingController {
 
     @ResponseBody
     @GetMapping("/afterShopping/apply")
-    public Result ApplyForReturn(Orders order) throws Exception{
-        System.out.println(order);
-        return afterShoppingService.ApplyForReturn(order);
+    public Result ApplyForReturn(int id) throws Exception{
+        return afterShoppingService.ApplyForReturn(id);
     }
 
     @ResponseBody

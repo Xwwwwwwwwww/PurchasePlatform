@@ -8,6 +8,7 @@ import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
 import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +24,13 @@ public class AfterShoppingServiceImpl implements AfterShoppingService{
 
     /**
      *
-     * @param order
+     * @param id
      * @return boolean
      * 顾客申请退款
      */
     @Override
-    public Result ApplyForReturn(Orders order) {
+    public Result ApplyForReturn(int id) {
+        Orders order=orderMapper.selectById(id);
         if (order.getOrderStatus()!=2)
             return Result.FAIL("不是已发货状态");
         order.setOrderStatus(3);
