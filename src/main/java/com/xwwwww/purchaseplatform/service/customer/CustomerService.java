@@ -13,11 +13,11 @@ public interface CustomerService {
 
     Customer getCustomerByNickName(String nickName) throws Exception;
 
-    int insertCustomer(Customer customer) throws Exception;
+    Result insertCustomer(Customer customer) throws Exception;
 
-    int updateCustomer(Customer customer) throws Exception;
+    Result updateCustomer(Customer customer) throws Exception;
 
-    int deleteCustomerById(int id) throws Exception;
+    Result deleteCustomerById(int id) throws Exception;
 
     List<Customer> getAllCustomers() throws Exception;
 

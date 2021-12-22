@@ -23,20 +23,20 @@ public class CustomerController {
 
     @ResponseBody
     @PostMapping("/customer")
-    public int insertCustomer(Customer customer) throws  Exception{
+    public Result insertCustomer(@RequestBody Customer customer) throws  Exception{
         return customerService.insertCustomer(customer);
     }
 
     @ResponseBody
     @PutMapping("/customer")
-    public int updateCustomer(@RequestBody Customer customer) throws  Exception{
+    public Result updateCustomer(@RequestBody Customer customer) throws  Exception{
         System.out.println("controller"+customer);
         return customerService.updateCustomer(customer);
     }
 
     @ResponseBody
     @DeleteMapping("/customer")
-    public int deleteCustomerById(int id) throws Exception{
+    public Result deleteCustomerById(int id) throws Exception{
         return customerService.deleteCustomerById(id);
     }
 
