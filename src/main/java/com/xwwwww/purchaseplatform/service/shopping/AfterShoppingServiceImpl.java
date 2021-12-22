@@ -87,7 +87,7 @@ public class AfterShoppingServiceImpl implements AfterShoppingService{
         List<Orders> ordersList=orderMapper.selectList(queryWrapper);
         for (Orders order : ordersList) {
             if (order.getOrderStatus()!=3){
-                amount+=order.getQuantity()*order.getPayPrice()*order.getDiscount();
+                amount+=order.getPayPrice();
             }
         }
         return Result.SUCCESS(amount);
