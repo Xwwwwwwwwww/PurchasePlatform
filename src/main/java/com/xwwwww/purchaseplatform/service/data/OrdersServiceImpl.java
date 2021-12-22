@@ -90,13 +90,6 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Result getOrderByStatus(int orderStatus) throws Exception {
-        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("order_status",orderStatus);
-        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
-    }
-
-    @Override
     public Result insertOrder(Orders order) throws Exception {
         orderMapper.insert(order);
         return Result.SUCCESS(order.getId());
@@ -117,5 +110,18 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public Result getAllOrder() throws Exception {
         return Result.SUCCESS(orderMapper.selectList(null));
+    }
+
+    @Override
+    public Result getOrderByStatus(int orderStatus) throws Exception {
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("order_status",orderStatus);
+        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public Result getOrderByStatus(Orders order) throws Exception {
+        List<Orders> ordersList=orderMapper.getOrderByCustomerAndStatus(order);
+        return Result.SUCCESS(ordersList);
     }
 }

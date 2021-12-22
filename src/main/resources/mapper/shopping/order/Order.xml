@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper">
+    <select id="getOrderByCustomerAndStatus" resultType="com.xwwwww.purchaseplatform.entity.shopping.order.Orders" parameterType="com.xwwwww.purchaseplatform.entity.shopping.order.Orders">
+        select * from orders where customer_id=#{customerId} and order_status=#{orderStatus}
+    </select>
 </mapper>
 
 
