@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService{
      */
     public Result insertCustomer(Customer customer) throws  Exception{
         customerMapper.insert(customer);
-        return Result.SUCCESS(deleteCustomerById(customer.getId()));
+        return Result.SUCCESS(customer.getId());
     }
 
     /**
