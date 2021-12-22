@@ -48,9 +48,10 @@
                         if(data.code == 0){
                             // console.log(data.data);
                             if(admin_identity==1)
-                            {
-                                alert("登陆成功!");
-                                window.location.href="平台管理员界面.html";}
+                            {var data1=data.data;
+                                document.cookie = "token=username="+data1.userName+"/;path=/";
+                                window.location.href="平台管理员界面.html";
+                            }
                             else if(admin_identity==2){
                                 console.log("abc");
                                 console.log(data.data);
