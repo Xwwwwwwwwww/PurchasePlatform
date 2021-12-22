@@ -32,7 +32,8 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
 
     @Override
     public Result insertShoppingCollection(ShoppingCollection shoppingCollection) throws Exception {
-        return Result.SUCCESS(shoppingCollectionMapper.insert(shoppingCollection));
+        shoppingCollectionMapper.insert(shoppingCollection);
+        return Result.SUCCESS(shoppingCollection.getId());
     }
 
     @Override
