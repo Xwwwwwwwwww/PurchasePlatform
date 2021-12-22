@@ -55,6 +55,7 @@ public class OrdersServiceImpl implements OrdersService {
         int toBeSent = 0;
         int toBeReceived = 0;
         int toBeEvaluated = 0;
+        int afterSale=0;
         for (Orders order : ordersList) {
             if (order.getOrderStatus()==0)
                 toBePaid++;
@@ -64,6 +65,8 @@ public class OrdersServiceImpl implements OrdersService {
                 toBeReceived++;
             else if (order.getOrderStatus()==6)
                 toBeEvaluated++;
+            else if (order.getOrderStatus()==3||order.getOrderStatus()==4||order.getOrderStatus()==5)
+                afterSale++;
             else
                 continue;
         }
@@ -71,6 +74,7 @@ public class OrdersServiceImpl implements OrdersService {
         orderStatusNumber.setToBeSent(toBeSent);
         orderStatusNumber.setToBeReceived(toBeReceived);
         orderStatusNumber.setToBeEvaluated(toBeEvaluated);
+        orderStatusNumber.setAfterSale(afterSale);
         System.out.println(orderStatusNumber);
         return Result.SUCCESS(orderStatusNumber);
     }

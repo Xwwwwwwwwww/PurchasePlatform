@@ -38,5 +38,4 @@ public class Customer {
     //从属企业id
     private  int belongingEnterprise;
 
-
 }
