@@ -84,7 +84,7 @@ public class ShoppingCollectionServiceImpl implements ShoppingCollectionService{
         List<ShoppingCollection> shoppingCollectionList=shoppingCollectionMapper.selectList(queryWrapper1);
         for (ShoppingCollection collection : shoppingCollectionList) {
             if (collection.getCommodityId()==shoppingCollection.getCommodityId())
-                return Result.SUCCESS();
+                return Result.SUCCESS(collection.getId());
         }
         return Result.FAIL();
     }
