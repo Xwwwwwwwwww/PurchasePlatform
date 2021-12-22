@@ -16,11 +16,12 @@ public class Shop {
     //企业从属
     private int belongingEnterprise;
 
+    private String titlePictureUrl;
+
     //收藏
     private int star;
 
     //发货地址
     private String shopAddress;
 
-    private String titlePictureUrl;
 }
