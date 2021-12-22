@@ -14,4 +14,7 @@ public interface AfterShoppingService {
 
     //店铺管理员拒绝退货
     Result RejectReturn(Orders order);
+
+    //查询某人的总花销
+    Result getTotalAmount(int customerId);
 }

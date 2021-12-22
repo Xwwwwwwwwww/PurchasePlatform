@@ -1,6 +1,8 @@
 package com.xwwwww.purchaseplatform.service.shopping;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
+import com.xwwwww.purchaseplatform.entity.shopping.customer.Customer;
 import com.xwwwww.purchaseplatform.entity.shopping.order.Orders;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.order.OrderMapper;
@@ -8,7 +10,9 @@ import com.xwwwww.purchaseplatform.utils.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//待付款0 已付款1 已发货2 申请退款3 已退款4
+import java.util.List;
+
+//待付款0 已付款1 已发货2 申请退款3 已退款4 拒绝退款5 待评价6
 @Service
 public class AfterShoppingServiceImpl implements AfterShoppingService{
     @Autowired
@@ -67,5 +71,25 @@ public class AfterShoppingServiceImpl implements AfterShoppingService{
         order.setOrderStatus(5);
         orderMapper.updateById(order);
         return Result.SUCCESS(order);
+    }
+
+    /**
+     *
+     * @param customerId
+     * @return double
+     * 除了申请退款状态，所有订单都要统计
+     */
+    @Override
+    public Result getTotalAmount(int customerId) {
+        double amount=0;
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("customer_id",customerId);
+        List<Orders> ordersList=orderMapper.selectList(queryWrapper);
+        for (Orders order : ordersList) {
+            if (order.getOrderStatus()!=3){
+                amount+=order.getQuantity()*order.getPayPrice()*order.getDiscount();
+            }
+        }
+        return Result.SUCCESS(amount);
     }
 }

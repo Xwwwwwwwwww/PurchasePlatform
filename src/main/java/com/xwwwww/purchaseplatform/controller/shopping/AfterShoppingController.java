@@ -31,4 +31,10 @@ public class AfterShoppingController {
     public Result RejectReturn(Orders order) throws Exception{
         return afterShoppingService.RejectReturn(order);
     }
+
+    @ResponseBody
+    @GetMapping("/afterShopping/amount")
+    public Result getTotalAmount(int customerId) throws Exception{
+        return afterShoppingService.getTotalAmount(customerId);
+    }
 }
