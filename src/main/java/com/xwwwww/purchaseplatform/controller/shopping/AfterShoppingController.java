@@ -15,8 +15,8 @@ public class AfterShoppingController {
 
     @ResponseBody
     @GetMapping("/afterShopping/apply")
-    public Result ApplyForReturn(Orders order) throws Exception{
-        return afterShoppingService.ApplyForReturn(order);
+    public Result ApplyForReturn(int id) throws Exception{
+        return afterShoppingService.ApplyForReturn(id);
     }
 
     @ResponseBody
@@ -29,5 +29,11 @@ public class AfterShoppingController {
     @GetMapping("/afterShopping/reject")
     public Result RejectReturn(Orders order) throws Exception{
         return afterShoppingService.RejectReturn(order);
+    }
+
+    @ResponseBody
+    @GetMapping("/afterShopping/amount")
+    public Result getTotalAmount(int customerId) throws Exception{
+        return afterShoppingService.getTotalAmount(customerId);
     }
 }

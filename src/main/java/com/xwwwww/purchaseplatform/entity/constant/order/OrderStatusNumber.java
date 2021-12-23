@@ -11,4 +11,6 @@ public class OrderStatusNumber {
     int toBeReceived;
 
     int toBeEvaluated;
+
+    int afterSale;
 }

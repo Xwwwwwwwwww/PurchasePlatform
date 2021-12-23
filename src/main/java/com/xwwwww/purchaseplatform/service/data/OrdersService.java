@@ -16,6 +16,8 @@ public interface OrdersService {
 
     Result getOrderByStatus(int orderStatus) throws Exception;
 
+    Result getOrderByStatus(Orders order) throws Exception;
+
     Result insertOrder(Orders order) throws Exception;
 
     Result deleteOrder(int id) throws Exception;
@@ -23,6 +25,4 @@ public interface OrdersService {
     Result updateOrder(Orders order) throws  Exception;
 
     Result getAllOrder() throws Exception;
-
-
 }

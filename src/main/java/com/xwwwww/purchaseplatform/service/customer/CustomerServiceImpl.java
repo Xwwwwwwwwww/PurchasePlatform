@@ -40,8 +40,9 @@ public class CustomerServiceImpl implements CustomerService{
      * @throws Exception
      * 添加顾客
      */
-    public int insertCustomer(Customer customer) throws  Exception{
-        return customerMapper.insert(customer);
+    public Result insertCustomer(Customer customer) throws  Exception{
+        customerMapper.insert(customer);
+        return Result.SUCCESS(customer.getId());
     }
 
     /**
@@ -51,9 +52,9 @@ public class CustomerServiceImpl implements CustomerService{
      * @throws Exception
      * 更新顾客信息
      */
-    public int updateCustomer(Customer customer) throws  Exception{
-        System.out.println(customer);
-        return customerMapper.updateById(customer);
+    public Result updateCustomer(Customer customer) throws  Exception{
+        customerMapper.updateById(customer);
+        return Result.SUCCESS();
     }
 
     /**
@@ -63,8 +64,9 @@ public class CustomerServiceImpl implements CustomerService{
      * @throws Exception
      * 删除顾客
      */
-    public int deleteCustomerById(int id) throws Exception{
-        return customerMapper.deleteById(id);
+    public Result deleteCustomerById(int id) throws Exception{
+        customerMapper.deleteById(id);
+        return Result.SUCCESS();
     }
 
     /**

@@ -55,6 +55,7 @@ public class OrdersServiceImpl implements OrdersService {
         int toBeSent = 0;
         int toBeReceived = 0;
         int toBeEvaluated = 0;
+        int afterSale=0;
         for (Orders order : ordersList) {
             if (order.getOrderStatus()==0)
                 toBePaid++;
@@ -64,6 +65,8 @@ public class OrdersServiceImpl implements OrdersService {
                 toBeReceived++;
             else if (order.getOrderStatus()==6)
                 toBeEvaluated++;
+            else if (order.getOrderStatus()==3||order.getOrderStatus()==4||order.getOrderStatus()==5)
+                afterSale++;
             else
                 continue;
         }
@@ -71,6 +74,7 @@ public class OrdersServiceImpl implements OrdersService {
         orderStatusNumber.setToBeSent(toBeSent);
         orderStatusNumber.setToBeReceived(toBeReceived);
         orderStatusNumber.setToBeEvaluated(toBeEvaluated);
+        orderStatusNumber.setAfterSale(afterSale);
         System.out.println(orderStatusNumber);
         return Result.SUCCESS(orderStatusNumber);
     }
@@ -86,13 +90,6 @@ public class OrdersServiceImpl implements OrdersService {
     public Result getOrderByCustomerId(int customerId) throws Exception {
         QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("customer_id", customerId);
-        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
-    }
-
-    @Override
-    public Result getOrderByStatus(int orderStatus) throws Exception {
-        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("order_status",orderStatus);
         return Result.SUCCESS(orderMapper.selectList(queryWrapper));
     }
 
@@ -117,5 +114,18 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public Result getAllOrder() throws Exception {
         return Result.SUCCESS(orderMapper.selectList(null));
+    }
+
+    @Override
+    public Result getOrderByStatus(int orderStatus) throws Exception {
+        QueryWrapper<Orders> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("order_status",orderStatus);
+        return Result.SUCCESS(orderMapper.selectList(queryWrapper));
+    }
+
+    @Override
+    public Result getOrderByStatus(Orders order) throws Exception {
+        List<Orders> ordersList=orderMapper.getOrderByCustomerAndStatus(order);
+        return Result.SUCCESS(ordersList);
     }
 }

@@ -70,7 +70,7 @@ public class ShoppingCollectionController {
      */
     @ResponseBody
     @GetMapping("/shoppingCollection/in")
-    public Result inShoppingCollection(@RequestBody ShoppingCollection shoppingCollection) throws Exception{
+    public Result inShoppingCollection(ShoppingCollection shoppingCollection) throws Exception{
         return shoppingCollectionService.inShoppingCollection(shoppingCollection);
     }
 }
