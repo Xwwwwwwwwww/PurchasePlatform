@@ -39,7 +39,7 @@
         var httpUrl1="http://localhost:8088/admin/enterpriseAdmin"
 
 
-                $.ajax({
+                if(deleteConfirm()){$.ajax({
                     // headers: { "Content-Type": "application/x-www-form-urlencoded"},
                     url: httpUrl1,
                     type: "DELETE",
@@ -64,7 +64,7 @@
 
 
 
-    }
+    }}
 
     function update_admin(i){
 
@@ -117,7 +117,21 @@
 
 
     }
+    function deleteConfirm() {undefined
 
+        if (window.confirm("你确定要删除吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
+    }
     window.onload = function(){
         var admin = document.getElementById("admin");
         var httpUrl = "http://localhost:8088/admin/enterpriseAdmin/all";
@@ -225,25 +239,25 @@
         </div>
         <ul>
             <li class="menu-divider">Manage</li>
-            <li>
-                <a  href="">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
-                    </span>
-                    <span>系统维护</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="运行监测.html">运行监测</a>
-                    </li>
-                    <li>
-                        <a href="数据检查.html">数据检查</a>
-                    </li>
-                    <li>
-                        <a href="检索日志.html">检索日志</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a  href="">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-bar-chart"></i>-->
+<!--                    </span>-->
+<!--                    <span>系统维护</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="运行监测.html">运行监测</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="数据检查.html">数据检查</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="检索日志.html">检索日志</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -261,19 +275,19 @@
 
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-truck"></i>
-                    </span>
-                    <span>注册授权</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="用户授权.html">用户授权</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-truck"></i>-->
+<!--                    </span>-->
+<!--                    <span>注册授权</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="用户授权.html">用户授权</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a class="active" href="#">
                     <span class="nav-link-icon">
@@ -333,9 +347,9 @@
                     <li>
                         <a href="销售统计.html">销售统计</a>
                     </li>
-                    <li>
-                        <a href="资金统计.html">资金统计</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="资金统计.html">资金统计</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
             <li>
@@ -368,7 +382,7 @@
         <div class="header-bar ms-auto">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
                 </li>
             </ul>
         </div>
@@ -469,14 +483,14 @@
                     <h4 class="modal-title">修改企业管理员信息</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3" >
-                        <label class="form-label">企业管理员ID：</label>
-                       <p id="admin_id"></p>
-                    </div>
-                    <div class="mb-3" >
-                        <label class="form-label">所属企业ID：</label>
-                        <p id="enterprise_id"></p>
-                    </div>
+<!--                    <div class="mb-3" >-->
+<!--                        <label class="form-label">企业管理员ID：</label>-->
+<!--                       <p id="admin_id"></p>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3" >-->
+<!--                        <label class="form-label">所属企业ID：</label>-->
+<!--                        <p id="enterprise_id"></p>-->
+<!--                    </div>-->
                     <div class="mb-3" >
                         <label class="form-label">修改密码为：</label>
                         <input type="text" class="form-control" id="change_pwd">

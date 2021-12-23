@@ -49,7 +49,7 @@
     //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
     console.log(getCookie("token"));
     if(getCookie("token") == ""){
-        window.location.href="login.html";
+        window.location.href="管理员登录界面.html";
     }
 
     window.onload = function(){
@@ -106,25 +106,25 @@
         </div>
         <ul>
             <li class="menu-divider">Manage</li>
-            <li>
-                <a  href="">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
-                    </span>
-                    <span>系统维护</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="运行监测.html">运行监测</a>
-                    </li>
-                    <li>
-                        <a href="数据检查.html">数据检查</a>
-                    </li>
-                    <li>
-                        <a href="检索日志.html">检索日志</a>
-                    </li>
-                    </ul>
-            </li>
+<!--            <li>-->
+<!--                <a  href="">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-bar-chart"></i>-->
+<!--                    </span>-->
+<!--                    <span>系统维护</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="运行监测.html">运行监测</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="数据检查.html">数据检查</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="检索日志.html">检索日志</a>-->
+<!--                    </li>-->
+<!--                    </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -142,19 +142,19 @@
             
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-truck"></i>
-                    </span>
-                    <span>注册授权</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="用户授权.html">用户授权</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-truck"></i>-->
+<!--                    </span>-->
+<!--                    <span>注册授权</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="用户授权.html">用户授权</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -214,9 +214,9 @@
                     <li>
                         <a href="销售统计.html">销售统计</a>
                     </li>
-                    <li>
-                        <a href="资金统计.html">资金统计</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="资金统计.html">资金统计</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
             <li>
@@ -249,7 +249,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>

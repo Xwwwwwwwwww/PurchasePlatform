@@ -54,10 +54,12 @@ public class Orders {
 
     //商店从属
     private int belongingShop;
-
+//
     private String sizeName;
-
+//
     private String commodityName;
-
+//
     private String deliveryAddress;
+//
+    private double payPrice;
 }

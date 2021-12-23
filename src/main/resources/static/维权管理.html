@@ -28,41 +28,208 @@
 </head>
 
 <script>
-    window.onload = function(){
-//进入页面的初始化操作
-        function getCookie(c_name){
-            if (document.cookie.length>0){
-                c_start=document.cookie.indexOf(c_name + "=")
-                if (c_start!=-1){
-                    c_start=c_start + c_name.length+1
-                    c_end=document.cookie.indexOf(";",c_start)
-                    if (c_end==-1)
-                        c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
-                }
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+            if (c_start!=-1){
+                c_start=c_start + c_name.length+1
+                c_end=document.cookie.indexOf(";",c_start)
+                if (c_end==-1)
+                    c_end=document.cookie.length
+                return unescape(document.cookie.substring(c_start,c_end))
             }
-            return ""
         }
+        return ""
+    }
+    var length=0;
+    var orderdata=[];
+
+    function change_status1(i){
+
+        var httpUrl2="http://localhost:8088/shopping/order"
+        orderdata[i].orderStatus=4;
+        var data={"id":orderdata[i].id,
+            "customerId":orderdata[i].customerId,
+            "commodityId":orderdata[i].commodityId,
+            "quantity":orderdata[i].quantity,
+            "sizeSystem":orderdata[i].sizeSystem,
+            "size":orderdata[i].size,
+            "orderStatus":orderdata[i].orderStatus,
+            "logisticsNumber":orderdata[i].logisticsNumber,
+            "price":orderdata[i].price,
+            "discount":orderdata[i].discount,
+            "freight":orderdata[i].freight,
+            "remarks":orderdata[i].remarks,
+            "expressCompany":orderdata[i].expressCompany,
+            "thumbnailUrl":orderdata[i].thumbnailUrl,
+            "belongingShop":orderdata[i].belongingShop,
+            "belongShopName":orderdata[i].belongShopName,
+            "sizeName":orderdata[i].sizeName,
+            "commodityName":orderdata[i].commodityName,
+            "deliveryAddress":orderdata[i].deliveryAddress
+        }
+        $.ajax({
+            headers: { "Content-Type": "application/json"},
+            url: httpUrl2,
+            type: "PUT",
+            data:JSON.stringify(data),
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert("已允许退款!");
+                window.location.href="维权管理.html"
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error!");
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+
+        })
+
+
+
+
+
+
+
+
+
+    }
+    function change_status2(i){
+
+        var httpUrl2="http://localhost:8088/shopping/order"
+            orderdata[i].orderStatus=5;
+            var data={"id":orderdata[i].id,
+                "customerId":orderdata[i].customerId,
+                "commodityId":orderdata[i].commodityId,
+                "quantity":orderdata[i].quantity,
+                "sizeSystem":orderdata[i].sizeSystem,
+                "size":orderdata[i].size,
+                "orderStatus":orderdata[i].orderStatus,
+                "logisticsNumber":orderdata[i].logisticsNumber,
+                "price":orderdata[i].price,
+                "discount":orderdata[i].discount,
+                "freight":orderdata[i].freight,
+                "remarks":orderdata[i].remarks,
+                "expressCompany":orderdata[i].expressCompany,
+                "thumbnailUrl":orderdata[i].thumbnailUrl,
+                "belongingShop":orderdata[i].belongingShop,
+                "belongShopName":orderdata[i].belongShopName,
+                "sizeName":orderdata[i].sizeName,
+                "commodityName":orderdata[i].commodityName,
+                "deliveryAddress":orderdata[i].deliveryAddress
+            }
+            $.ajax({
+                headers: { "Content-Type": "application/json"},
+                url: httpUrl2,
+                type: "PUT",
+                data:JSON.stringify(data),
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    alert("已拒绝退款!");
+                    window.location.href="维权管理.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+    }
+
+    window.onload = function(){
+        var order = document.getElementById("order");
+        var httpUrl = "http://localhost:8088/shopping/order/shop";
+        var chose = 0;
 
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
-        var user_name="";
-        var shop_id=0;
-        var shop_name="";
+
         console.log(getCookie("token"));
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
-        else{
-            var cookie=getCookie("token");
-            console.log(getCookie("token"));
-            console.log(cookie.indexOf("%"));
-            username=cookie.substring(cookie.indexOf("user_name=")+10,cookie.indexOf("%"));
-            console.log(username);
-            shop_id=cookie.substring(cookie.indexOf("/shop_id=")+10,cookie.indexOf("/shop_name="));
-            console.log(shop_id);
-            shop_name=cookie.substring(cookie.indexOf("shop_name=")+10,cookie.indexOf("%"));
-            console.log(shop_name);
-        }}
+
+        var cookie=getCookie("token");
+        var shop_id=cookie.substring(cookie.indexOf("shop_id")+8,cookie.indexOf("shop_name")-1);
+        var shop_name=cookie.substring(cookie.indexOf("shop_name")+10,cookie.length);
+        //发送请求
+        $.ajax({
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            type: "GET",
+            url: httpUrl,
+            data:{"shopId":shop_id},
+            dataType: "json",
+            // xhrFields: {
+            //     withCredentials: true
+            // },
+            success: function (data) {
+                var data1=data.data;
+                length=data1.length;
+                console.log(data1);
+                for(var i=0;i<data1.length;i++){
+                    orderdata[i]=data1[i];
+                    if(data1[i].orderStatus==3){
+                    order.innerHTML+=`<tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox">
+                            </td>
+                            <td>
+                                ${data1[i].id}
+                            </td>
+                            <td>${data1[i].customerId}</td>
+
+                            <td>${data1[i].commodityId}</td>
+                            <td>${data1[i].quantity}</td>
+                            <td>${data1[i].sizeSystem}</td>
+                            <td>${data1[i].size}</td>
+                            <td>${data1[i].orderStatus}</td>
+
+                            <td>
+                               ${data1[i].logisticsNumber}
+                            </td>
+                            <td>
+                               ${data1[i].price}
+                            </td>
+                            <td>${data1[i].discount}%</td>
+                            <td>${data1[i].freight}</td>
+                            <td>${data1[i].remarks}</td>
+                            <td>${data1[i].expressCompany}</td>
+                            <td class="text-end">
+                                <div class="d-flex">
+                                    <div class="dropdown ms-auto">
+                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button id="changecommodity_btn"  onclick="change_status1(${i})" class="dropdown-item"  data-toggle="modal" data-target="#myModal">允许退款</button>
+                                            <button id="deletecommodity_btn" onclick="change_status2(${i})" class="dropdown-item">拒绝退款</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`;
+                }
+                }
+
+
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus); // parser error;
+            }
+
+        })
+    }
 </script>
 
 <body>
@@ -183,9 +350,9 @@
                     <span>售后处理</span>
                 </a>
                 <ul>
-                    <li>
-                        <a href="发票管理.html">发票管理</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="发票管理.html">发票管理</a>-->
+<!--                    </li>-->
                     <li>
                         <a href="维权管理.html">维权管理</a>
                     </li>
@@ -222,7 +389,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>
@@ -240,7 +407,7 @@
 
     <!-- ./ header -->
     <div class="content ">
-    
+
         <div class="card">
             <div class="card-body">
                 <div class="d-md-flex gap-4 align-items-center">
@@ -269,7 +436,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="table-responsive">
             <table class="table table-custom table-lg mb-0" id="orders">
                 <thead>
@@ -293,78 +460,11 @@
                     <th class="text-end">订单操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>申请退款</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item">允许退款</a>
-                                    <a href="#" class="dropdown-item">拒绝退款</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-check-input" type="checkbox">
-                    </td>
-                    <td>
-                        <a href="#">#3210</a>
-                    </td>
-                    <td>GK123</td>
-                    <td>SP123</td>
-                    <td>15</td>
-                    <td>2</td>
-                    <td>XL</td>
-                    <td>申请退款</td>
-                    <td>10086</td>
-                    <td>200RMB</td>
-                    <td>90%</td>
-                    <td>15RMB</td>
-                    <td>无</td>
-                    <td>顺丰</td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item">允许退款</a>
-                                    <a href="#" class="dropdown-item">拒绝退款</a>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
+                <tbody id="order">
                 </tbody>
             </table>
-        
-           </div>
+
+        </div>
         <nav class="mt-4" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
@@ -382,8 +482,8 @@
                 </li>
             </ul>
         </nav>
-    
-        
+
+
     </div>
     <!-- content-footer -->
     <footer class="content-footer">

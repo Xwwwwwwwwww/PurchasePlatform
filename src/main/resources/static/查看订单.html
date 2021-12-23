@@ -41,13 +41,28 @@
         }
         return ""
     }
+    function deleteConfirm() {undefined
+
+        if (window.confirm("你确定要删除吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
+    }
     var length=0;
     var orderdata=[];
     function delete_order(i){
         var httpUrl1="http://localhost:8088/shopping/order"
         // var delete_btn=[];
         // delete_btn[i]=document.getElementById("delete_btn"+i);
-        $.ajax({
+       if(deleteConfirm()){ $.ajax({
             // headers: { "Content-Type": "application/x-www-form-urlencoded"},
             url: httpUrl1,
             type: "DELETE",
@@ -66,6 +81,7 @@
             }
 
         })
+       }
 
 
         //删除商品
@@ -347,9 +363,9 @@
                     <span>售后处理</span>
                 </a>
                 <ul>
-                    <li>
-                        <a href="发票管理.html">发票管理</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="发票管理.html">发票管理</a>-->
+<!--                    </li>-->
                     <li>
                         <a href="维权管理.html">维权管理</a>
                     </li>
@@ -389,7 +405,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>

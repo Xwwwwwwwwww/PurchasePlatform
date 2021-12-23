@@ -29,13 +29,43 @@
 <script>
     var userdata=[];
     var length=0;
+
+    function deleteConfirm() {undefined
+
+        if (window.confirm("你确定要删除吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
+    }function changeConfirm() {undefined
+
+        if (window.confirm("你确定要重置密码吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
+    }
     function test(i){
         var delete_btn=[];
         var httpUrl1 = "http://localhost:8088/shopping/customer";
 
         delete_btn[i]=document.getElementById("delete_btn"+i);
         //发送请求
-        $.ajax({
+        if(deleteConfirm()){$.ajax({
             // headers: { "Content-Type": "application/x-www-form-urlencoded"},
             url: httpUrl1,
             type: "DELETE",
@@ -58,46 +88,48 @@
 
 
     }
-
-
-    function reset_pwd(i){
-        userdata[i].password="111111";
-        var httpUrl2="http://localhost:8088/shopping/customer";
-        var data={
-            "id":userdata[i].id,
-            "avatarUrl":userdata[i].avatarUrl,
-            "belongingEnterprise":userdata[i].belongingEnterprise,
-            "cardBalance":userdata[i].cardBalance,
-            "customerStatus":userdata[i].customerStatus,
-            "identity":userdata[i].identity,
-            "nickName":userdata[i].nickName,
-            "password":userdata[i].password,
-            "phoneNumber":userdata[i].phoneNumber
-        }
-        $.ajax({
-            headers: { "Content-Type": "application/json"},
-            url: httpUrl2,
-            type: "PUT",
-            data:JSON.stringify(data),
-            dataType:"json",
-            success: function (data) {
-                console.log(data);
-                alert("密码重置成功!");
-                window.location.href="员工信息.html"
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("error!");
-                console.log(XMLHttpRequest.responseText);
-                console.log(XMLHttpRequest.status);
-                console.log(XMLHttpRequest.readyState);
-                console.log(textStatus);
-            }
-
-        })
-
-
     }
 
+
+    function reset_pwd(i) {
+        userdata[i].password = "111111";
+        var httpUrl2 = "http://localhost:8088/shopping/customer";
+        var data = {
+            "id": userdata[i].id,
+            "avatarUrl": userdata[i].avatarUrl,
+            "belongingEnterprise": userdata[i].belongingEnterprise,
+            "cardBalance": userdata[i].cardBalance,
+            "status": userdata[i].status,
+            "identity": userdata[i].identity,
+            "nickName": userdata[i].nickName,
+            "password": userdata[i].password,
+            "phoneNumber": userdata[i].phoneNumber
+        }
+        if (changeConfirm()) {
+            $.ajax({
+                headers: {"Content-Type": "application/json"},
+                url: httpUrl2,
+                type: "PUT",
+                data: JSON.stringify(data),
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    alert("密码重置成功!");
+                    window.location.href = "员工信息.html"
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+
+        }
+    }
 
 
     window.onload = function() {
@@ -159,7 +191,7 @@
                         <td>${data1[i].password}</td>
                         <td>${data1[i].cardBalance}</td>
                         <td>${data1[i].belongingEnterprise}</td>
-                        <td>${data1[i].customerStatus}</td>
+                        <td>${data1[i].status}</td>
                         <td class="text-end">
                         <div class="d-flex">
                         <div class="dropdown ms-auto">
@@ -224,20 +256,20 @@
                     </li>
                     </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
-                    </span>
-                    <span>商品管控</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="企业管控商品.html">企业管控商品</a>
-                    </li>
-            
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-receipt"></i>-->
+<!--                    </span>-->
+<!--                    <span>商品管控</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="企业管控商品.html">企业管控商品</a>-->
+<!--                    </li>-->
+<!--            -->
+<!--                </ul>-->
+<!--            </li>-->
             <!-- <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -281,7 +313,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>
