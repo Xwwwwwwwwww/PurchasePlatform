@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCart;
 import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCartDisplay;
+import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCollection;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.size.SizeMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
 import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCartMapper;
@@ -82,5 +83,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public Result getAllShoppingCarts() throws Exception {
         return Result.SUCCESS(shoppingCartMapper.selectList(null));
+    }
+
+    @Override
+    public Result inShoppingCart(ShoppingCart shoppingCart) throws Exception {
+        QueryWrapper<ShoppingCart> queryWrapper1=new QueryWrapper<>();
+        queryWrapper1.eq("customer_id",shoppingCart.getCustomerId());
+        List<ShoppingCart> shoppingCartList=shoppingCartMapper.selectList(queryWrapper1);
+        for (ShoppingCart cart : shoppingCartList) {
+            if (cart.getCommodityId()==shoppingCart.getCommodityId())
+                return Result.SUCCESS(cart.getId());
+        }
+        return Result.FAIL();
     }
 }

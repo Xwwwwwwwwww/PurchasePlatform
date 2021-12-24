@@ -39,18 +39,39 @@ public class ShoppingCartController {
        return shoppingCartService.getShoppingCartByCommodityId(commodityId);
     }
 
+    /**
+     *
+     * @param shoppingCart
+     * @return
+     * @throws Exception
+     * 购物车添加商品
+     */
     @ResponseBody
     @PostMapping("/shoppingCart")
     public Result insertShoppingCart(@RequestBody ShoppingCart shoppingCart) throws Exception{
         return shoppingCartService.insertShoppingCart(shoppingCart);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     * 删除购物车
+     */
     @ResponseBody
     @DeleteMapping("/shoppingCart")
     public Result deleteShoppingCart(int id) throws Exception{
         return shoppingCartService.deleteShoppingCart(id);
     }
 
+    /**
+     *
+     * @param shoppingCart
+     * @return
+     * @throws Exception
+     * 更新购物车
+     */
     @ResponseBody
     @PutMapping("/shoppingCart")
     public Result updateShoppingCart(ShoppingCart shoppingCart) throws  Exception{
@@ -67,5 +88,18 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/all")
     public Result getAllShoppingCarts() throws Exception{
         return shoppingCartService.getAllShoppingCarts();
+    }
+
+    /**
+     *
+     * @param shoppingCart
+     * @return
+     * @throws Exception
+     * 根据商品id和顾客id判断是否在购物车内
+     */
+    @ResponseBody
+    @GetMapping("/shoppingCart/in")
+    public Result inShoppingCart(ShoppingCart shoppingCart) throws Exception{
+        return shoppingCartService.inShoppingCart(shoppingCart);
     }
 }

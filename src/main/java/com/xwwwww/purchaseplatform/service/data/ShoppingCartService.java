@@ -18,4 +18,6 @@ public interface ShoppingCartService {
     Result updateShoppingCart(ShoppingCart shoppingCart) throws  Exception;
 
     Result getAllShoppingCarts() throws Exception;
+
+    Result inShoppingCart(ShoppingCart shoppingCart) throws Exception;
 }
