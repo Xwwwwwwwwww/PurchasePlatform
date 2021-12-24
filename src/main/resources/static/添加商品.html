@@ -68,9 +68,9 @@
             console.log("commodity_stock"+commodity_stock);
             var commodity_size=document.getElementById("commodity_size").value;
             console.log("commodity_size"+commodity_size);
-            var commodity_discount=document.getElementById("commodity_discount").value;
-            commodity_discount=commodity_discount.substring(0,2);
-            console.log("commodity_discount"+commodity_discount);
+            // var commodity_discount=document.getElementById("commodity_discount").value;
+            // commodity_discount=commodity_discount.substring(0,2);
+            // console.log("commodity_discount"+commodity_discount);
             var commodity_first_category=document.getElementById("first_category").value;
             console.log("commodity_first_category"+commodity_first_category);
             var commodity_second_category=document.getElementById("second_category").value;
@@ -90,7 +90,7 @@
                 type: "POST",
                 data:{"name":commodity_name,
                     "price":commodity_price,
-                    "discount":commodity_discount,
+                    // "discount":commodity_discount,
                     "sizeSystem":commodity_size,
                     "stock":commodity_stock,
                     "firstCategory":commodity_first_category,
@@ -104,7 +104,7 @@
                 success: function (data) {
                     console.log(data);
                     alert("商品添加成功");
-                    //window.location.href="添加商品.html"
+                    window.location.href="添加商品.html"
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("error!");
@@ -242,9 +242,9 @@
                     <span>售后处理</span>
                 </a>
                 <ul>
-                    <li>
-                        <a href="发票管理.html">发票管理</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="发票管理.html">发票管理</a>-->
+<!--                    </li>-->
                     <li>
                         <a href="维权管理.html">维权管理</a>
                     </li>
@@ -281,7 +281,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>
@@ -336,23 +336,23 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3" id="discount">
-                                                        <label class="form-label">折扣：</label>
-                                                        <div class="d-flex gap-3">
-                                                            <select class="form-select" id="commodity_discount">
-                                                                <option>10%</option>
-                                                                <option>20%</option>
-                                                                <option>30%</option>
-                                                                <option>40%</option>
-                                                                <option>50%</option>
-                                                                <option>60%</option>
-                                                                <option>70%</option>
-                                                                <option selected>80%</option>
-                                                                <option>90%</option>
-                                                                <option>100%</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+<!--                                                    <div class="mb-3" id="discount">-->
+<!--                                                        <label class="form-label">折扣：</label>-->
+<!--                                                        <div class="d-flex gap-3">-->
+<!--                                                            <select class="form-select" id="commodity_discount">-->
+<!--                                                                <option>10%</option>-->
+<!--                                                                <option>20%</option>-->
+<!--                                                                <option>30%</option>-->
+<!--                                                                <option>40%</option>-->
+<!--                                                                <option>50%</option>-->
+<!--                                                                <option>60%</option>-->
+<!--                                                                <option>70%</option>-->
+<!--                                                                <option selected>80%</option>-->
+<!--                                                                <option>90%</option>-->
+<!--                                                                <option>100%</option>-->
+<!--                                                            </select>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
                                                 
                                                     <div class="mb-3">
                                                         <label class="form-label">一级分类目录：</label>

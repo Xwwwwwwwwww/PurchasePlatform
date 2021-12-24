@@ -44,39 +44,58 @@
     }
     var length=0;
     var commoditydata=[];
-    function delete_commodity(i){
-        var httpUrl1="http://localhost:8088/shopping/commodity"
-        // var delete_btn=[];
-        // delete_btn[i]=document.getElementById("delete_btn"+i);
-                $.ajax({
-                    // headers: { "Content-Type": "application/x-www-form-urlencoded"},
-                    url: httpUrl1,
-                    type: "DELETE",
-                    data:{"id":commoditydata[i].id},
-                    success: function (data) {
-                        console.log(data);
-                        alert("商品删除成功!");
-                        window.location.href="修改商品.html"
-                    },
-                    error : function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert("error!");
-                        console.log(XMLHttpRequest.responseText);
-                        console.log(XMLHttpRequest.status);
-                        console.log(XMLHttpRequest.readyState);
-                        console.log(textStatus);
-                    }
-
-                })
 
 
-        //删除商品
+    function deleteConfirm() {undefined
+
+        if (window.confirm("你确定要删除吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
     }
 
+    function delete_commodity(i){
+        var httpUrl3="http://localhost:8088/shopping/commodity"
+        if(deleteConfirm()){
+            $.ajax({
+                // headers: { "Content-Type": "application/x-www-form-urlencoded"},
+                url: httpUrl3,
+                type: "DELETE",
+                data:{
+                    "id":commoditydata[i].id,
+                },
+                success: function (data) {
+                    console.log(data);
+                    alert("删除成功!");
+                    window.location.href="修改商品.html"
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error!");
+                    console.log(XMLHttpRequest.responseText);
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+
+            })
+
+
+        }
+
+
+
+    }
   function change_commodity(i){
-
       var httpUrl2="http://localhost:8088/shopping/commodity"
-      // var commodity_change_btn=[];
-
+          // var commodity_change_btn=[];
           // pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
           // console.log(pwdchange_btn[i]);
               // console.log("hahaha");
@@ -150,35 +169,6 @@
     function change_to_recommend(i){
 
         var httpUrl2="http://localhost:8088/shopping/commodity"
-        // var commodity_change_btn=[];
-
-        // pwdchange_btn[i]=document.getElementById("pwdchange_btn"+i)
-        // console.log(pwdchange_btn[i]);
-        // console.log("hahaha");
-        // var change_btn=document.getElementById("change_btn");
-        // change_btn.onclick=function(){
-            // var cookies=getCookie("token");
-            // var shop_id=cookies.substring(cookies.indexOf("shop_id")+8,cookies.indexOf("shop_name")-1);
-            // var shop_name=cookies.substring(cookies.indexOf("shop_name")+10,cookies.length);
-            // var commodity_name=document.getElementById("commodity_name").value;
-            // console.log("commodity_name"+commodity_name);
-            // var commodity_price=document.getElementById("price").value;
-            // console.log("commodity_price"+commodity_price);
-            // var commodity_stock=document.getElementById("stock").value;
-            // console.log("commodity_stock"+commodity_stock);
-            // var commodity_size=document.getElementById("commodity_size").value;
-            // console.log("commodity_size"+commodity_size);
-            // var commodity_discount=document.getElementById("commodity_discount").value;
-            // commodity_discount=commodity_discount.substring(0,2);
-            // console.log("commodity_discount"+commodity_discount);
-            // var commodity_first_category=document.getElementById("first_category").value;
-            // console.log("commodity_first_category"+commodity_first_category);
-            // var commodity_second_category=document.getElementById("second_category").value;
-            // console.log("commodity_second_category"+commodity_second_category);
-            // var commodity_third_category=document.getElementById("third_category").value;
-            // console.log("commodity_third_category"+commodity_third_category);
-            // var commodity_introduce=document.getElementById("commodity_introduce").value;
-            // console.log("commodity_introduce"+commodity_introduce);
             commoditydata[i].ifRecommend=1;
             console.log(commoditydata[i].ifRecommend);
 
@@ -436,9 +426,9 @@
                     <span>售后处理</span>
                 </a>
                 <ul>
-                    <li>
-                        <a href="发票管理.html">发票管理</a>
-                    </li>
+    <!--                    <li>-->
+    <!--                        <a href="发票管理.html">发票管理</a>-->
+    <!--                    </li>-->
                     <li>
                         <a href="维权管理.html">维权管理</a>
                     </li>
@@ -475,7 +465,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>

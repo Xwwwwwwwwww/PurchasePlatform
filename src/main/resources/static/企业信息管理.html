@@ -41,14 +41,14 @@
             var httpUrl1 = "http://localhost:8088/data/enterprise";
             console.log(enterprisedata[i].id);
             //发送请求
-            $.ajax({
+            if(deleteConfirm()){$.ajax({
                 // headers: { "Content-Type": "application/x-www-form-urlencoded"},
                 url: httpUrl1,
                 type: "DELETE",
                 data:{"id":enterprisedata[i].id},
                 success: function (data) {
-                    console.log(data);
-                    alert(data.message);
+
+                    alert("删除成功！");
                     window.location.href="企业信息管理.html"
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -63,8 +63,22 @@
 
 
 
-    }
+    }}
+    function deleteConfirm() {undefined
 
+        if (window.confirm("你确定要删除吗？")) {undefined
+
+            return true;//确定返回真
+
+        }
+
+        else {undefined
+
+            return false;//取消返回假
+
+        }
+
+    }
     window.onload = function(){
         var enterprise = document.getElementById("enterpriseinfo");
         var httpUrl = "http://localhost:8088/data/enterprise/all";
@@ -86,7 +100,7 @@
         //判断当前是否存在token这个cookie，不存在说明没登陆，需要跳转到登陆界面
         console.log(getCookie("token"));
         if(getCookie("token") == ""){
-            window.location.href="shopkeeperlogin.html";
+            window.location.href="管理员登录界面.html";
         }
         //发送请求
         $.ajax({
@@ -142,7 +156,7 @@
 <!-- menu -->
 <div class="menu">
     <div class="menu-header">
-        <a href="店铺管理员界面.html" class="menu-header-logo">
+        <a href="企业信息管理.html" class="menu-header-logo">
             <img src="static/picture/logo.svg" alt="logo">
         </a>
         <a href="" class="btn btn-sm menu-close-btn">
@@ -163,25 +177,25 @@
         </div>
         <ul>
             <li class="menu-divider">Manage</li>
-            <li>
-                <a  href="">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
-                    </span>
-                    <span>系统维护</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="运行监测.html">运行监测</a>
-                    </li>
-                    <li>
-                        <a href="数据检查.html">数据检查</a>
-                    </li>
-                    <li>
-                        <a href="检索日志.html">检索日志</a>
-                    </li>
-                    </ul>
-            </li>
+<!--            <li>-->
+<!--                <a  href="">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-bar-chart"></i>-->
+<!--                    </span>-->
+<!--                    <span>系统维护</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="运行监测.html">运行监测</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="数据检查.html">数据检查</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="检索日志.html">检索日志</a>-->
+<!--                    </li>-->
+<!--                    </ul>-->
+<!--            </li>-->
             <li>
                 <a class="active"href="#">
                     <span class="nav-link-icon">
@@ -199,19 +213,19 @@
             
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-truck"></i>
-                    </span>
-                    <span>注册授权</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="用户授权.html">用户授权</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-truck"></i>-->
+<!--                    </span>-->
+<!--                    <span>注册授权</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="用户授权.html">用户授权</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -229,7 +243,7 @@
                 </ul>
             </li>
             <li>
-                <a href="customers.html">
+                <a href="#">
                     <span class="nav-link-icon">
                         <i class="bi bi-person-badge"></i>
                     </span>
@@ -271,9 +285,9 @@
                     <li>
                         <a href="销售统计.html">销售统计</a>
                     </li>
-                    <li>
-                        <a href="资金统计.html">资金统计</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="资金统计.html">资金统计</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
             <li>
@@ -306,7 +320,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>

@@ -33,9 +33,10 @@ public class Customer {
     private  String password;
 
     //帐号状态
-    private int status;
+    private int Status;
 
     //从属企业id
     private  int belongingEnterprise;
+
 
 }

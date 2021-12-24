@@ -54,6 +54,7 @@
     }
 
         window.onload = function(){
+        console.log(document.cookie);
             console.log("获取到的企业id为:");
             var enterprise_id=cookie.substring(cookie.indexOf("enterprise_id=")+14,cookie.indexOf("/"));
             console.log(enterprise_id);
@@ -129,20 +130,20 @@
                     </li>
                     </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
-                    </span>
-                    <span>商品管控</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="企业管控商品.html">企业管控商品</a>
-                    </li>
-            
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-receipt"></i>-->
+<!--                    </span>-->
+<!--                    <span>商品管控</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="企业管控商品.html">企业管控商品</a>-->
+<!--                    </li>-->
+<!--            -->
+<!--                </ul>-->
+<!--            </li>-->
             <!-- <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -186,7 +187,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面"><button class="btn btn-primary btn-icon">退出</button></a>
             </li>
         </ul>
     </div>

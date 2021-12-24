@@ -36,7 +36,7 @@ public class Orders {
     private double price;
 
     //折扣
-    private double discount;
+    private int discount;
 
     //货运
     private double freight;
@@ -54,12 +54,12 @@ public class Orders {
 
     //商店从属
     private int belongingShop;
-
+//
     private String sizeName;
-
+//
     private String commodityName;
-
+//
     private String deliveryAddress;
-
+//
     private double payPrice;
 }

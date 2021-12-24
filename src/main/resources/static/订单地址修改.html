@@ -54,6 +54,7 @@
                         "price":orderdata[i].price,
                         "discount":orderdata[i].discount,
                         "freight":orderdata[i].freight,
+                        "payPrice":orderdata[i].payPrice,
                         "remarks":orderdata[i].remarks,
                         "expressCompany":orderdata[i].expressCompany,
                         "thumbnailUrl":orderdata[i].thumbnailUrl,
@@ -143,6 +144,7 @@
                         <td>${data1[i].price}</td>
                     <td>${data1[i].discount}</td>
                     <td>${data1[i].freight}</td>
+                    <td>${data1[i].payPrice}</td>
                     <td>${data1[i].remarks}</td>
                     <td>${data1[i].expressCompany}</td>
                     <td id="address"+${i}>${data1[i].deliveryAddress}</td>
@@ -201,25 +203,25 @@
         </div>
         <ul>
             <li class="menu-divider">Manage</li>
-            <li>
-                <a  href="">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
-                    </span>
-                    <span>系统维护</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="运行监测.html">运行监测</a>
-                    </li>
-                    <li>
-                        <a href="数据检查.html">数据检查</a>
-                    </li>
-                    <li>
-                        <a href="检索日志.html">检索日志</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a  href="">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-bar-chart"></i>-->
+<!--                    </span>-->
+<!--                    <span>系统维护</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="运行监测.html">运行监测</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="数据检查.html">数据检查</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="检索日志.html">检索日志</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -237,19 +239,19 @@
 
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-truck"></i>
-                    </span>
-                    <span>注册授权</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="用户授权.html">用户授权</a>
-                    </li>
-                </ul>
-            </li>
+<!--            <li>-->
+<!--                <a href="#">-->
+<!--                    <span class="nav-link-icon">-->
+<!--                        <i class="bi bi-truck"></i>-->
+<!--                    </span>-->
+<!--                    <span>注册授权</span>-->
+<!--                </a>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a href="用户授权.html">用户授权</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
             <li>
                 <a href="#">
                     <span class="nav-link-icon">
@@ -309,9 +311,9 @@
                     <li>
                         <a href="销售统计.html">销售统计</a>
                     </li>
-                    <li>
-                        <a href="资金统计.html">资金统计</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="资金统计.html">资金统计</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
             <li>
@@ -344,7 +346,7 @@
         <div class="header-bar ms-auto">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item ms-3">
-                    <a href="buyer-dashboard.html"><button class="btn btn-primary btn-icon">退出</button></a>
+                    <a href="管理员登录界面.html"><button class="btn btn-primary btn-icon">退出</button></a>
                 </li>
             </ul>
         </div>
@@ -411,6 +413,7 @@
                     <th>价格</th>
                     <th>折扣</th>
                     <th>运费</th>
+                    <th>实付金额</th>
                     <th>备注</th>
                     <th>快递公司</th>
                     <th>收货地址</th>
