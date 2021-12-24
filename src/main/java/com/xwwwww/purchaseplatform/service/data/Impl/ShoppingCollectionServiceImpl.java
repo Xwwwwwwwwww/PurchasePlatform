@@ -1,0 +1,91 @@
+package com.xwwwww.purchaseplatform.service.data.Impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xwwwww.purchaseplatform.entity.shopping.commodity.Commodity;
+import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCollection;
+import com.xwwwww.purchaseplatform.entity.shopping.customer.ShoppingCollectionDisplay;
+import com.xwwwww.purchaseplatform.mapper.shopping.commodity.CommodityMapper;
+import com.xwwwww.purchaseplatform.mapper.shopping.customer.ShoppingCollectionMapper;
+import com.xwwwww.purchaseplatform.service.data.ShoppingCollectionService;
+import com.xwwwww.purchaseplatform.utils.result.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class ShoppingCollectionServiceImpl implements ShoppingCollectionService {
+    @Autowired
+    ShoppingCollectionMapper shoppingCollectionMapper;
+
+    @Autowired
+    CommodityMapper commodityMapper;
+
+    @Override
+    public Result getShoppingCollectionItemsNumber(int customerId) throws Exception {
+        QueryWrapper<ShoppingCollection> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("customer_Id",customerId);
+        List<ShoppingCollection> shoppingCollectionList=shoppingCollectionMapper.selectList(queryWrapper);
+        int number=shoppingCollectionList.size();
+        return Result.SUCCESS(number);
+    }
+
+    @Override
+    public Result insertShoppingCollection(ShoppingCollection shoppingCollection) throws Exception {
+        shoppingCollectionMapper.insert(shoppingCollection);
+        return Result.SUCCESS(shoppingCollection.getId());
+    }
+
+    @Override
+    public Result deleteShoppingCollection(int id) throws Exception {
+        shoppingCollectionMapper.deleteById((id));
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result updateShoppingCollection(ShoppingCollection shoppingCollection) {
+        shoppingCollectionMapper.updateById(shoppingCollection);
+        return Result.SUCCESS();
+    }
+
+    @Override
+    public Result getAllShoppingCollection() throws Exception {
+        return Result.SUCCESS(shoppingCollectionMapper.selectList(null));
+    }
+
+    @Override
+    public Result getShoppingCollectionByCustomerId(int customerId) throws Exception {
+        List<ShoppingCollectionDisplay> shoppingCollectionDisplayList=new ArrayList<>();
+
+        QueryWrapper<ShoppingCollection> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("customer_id",customerId);
+        List<ShoppingCollection> shoppingCollection=shoppingCollectionMapper.selectList(queryWrapper);
+        for (ShoppingCollection collection : shoppingCollection) {
+            ShoppingCollectionDisplay shoppingCollectionDisplay=new ShoppingCollectionDisplay();
+            Commodity commodity=commodityMapper.selectById(collection.getCommodityId());
+            shoppingCollectionDisplay.setId(collection.getId());
+            shoppingCollectionDisplay.setCustomerId(collection.getCustomerId());
+            shoppingCollectionDisplay.setCommodityId(collection.getCommodityId());
+            shoppingCollectionDisplay.setShopName(commodity.getBelongingShopName());
+            shoppingCollectionDisplay.setCommodityName(commodity.getName());
+            shoppingCollectionDisplay.setCommodityPrice(commodity.getPrice());
+            shoppingCollectionDisplay.setShopId(commodity.getBelongingShop());
+            shoppingCollectionDisplay.setStock(commodity.getStock());
+            shoppingCollectionDisplay.setCommodityUrl(commodity.getThumbnailUrl());
+            shoppingCollectionDisplayList.add(shoppingCollectionDisplay);
+        }
+        return Result.SUCCESS(shoppingCollectionDisplayList);
+    }
+
+    @Override
+    public Result inShoppingCollection(ShoppingCollection shoppingCollection) throws Exception {
+        QueryWrapper<ShoppingCollection> queryWrapper1=new QueryWrapper<>();
+        queryWrapper1.eq("customer_id",shoppingCollection.getCustomerId());
+        List<ShoppingCollection> shoppingCollectionList=shoppingCollectionMapper.selectList(queryWrapper1);
+        for (ShoppingCollection collection : shoppingCollectionList) {
+            if (collection.getCommodityId()==shoppingCollection.getCommodityId())
+                return Result.SUCCESS(collection.getId());
+        }
+        return Result.FAIL();
+    }
+}
