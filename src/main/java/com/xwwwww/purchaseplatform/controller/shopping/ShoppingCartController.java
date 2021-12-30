@@ -23,6 +23,8 @@ public class ShoppingCartController {
     @ResponseBody
     @GetMapping("/shoppingCart/customer")
     public Result getShoppingCartByCustomerId(int customerId) throws Exception{
+
+        System.out.println(customerId);
         return shoppingCartService.getShoppingCartByCustomerId(customerId);
     }
 
@@ -74,7 +76,7 @@ public class ShoppingCartController {
      */
     @ResponseBody
     @PutMapping("/shoppingCart")
-    public Result updateShoppingCart(ShoppingCart shoppingCart) throws  Exception{
+    public Result updateShoppingCart(@RequestBody ShoppingCart shoppingCart) throws  Exception{
         return shoppingCartService.updateShoppingCart(shoppingCart);
     }
 

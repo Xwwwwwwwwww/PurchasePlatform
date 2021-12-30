@@ -36,10 +36,11 @@ public class Orders {
     private double price;
 
     //折扣
-    private int discount;
+    private double discount;
 
     //货运
     private double freight;
+
 
     //评论
     private String remarks;

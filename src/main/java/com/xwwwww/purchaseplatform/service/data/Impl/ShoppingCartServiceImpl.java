@@ -36,7 +36,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         for (ShoppingCart shoppingCart : shoppingCartList) {
             ShoppingCartDisplay shoppingCartDisplay=new ShoppingCartDisplay();
             int commodityId=shoppingCart.getCommodityId();
+            System.out.println(shoppingCart);
             Commodity commodity= commodityMapper.selectById(commodityId);
+            System.out.println(commodity);
             shoppingCartDisplay.setId(shoppingCart.getId());
             shoppingCartDisplay.setCustomerId(shoppingCart.getCustomerId());
             shoppingCartDisplay.setCommodityId(shoppingCart.getCommodityId());
