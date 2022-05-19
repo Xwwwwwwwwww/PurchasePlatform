@@ -2,9 +2,11 @@ package com.xwwwww.purchaseplatform.controller.constant;
 
 import com.xwwwww.purchaseplatform.entity.constant.commodity.category.SecondCategory;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.category.SecondCategoryMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags="不用测")
 @CrossOrigin
 @RestController
 @RequestMapping("/data")

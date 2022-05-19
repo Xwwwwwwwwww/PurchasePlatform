@@ -3,9 +3,11 @@ package com.xwwwww.purchaseplatform.controller.data;
 import com.xwwwww.purchaseplatform.entity.constant.banner.Banner;
 import com.xwwwww.purchaseplatform.service.data.BannerService;
 import com.xwwwww.purchaseplatform.utils.result.Result;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags="不用测")
 @CrossOrigin
 @RestController
 @RequestMapping("/data")

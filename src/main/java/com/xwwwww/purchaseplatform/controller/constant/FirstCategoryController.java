@@ -4,9 +4,11 @@ import com.xwwwww.purchaseplatform.entity.constant.commodity.category.FirstCateg
 import com.xwwwww.purchaseplatform.entity.constant.commodity.status.CommodityStatus;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.category.FirstCategoryMapper;
 import com.xwwwww.purchaseplatform.mapper.constant.commodity.status.CommodityStatusMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags="不用测")
 @CrossOrigin
 @RestController
 @RequestMapping("/data")

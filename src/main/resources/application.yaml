@@ -1,6 +1,10 @@
 server:
   port: 8088
 spring:
+  #用于配置swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   application:
     name: springboot-mybatis-plus
   # ?????
@@ -9,10 +13,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # ?????????
     druid:
-        username: root
-        password: 85961030
 #        username: root
-#        password: 123456
+#        password: 85961030
+        username: root
+        password: msf123
         url: jdbc:mysql://localhost/purchaseplatform?serverTimezone=UTC&useSSL=false&characterEncoding=utf8&serverTimezone=GMT&allowPublicKeyRetrieval=true&allowMultiQueries=true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
